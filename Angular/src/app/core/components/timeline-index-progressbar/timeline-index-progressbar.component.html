@@ -1,0 +1,36 @@
+<p-timeline [value]="tierList" align="left" styleClass="customized-timeline">
+	<ng-template pTemplate="marker" let-tier>
+	  <span [class]="(isCurrentTier(tier) ? 'current-item ' : ' ') + (isPassed(tier) ? 'passed-item ' : ' ') + 'circle'">
+		<ng-container *ngIf="isPassed(tier) == false">
+			{{tier.displayName}}
+		</ng-container>
+		<ng-container *ngIf="isPassed(tier) == true">
+			<i class="pi pi-check"></i>
+		</ng-container>
+	  </span>
+	</ng-template>
+	<ng-template pTemplate="content" let-tier>
+	  <div>
+		<div>
+		  <div style="margin-bottom: 10px;">
+			  <div class="header">{{tier.validFrom}} - {{tier.validTo}}</div>
+			  
+			  <div class="notification-border" style="padding: 18px; margin-top: 10px;">
+				<div class="header" style="margin-bottom: 10px;">{{tier.name}}</div>
+				<div class="text-wrapper">
+					{{tier.description}}
+					<div *ngFor="let businessSystemTier of tier.businessSystemTiersDTOList">
+						{{businessSystemTier.businessSystemDisplayName}}
+						<ul>
+							<li *ngFor="let businessSystemTierDiscountProductGroup of businessSystemTier.businessSystemTierDiscountProductGroupsDTOList">
+								{{businessSystemTierDiscountProductGroup.discountProductGroupDisplayName}}: {{businessSystemTierDiscountProductGroup.discount}}%
+							</li>
+						</ul>
+					</div>
+				</div>
+			  </div>
+		  </div>
+		</div>
+	  </div>
+	</ng-template>
+</p-timeline>
