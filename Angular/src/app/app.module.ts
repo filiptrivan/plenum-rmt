@@ -1,52 +1,33 @@
-import { ErrorHandler, NgModule } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { NotfoundComponent } from './core/components/notfound/notfound.component';
 import { AppLayoutModule } from './layout/components/layout/app.layout.module';
-import { MessageService } from 'primeng/api';
-import { ToastModule } from 'primeng/toast';
-import { MessagesModule } from 'primeng/messages';
-import { CoreModule } from './core/modules/core.module';
-import { SoftMessageService } from './core/services/soft-message.service';
-import { SoftErrorHandler } from './core/handlers/soft-error-handler';
-import { BrowserModule } from '@angular/platform-browser';
-import { CommonModule } from '@angular/common';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { ApiService } from './business/services/api/api.service';
-import { NgxSpinnerModule, NgxSpinnerService } from 'ngx-spinner';
-import { SocialLoginModule, SocialAuthServiceConfig } from '@abacritt/angularx-social-login';
+import { NgxSpinnerModule } from 'ngx-spinner';
+import { SocialAuthServiceConfig } from '@abacritt/angularx-social-login';
 import { GoogleLoginProvider } from '@abacritt/angularx-social-login';
 import { environment } from 'src/environments/environment';
 import { BusinessModule } from './business/business.module';
-import { SoftTranslocoModule } from './core/modules/soft-transloco.module';
+import { MessageService } from 'primeng/api';
+import { AuthService } from './business/services/auth/auth.service';
+import { ConfigService } from './business/services/config.service';
+import { TranslateLabelsService } from './business/services/translates/merge-labels';
+import { ValidatorService } from './business/services/validators/validators';
+import { AuthBaseService, ConfigBaseService, CoreModule, SpiderTranslocoModule, TranslateLabelsAbstractService, ValidatorAbstractService } from '@playerty/spider';
 
 @NgModule({
   declarations: [
     AppComponent,
-    NotfoundComponent,
   ],
   imports: [
-    BrowserModule,
     AppRoutingModule,
-    CommonModule,
-    FormsModule,
-    ReactiveFormsModule,
     AppLayoutModule,
-    MessagesModule,
-    ToastModule,
-    SocialLoginModule,
-    SoftTranslocoModule.forRoot(),
+    SpiderTranslocoModule.forRoot(),
     NgxSpinnerModule.forRoot({ type: 'ball-clip-rotate-multiple' }),
     BusinessModule,
     CoreModule,
   ],
   providers: [
-    SoftMessageService,
     MessageService,
-    {
-    provide: ErrorHandler,
-    useClass: SoftErrorHandler,
-    },
     {
       provide: 'SocialAuthServiceConfig',
       useValue: {
@@ -70,8 +51,22 @@ import { SoftTranslocoModule } from './core/modules/soft-transloco.module';
         }
       } as SocialAuthServiceConfig
     },
-    ApiService,
-    NgxSpinnerService,
+    {
+      provide: ValidatorAbstractService,
+      useClass: ValidatorService,
+    },
+    {
+      provide: TranslateLabelsAbstractService,
+      useClass: TranslateLabelsService,
+    },
+    { 
+      provide: AuthBaseService, 
+      useExisting: AuthService 
+    },
+    { 
+      provide: ConfigBaseService, 
+      useExisting: ConfigService 
+    },
   ],
   bootstrap: [AppComponent],
 })

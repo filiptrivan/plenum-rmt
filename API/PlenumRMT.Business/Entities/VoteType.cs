@@ -1,5 +1,6 @@
-﻿using Soft.Generator.Shared.Attributes.EF;
-using Soft.Generator.Shared.BaseEntities;
+﻿using Spider.Shared.Attributes.EF;
+using Spider.Shared.Attributes.EF.Translation;
+using Spider.Shared.BaseEntities;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -9,9 +10,11 @@ using System.Threading.Tasks;
 
 namespace PlenumRMT.Business.Entities
 {
+    [TranslateSingularSrLatnRS("Tip glasa")]
+    [TranslatePluralSrLatnRS("Tipovi glasova")]
     public class VoteType : BusinessObject<int>
     {
-        [SoftDisplayName]
+        [DisplayName]
         [StringLength(100, MinimumLength = 1)]
         [Required]
         public string Name { get; set; }

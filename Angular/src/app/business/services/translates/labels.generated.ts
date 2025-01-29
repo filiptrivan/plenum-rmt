@@ -11,8 +11,7 @@ export class TranslateLabelsGeneratedService {
     ) {
     }
 
-    translate(name: string): string
-    {
+    translate = (name: string): string => {
         switch(name) 
         {
             case 'user':
@@ -153,14 +152,14 @@ export class TranslateLabelsGeneratedService {
                 return this.translocoService.translate('HasLoggedInWithExternalProvider');
             case 'isDisabled':
                 return this.translocoService.translate('IsDisabled');
-            case 'message':
-                return this.translocoService.translate('Message');
             case 'userExtendedMessageDTO':
                 return this.translocoService.translate('UserExtendedMessageDTO');
             case 'selectedRolesIds':
                 return this.translocoService.translate('SelectedRolesIds');
             case 'userExtendedDTO':
                 return this.translocoService.translate('UserExtendedDTO');
+            case 'voteTypeIcon':
+                return this.translocoService.translate('VoteTypeIcon');
             case 'votingThemeItem':
                 return this.translocoService.translate('VotingThemeItem');
             case 'voteType':
@@ -179,10 +178,14 @@ export class TranslateLabelsGeneratedService {
                 return this.translocoService.translate('Icon');
             case 'voteTypeDTO':
                 return this.translocoService.translate('VoteTypeDTO');
+            case 'votingThemeItemsDTOList':
+                return this.translocoService.translate('VotingThemeItemsDTOList');
             case 'orderNumber':
                 return this.translocoService.translate('OrderNumber');
             case 'votingTheme':
                 return this.translocoService.translate('VotingTheme');
+            case 'usersVotedDTOList':
+                return this.translocoService.translate('UsersVotedDTOList');
             case 'votingThemeItemDTO':
                 return this.translocoService.translate('VotingThemeItemDTO');
             case 'votingThemeDTO':

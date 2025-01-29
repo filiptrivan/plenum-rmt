@@ -1,14 +1,18 @@
-﻿using Soft.Generator.Shared.Attributes.EF;
-using Soft.Generator.Shared.Attributes.EF.UI;
-using Soft.Generator.Shared.BaseEntities;
-using Soft.Generator.Shared.Enums;
+﻿using Spider.Shared.Attributes.EF;
+using Spider.Shared.Attributes.EF.Translation;
+using Spider.Shared.Attributes.EF.UI;
+using Spider.Shared.BaseEntities;
+using Spider.Shared.Enums;
 using System.ComponentModel.DataAnnotations;
 
 namespace PlenumRMT.Business.Entities
 {
+    [TranslateSingularSrLatnRS("Tema glasanja")]
+    [TranslatePluralSrLatnRS("Teme glasanja")]
     public class VotingTheme : BusinessObject<long>
     {
-        [SoftDisplayName]
+        [UIControlWidth("col-12")]
+        [DisplayName]
         [StringLength(100, MinimumLength = 1)]
         [Required]
         public string Name { get; set; }
@@ -17,8 +21,10 @@ namespace PlenumRMT.Business.Entities
         [StringLength(1000, MinimumLength = 1)]
         public string Description { get; set; }
 
+        [TranslateSingularSrLatnRS("Predlozi")]
         [UIOrderedOneToMany]
-        [NonEmpty]
+        [IncludeInDTO]
+        [Required]
         public virtual List<VotingThemeItem> VotingThemeItems { get; } = new();
     }
 }

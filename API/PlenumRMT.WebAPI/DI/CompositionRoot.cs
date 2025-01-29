@@ -1,11 +1,11 @@
 using LightInject;
-using Soft.Generator.Security.Interface;
-using Soft.Generator.Shared.Excel;
-using Soft.Generator.Security.Services;
+using Spider.Security.Interface;
+using Spider.Shared.Excel;
+using Spider.Security.Services;
 using Microsoft.Extensions.Options;
 using Microsoft.AspNetCore.Mvc;
-using Soft.Generator.Shared.SoftFluentValidation;
-using Soft.Generator.Shared.Emailing;
+using Spider.Shared.FluentValidation;
+using Spider.Shared.Emailing;
 using PlenumRMT.Business.Services;
 using PlenumRMT.Business.Entities;
 
@@ -18,10 +18,10 @@ namespace PlenumRMT.WebAPI.DI
             // Framework
             registry.Register<AuthenticationService>();
             registry.Register<AuthorizationService>();
-            registry.Register<Soft.Generator.Security.Services.SecurityBusinessService<UserExtended>>();
-            registry.Register<Soft.Generator.Security.Services.BusinessServiceGenerated<UserExtended>>();
-            registry.Register<Soft.Generator.Security.Services.AuthorizationBusinessService<UserExtended>>();
-            registry.Register<Soft.Generator.Security.Services.AuthorizationBusinessServiceGenerated>();
+            registry.Register<Spider.Security.Services.SecurityBusinessService<UserExtended>>();
+            registry.Register<Spider.Security.Services.BusinessServiceGenerated<UserExtended>>();
+            registry.Register<Spider.Security.Services.AuthorizationBusinessService<UserExtended>>();
+            registry.Register<Spider.Security.Services.AuthorizationBusinessServiceGenerated>();
             registry.Register<ExcelService>();
             registry.Register<EmailingService>();
             registry.RegisterSingleton<IConfigureOptions<MvcOptions>, TranslatePropertiesConfiguration>();

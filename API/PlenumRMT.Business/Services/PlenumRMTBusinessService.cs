@@ -1,22 +1,19 @@
-using PlenumRMT.Business.Services;
 using PlenumRMT.Business.Entities;
 using PlenumRMT.Business.DTO;
 using PlenumRMT.Business.Enums;
-using PlenumRMT.Business.DataMappers;
-using PlenumRMT.Business.ValidationRules;
-using Soft.Generator.Shared.DTO;
-using Soft.Generator.Shared.Excel;
-using Soft.Generator.Shared.Interfaces;
-using Soft.Generator.Shared.Extensions;
-using Soft.Generator.Shared.Helpers;
-using Soft.Generator.Security.DTO;
-using Soft.Generator.Security.Services;
-using Soft.Generator.Shared.SoftExceptions;
+using Spider.Shared.DTO;
+using Spider.Shared.Excel;
+using Spider.Shared.Interfaces;
+using Spider.Shared.Extensions;
+using Spider.Security.Services;
+using Spider.Shared.Exceptions;
 using Microsoft.EntityFrameworkCore;
-using Mapster;
 using FluentValidation;
-using Soft.Generator.Shared.Emailing;
+using Spider.Shared.Emailing;
 using Azure.Storage.Blobs;
+using Mapster;
+using Spider.Security.DTO;
+using PlenumRMT.Business.DataMappers;
 
 namespace PlenumRMT.Business.Services
 {
@@ -49,7 +46,7 @@ namespace PlenumRMT.Business.Services
             {
                 if (userExtendedSaveBodyDTO.UserExtendedDTO.Id == 0)
                     throw new HackerException("You can't add new user.");
-
+                
                 UserExtended user = await GetInstanceAsync<UserExtended, long>(userExtendedSaveBodyDTO.UserExtendedDTO.Id, userExtendedSaveBodyDTO.UserExtendedDTO.Version);
 
                 if (userExtendedSaveBodyDTO.UserExtendedDTO.Email != user.Email)
@@ -143,7 +140,96 @@ namespace PlenumRMT.Business.Services
             });
         }
 
+        public async Task<TableResponseDTO<NotificationDTO>> GetNotificationsForCurrentUser(TableFilterDTO tableFilterDTO)
+        {
+            TableResponseDTO<NotificationDTO> result = new TableResponseDTO<NotificationDTO>();
+            long currentUserId = _authenticationService.GetCurrentUserId(); // FT: Not doing user.Notifications, because he could have a lot of them.
+
+            await _context.WithTransactionAsync(async () =>
+            {
+                IQueryable<UserNotification> userNotificationsQuery = _context.DbSet<UserNotification>()
+                    .Where(x => x.User.Id == currentUserId);
+
+                int count = await userNotificationsQuery.CountAsync();
+
+                List<NotificationDTO> notificationDTOList = await userNotificationsQuery
+                    .Skip(tableFilterDTO.First)
+                    .Take(tableFilterDTO.Rows)
+                    .Select(x => new NotificationDTO
+                    {
+                        Id = x.Notification.Id,
+                        Version = x.Notification.Version,
+                        Title = x.Notification.Title,
+                        Description = x.Notification.Description,
+                        CreatedAt = x.Notification.CreatedAt,
+                        IsMarkedAsRead = x.IsMarkedAsRead,
+                    })
+                    .OrderByDescending(x => x.CreatedAt)
+                    .ToListAsync();
+
+                result.Data = notificationDTOList;
+                result.TotalRecords = count;
+            });
+
+            return result;
+        }
+
         #endregion
 
+        #region Voting Theme
+
+        public async Task<TableResponseDTO<VotingThemeDTO>> GetVotingThemeListForDisplay(TableFilterDTO tableFilterDTO)
+        {
+            return await _context.WithTransactionAsync(async () =>
+            {
+                List<VotingThemeDTO> votingThemeDTOList = new List<VotingThemeDTO>();
+
+                IQueryable<VotingTheme> votingThemeQuery = _context.DbSet<VotingTheme>();
+
+                int count = await votingThemeQuery.CountAsync();
+
+                List<VotingTheme> votingThemeList = await GetVotingThemeList(votingThemeQuery
+                    .AsNoTracking()
+                    .Include(x => x.VotingThemeItems)
+                        .ThenInclude(x => x.UsersVoted)
+                            .ThenInclude(x => x.VoteType)
+                    .OrderByDescending(x => x.CreatedAt)
+                    .Skip(tableFilterDTO.First)
+                    .Take(tableFilterDTO.Rows)
+                    , false);
+
+                foreach (VotingTheme votingTheme in votingThemeList)
+                {
+                    VotingThemeDTO votingThemeDTO = votingTheme.Adapt<VotingThemeDTO>(Mapper.VotingThemeToDTOConfig());
+                    votingThemeDTO.VotingThemeItemsDTOList = new List<VotingThemeItemDTO>();
+
+                    foreach (VotingThemeItem votingThemeItem in votingTheme.VotingThemeItems.OrderBy(x => x.OrderNumber))
+                    {
+                        VotingThemeItemDTO votingThemeItemDTO = votingThemeItem.Adapt<VotingThemeItemDTO>(Mapper.VotingThemeItemToDTOConfig());
+                        votingThemeItemDTO.UsersVotedDTOList = new List<UserExtendedVotingThemeItemDTO>();
+
+                        foreach (UserExtendedVotingThemeItem userVoted in votingThemeItem.UsersVoted)
+                        {
+                            UserExtendedVotingThemeItemDTO userVotedDTO = userVoted.Adapt<UserExtendedVotingThemeItemDTO>(Mapper.UserExtendedVotingThemeItemToDTOConfig());
+                            votingThemeItemDTO.UsersVotedDTOList.Add(userVotedDTO);
+                        }
+
+                        votingThemeDTO.VotingThemeItemsDTOList.Add(votingThemeItemDTO);
+                    }
+
+                    votingThemeDTOList.Add(votingThemeDTO);
+                }
+
+                TableResponseDTO<VotingThemeDTO> votingThemeTableResponse = new TableResponseDTO<VotingThemeDTO>
+                {
+                    Data = votingThemeDTOList,
+                    TotalRecords = count,
+                };
+
+                return votingThemeTableResponse;
+            });
+        }
+
+        #endregion
     }
 }

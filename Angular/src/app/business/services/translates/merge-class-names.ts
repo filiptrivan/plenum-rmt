@@ -1,4 +1,3 @@
-import { environment } from "src/environments/environment";
 import { Injectable } from "@angular/core";
 import { TranslateClassNamesGeneratedService } from "./class-names.generated";
 
@@ -12,7 +11,7 @@ export class TranslateClassNamesService {
     ) {
     }
 
-    translate(name: string){
+    translate = (name: string) => {
         let result = null;
 
         result = this.translateClassNamesGeneratedService.translate(name);

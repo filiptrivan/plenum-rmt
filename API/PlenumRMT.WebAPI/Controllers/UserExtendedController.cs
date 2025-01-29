@@ -1,13 +1,13 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using PlenumRMT.Business.Services;
-using Soft.Generator.Shared.Attributes;
-using Soft.Generator.Shared.Interfaces;
+using Spider.Shared.Attributes;
+using Spider.Shared.Interfaces;
 using Azure.Storage.Blobs;
 using PlenumRMT.Business.DTO;
 using PlenumRMT.Business.Entities;
-using Soft.Generator.Shared.DTO;
-using Soft.Generator.Shared.Terms;
-using Soft.Generator.Security.Services;
+using Spider.Shared.DTO;
+using Spider.Shared.Terms;
+using Spider.Security.Services;
 
 namespace PlenumRMT.WebAPI.Controllers
 {
@@ -30,7 +30,7 @@ namespace PlenumRMT.WebAPI.Controllers
         [HttpGet]
         [AuthGuard]
         [SkipSpinner]
-        public async Task<UserExtendedDTO> GetCurrentUser()
+        public async Task<UserExtendedDTO> GetCurrentUserExtended()
         {
             long userId = _authenticationService.GetCurrentUserId();
             return await _loyalsBusinessService.GetUserExtendedDTOAsync(userId);

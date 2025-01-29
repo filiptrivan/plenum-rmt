@@ -1,6 +1,6 @@
 using Azure.Storage.Blobs;
-using Soft.Generator.Security.Services;
-using Soft.Generator.Shared.Interfaces;
+using Spider.Security.Services;
+using Spider.Shared.Interfaces;
 
 namespace PlenumRMT.Business.Services
 {

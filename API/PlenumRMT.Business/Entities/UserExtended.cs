@@ -1,11 +1,11 @@
 using Microsoft.EntityFrameworkCore;
-using Soft.Generator.Security.Entities;
-using Soft.Generator.Security.Interface;
-using Soft.Generator.Shared.Attributes;
-using Soft.Generator.Shared.Attributes.EF;
-using Soft.Generator.Shared.Attributes.EF.UI;
-using Soft.Generator.Shared.BaseEntities;
-using Soft.Generator.Shared.Enums;
+using Spider.Security.Entities;
+using Spider.Security.Interface;
+using Spider.Shared.Attributes;
+using Spider.Shared.Attributes.EF;
+using Spider.Shared.Attributes.EF.UI;
+using Spider.Shared.BaseEntities;
+using Spider.Shared.Enums;
 using System.ComponentModel.DataAnnotations;
 
 namespace PlenumRMT.Business.Entities
@@ -13,7 +13,7 @@ namespace PlenumRMT.Business.Entities
     [Index(nameof(Email), IsUnique = true)]
     public class UserExtended : BusinessObject<long>, IUser
     {
-        [SoftDisplayName]
+        [DisplayName]
         [CustomValidator("EmailAddress()")]
         [StringLength(70, MinimumLength = 5)]
         [Required]

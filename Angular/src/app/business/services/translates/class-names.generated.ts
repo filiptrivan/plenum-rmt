@@ -7,12 +7,11 @@ import { TranslocoService } from '@jsverse/transloco';
 export class TranslateClassNamesGeneratedService {
 
     constructor(
-    private translocoService: TranslocoService
+        private translocoService: TranslocoService
     ) {
     }
 
-    translate(name: string): string
-    {
+    translate = (name: string): string => {
         switch(name) 
         {
             case 'AuthResult':
@@ -83,6 +82,8 @@ export class TranslateClassNamesGeneratedService {
                 return this.translocoService.translate('TableFilterSortMeta');
             case 'TableResponse':
                 return this.translocoService.translate('TableResponse');
+            case 'User':
+                return this.translocoService.translate('User');
             case 'UserExtended':
                 return this.translocoService.translate('UserExtended');
             case 'UserExtendedMessage':

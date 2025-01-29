@@ -1,4 +1,4 @@
-﻿using Soft.Generator.Shared.Attributes.EF;
+﻿using Spider.Shared.Attributes.EF;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -13,11 +13,11 @@ namespace PlenumRMT.Business.Entities
         [M2MMaintanceEntity(nameof(User.VotedThemeItems))]
         public virtual UserExtended User { get; set; }
 
-        [M2MExtendEntity(nameof(VotingThemeItem.UsersVoted))]
+        [M2MEntity(nameof(VotingThemeItem.UsersVoted))]
         public virtual VotingThemeItem VotingThemeItem { get; set; }
 
         [ManyToOneRequired]
         [WithMany(nameof(VoteType.Votes))]
-        public VoteType VoteType { get; set; }
+        public virtual VoteType VoteType { get; set; }
     }
 }

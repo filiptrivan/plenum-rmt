@@ -1,4 +1,4 @@
-using Soft.Generator.Shared.Attributes.EF;
+using Spider.Shared.Attributes.EF;
 
 namespace PlenumRMT.Business.Entities
 {
@@ -7,7 +7,7 @@ namespace PlenumRMT.Business.Entities
         [M2MMaintanceEntity(nameof(Notification.Recipients))]
         public virtual Notification Notification { get; set; }
 
-        [M2MExtendEntity(nameof(User.Notifications))]
+        [M2MEntity(nameof(User.Notifications))]
         public virtual UserExtended User { get; set; }
 
         public bool IsMarkedAsRead { get; set; }

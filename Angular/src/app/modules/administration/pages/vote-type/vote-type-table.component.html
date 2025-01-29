@@ -1,0 +1,10 @@
+<ng-container *transloco="let t">
+    <spider-data-table 
+    [tableTitle]="t('VoteTypeList')" 
+    [cols]="cols" 
+    [getTableDataObservableMethod]="getVoteTypeTableDataObservableMethod" 
+    [exportTableDataToExcelObservableMethod]="exportVoteTypeTableDataToExcelObservableMethod"
+    [deleteItemFromTableObservableMethod]="deleteVoteTypeObservableMethod"
+    ></spider-data-table>
+</ng-container>
+

@@ -1,17 +1,17 @@
-using Soft.Generator.Shared.Attributes.EF;
-using Soft.Generator.Shared.Attributes.EF.UI;
-using Soft.Generator.Shared.BaseEntities;
-using Soft.Generator.Shared.Enums;
+using Spider.Shared.Attributes.EF;
+using Spider.Shared.Attributes.EF.UI;
+using Spider.Shared.BaseEntities;
+using Spider.Shared.Enums;
 using System.ComponentModel.DataAnnotations;
 using PlenumRMT.Business.DTO;
-using Soft.Generator.Shared.Interfaces;
+using Spider.Shared.Interfaces;
 
 namespace PlenumRMT.Business.Entities
 {
     public class Notification : BusinessObject<long>, INotification<UserExtended>
     {
-        [UIColWidth("col-12")]
-        [SoftDisplayName]
+        [UIControlWidth("col-12")]
+        [DisplayName]
         [StringLength(100, MinimumLength = 1)]
         [Required]
         public string Title { get; set; }
@@ -26,8 +26,8 @@ namespace PlenumRMT.Business.Entities
         public string EmailBody { get; set; }
 
         #region UIColumn
-        [UIColumn(nameof(UserExtendedDTO.Email))]
-        [UIColumn(nameof(UserExtendedDTO.CreatedAt))]
+        [UITableColumn(nameof(UserExtendedDTO.Email))]
+        [UITableColumn(nameof(UserExtendedDTO.CreatedAt))]
         #endregion
         [SimpleManyToManyTableLazyLoad]
         public virtual List<UserExtended> Recipients { get; } = new(); // M2M

@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using PlenumRMT.Business.Entities;
-using Soft.Generator.Infrastructure;
+using Spider.Infrastructure;
 
 namespace PlenumRMT.Infrastructure
 {

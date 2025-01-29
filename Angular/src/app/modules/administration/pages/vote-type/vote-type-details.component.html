@@ -1,0 +1,12 @@
+<ng-container *transloco="let t">
+    <spider-card [title]="t('VoteType')" icon="pi pi-file">
+
+        <vote-type-base-details 
+        [formGroup]="formGroup" 
+        [voteTypeFormGroup]="voteTypeFormGroup" 
+        (onSave)="onSave()" 
+        [getCrudMenuForOrderedData]="getCrudMenuForOrderedData"
+        ></vote-type-base-details>
+
+    </spider-card>
+</ng-container>

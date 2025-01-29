@@ -1,17 +1,17 @@
 using Microsoft.AspNetCore.Mvc;
-using Soft.Generator.Security.Interface;
-using Soft.Generator.Security.Services;
-using Soft.Generator.Security.SecurityControllers;
-using Soft.Generator.Shared.Interfaces;
+using Spider.Security.Interface;
+using Spider.Security.Services;
+using Spider.Security.SecurityControllers;
+using Spider.Shared.Interfaces;
 using PlenumRMT.Business.Entities;
-using Soft.Generator.Shared.Attributes;
+using Spider.Shared.Attributes;
 using PlenumRMT.Business.Services;
 using PlenumRMT.Business.DTO;
-using Soft.Generator.Shared.DTO;
+using Spider.Shared.DTO;
 using Microsoft.EntityFrameworkCore;
-using Soft.Generator.Shared.Terms;
-using Soft.Generator.Security.DTO;
-using Soft.Generator.Shared.Extensions;
+using Spider.Shared.Terms;
+using Spider.Security.DTO;
+using Spider.Shared.Extensions;
 
 namespace PlenumRMT.WebAPI.Controllers
 {
@@ -37,42 +37,6 @@ namespace PlenumRMT.WebAPI.Controllers
             _context = context;
             _authenticationService = authenticationService;
             _plenumRMTBusinessService = plenumRMTBusinessService;
-        }
-
-        /// <summary>
-        /// FT: Putting the method here because we need to make new partner user if he doesn't exist
-        /// </summary>
-        [HttpPost]
-        public async Task<AuthResultDTO> Register(VerificationTokenRequestDTO request)
-        {
-            return await _context.WithTransactionAsync(async () =>
-            {
-                AuthResultDTO authResultDTO = await _securityBusinessService.Register(request);
-                return authResultDTO;
-            });
-        }
-
-        /// <summary>
-        /// FT: Putting the method here because we need to make new partner user if he doesn't exist
-        /// </summary
-        [HttpPost]
-        public async Task<AuthResultDTO> Login(VerificationTokenRequestDTO request)
-        {
-            AuthResultDTO authResultDTO = _securityBusinessService.Login(request);
-            return authResultDTO;
-        }
-
-        /// <summary>
-        /// FT: Putting the method here because we need to make new partner user if he doesn't exist
-        /// </summary>
-        [HttpPost]
-        public async Task<AuthResultDTO> LoginExternal(ExternalProviderDTO externalProviderDTO) // TODO FT: Add enum for which external provider you should login user
-        {
-            return await _context.WithTransactionAsync(async () =>
-            {
-                AuthResultDTO authResultDTO = await _securityBusinessService.LoginExternal(externalProviderDTO, SettingsProvider.Current.GoogleClientId);
-                return authResultDTO;
-            });
         }
 
     }

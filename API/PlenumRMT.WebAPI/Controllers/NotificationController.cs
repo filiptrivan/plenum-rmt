@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using PlenumRMT.Business.Services;
-using Soft.Generator.Shared.Attributes;
-using Soft.Generator.Shared.Interfaces;
+using Spider.Shared.Attributes;
+using Spider.Shared.Interfaces;
 using Azure.Storage.Blobs;
+using Spider.Shared.DTO;
+using PlenumRMT.Business.DTO;
 
 namespace PlenumRMT.WebAPI.Controllers
 {
@@ -48,12 +50,12 @@ namespace PlenumRMT.WebAPI.Controllers
             await _plenumRMTBusinessService.MarkNotificationAsUnreadForCurrentUser(notificationId, notificationVersion);
         }
 
-        //[HttpPost]
-        //[AuthGuard]
-        //public async Task<TableResponseDTO<NotificationDTO>> GetNotificationListForCurrentUser(TableFilterDTO tableFilterDTO)
-        //{
-        //    return await _plenumRMTBusinessService.GetNotificationListForCurrentUser(tableFilterDTO);
-        //}
+        [HttpPost]
+        [AuthGuard]
+        public async Task<TableResponseDTO<NotificationDTO>> GetNotificationsForCurrentUser(TableFilterDTO tableFilterDTO)
+        {
+            return await _plenumRMTBusinessService.GetNotificationsForCurrentUser(tableFilterDTO);
+        }
 
         // TODO FT: This should exist in other systems
         //[HttpGet]

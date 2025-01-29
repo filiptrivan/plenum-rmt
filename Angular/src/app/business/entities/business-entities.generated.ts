@@ -1,8 +1,4 @@
-import { BaseEntity } from "src/app/core/entities/base-entity";
-import { TableFilter } from "src/app/core/entities/table-filter";
-import { TableFilterContext } from "src/app/core/entities/table-filter-context";
-import { TableFilterSortMeta } from "src/app/core/entities/table-filter-sort-meta";
-import { MimeTypes } from "src/app/core/entities/mime-type";
+import { BaseEntity, TableFilter, TableFilterContext, TableFilterSortMeta, MimeTypes } from '@playerty/spider';
 
 
 
@@ -270,6 +266,7 @@ export class UserExtendedVotingThemeItem extends BaseEntity
 	votingThemeItemId?: number;
 	voteTypeDisplayName?: string;
 	voteTypeId?: number;
+	voteTypeIcon?: string;
 
     constructor(
     {
@@ -278,14 +275,16 @@ export class UserExtendedVotingThemeItem extends BaseEntity
 		votingThemeItemDisplayName,
 		votingThemeItemId,
 		voteTypeDisplayName,
-		voteTypeId
+		voteTypeId,
+		voteTypeIcon
     }:{
         userDisplayName?: string;
 		userId?: number;
 		votingThemeItemDisplayName?: string;
 		votingThemeItemId?: number;
 		voteTypeDisplayName?: string;
-		voteTypeId?: number;     
+		voteTypeId?: number;
+		voteTypeIcon?: string;     
     } = {}
     ) {
         super('UserExtendedVotingThemeItem'); 
@@ -296,6 +295,7 @@ export class UserExtendedVotingThemeItem extends BaseEntity
 		this.votingThemeItemId = votingThemeItemId;
 		this.voteTypeDisplayName = voteTypeDisplayName;
 		this.voteTypeId = voteTypeId;
+		this.voteTypeIcon = voteTypeIcon;
     }
 }
 
@@ -430,6 +430,7 @@ export class VotingTheme extends BaseEntity
 {
     name?: string;
 	description?: string;
+	votingThemeItemsDTOList?: VotingThemeItem[];
 	version?: number;
 	id?: number;
 	createdAt?: Date;
@@ -439,6 +440,7 @@ export class VotingTheme extends BaseEntity
     {
         name,
 		description,
+		votingThemeItemsDTOList,
 		version,
 		id,
 		createdAt,
@@ -446,6 +448,7 @@ export class VotingTheme extends BaseEntity
     }:{
         name?: string;
 		description?: string;
+		votingThemeItemsDTOList?: VotingThemeItem[];
 		version?: number;
 		id?: number;
 		createdAt?: Date;
@@ -456,6 +459,7 @@ export class VotingTheme extends BaseEntity
 
         this.name = name;
 		this.description = description;
+		this.votingThemeItemsDTOList = votingThemeItemsDTOList;
 		this.version = version;
 		this.id = id;
 		this.createdAt = createdAt;
@@ -493,6 +497,7 @@ export class VotingThemeItem extends BaseEntity
 	orderNumber?: number;
 	votingThemeDisplayName?: string;
 	votingThemeId?: number;
+	usersVotedDTOList?: UserExtendedVotingThemeItem[];
 	version?: number;
 	id?: number;
 	createdAt?: Date;
@@ -505,6 +510,7 @@ export class VotingThemeItem extends BaseEntity
 		orderNumber,
 		votingThemeDisplayName,
 		votingThemeId,
+		usersVotedDTOList,
 		version,
 		id,
 		createdAt,
@@ -515,6 +521,7 @@ export class VotingThemeItem extends BaseEntity
 		orderNumber?: number;
 		votingThemeDisplayName?: string;
 		votingThemeId?: number;
+		usersVotedDTOList?: UserExtendedVotingThemeItem[];
 		version?: number;
 		id?: number;
 		createdAt?: Date;
@@ -528,6 +535,7 @@ export class VotingThemeItem extends BaseEntity
 		this.orderNumber = orderNumber;
 		this.votingThemeDisplayName = votingThemeDisplayName;
 		this.votingThemeId = votingThemeId;
+		this.usersVotedDTOList = usersVotedDTOList;
 		this.version = version;
 		this.id = id;
 		this.createdAt = createdAt;

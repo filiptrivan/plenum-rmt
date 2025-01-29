@@ -1,4 +1,4 @@
-﻿using Soft.Generator.Shared.Attributes.EF;
+﻿using Spider.Shared.Attributes.EF;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +12,7 @@ namespace PlenumRMT.Business.Entities
         [M2MMaintanceEntity(nameof(User.ReceivedMessages))]
         public virtual UserExtended User { get; set; }
 
-        [M2MExtendEntity(nameof(Message.Recipients))]
+        [M2MEntity(nameof(Message.Recipients))]
         public virtual Message Message { get; set; }
     }
 }

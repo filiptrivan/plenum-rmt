@@ -1,11 +1,9 @@
 import { Component, EventEmitter, Input, Output } from "@angular/core";
-import { environment } from "src/environments/environment";
 import { LayoutService } from "src/app/layout/services/app.layout.service";
-import { GoogleButtonComponent } from "../../../../core/components/google-button/google-button.component";
 import { CommonModule } from "@angular/common";
-import { getHtmlImgDisplayString64 } from "src/app/core/services/helper-functions";
-import { Subscription } from "rxjs";
 import { TranslocoDirective } from "@jsverse/transloco";
+import { ConfigService } from "src/app/business/services/config.service";
+import { GoogleButtonComponent } from '@playerty/spider';
 
 @Component({
   selector: 'auth',
@@ -22,15 +20,20 @@ export class AuthComponent {
     @Output() onCompanyNameChange: EventEmitter<string> = new EventEmitter();
     @Input() showGoogleAuth: boolean = true;
 
-    hasGoogleAuth: boolean = environment.googleAuth;
+    hasGoogleAuth: boolean = this.config.googleAuth;
     companyName: string;
     image: string;
 
-    constructor(public layoutService: LayoutService) {}
+    constructor(
+      public layoutService: LayoutService, 
+      private config: ConfigService
+    ) {
+
+    }
 
     ngOnInit(){
         this.image = `assets/primeng/images/logo-dark.svg`
-        this.companyName = environment.companyName;
+        this.companyName = this.config.companyName;
         this.onCompanyNameChange.next(this.companyName);
     }
 

@@ -1,49 +1,45 @@
 import { ActivatedRoute, Router } from '@angular/router';
-import { SoftMessageService } from '../../../../core/services/soft-message.service';
-import { AuthService } from '../../../../business/services/auth/auth.service';
+import { AuthService } from 'src/app/business/services/auth/auth.service';
 import { ChangeDetectorRef, Component, KeyValueDiffers, OnInit } from '@angular/core';
 import { LayoutService } from '../../../services/app.layout.service';
-import { BaseForm } from '../../../../core/components/base-form/base-form';
 import { HttpClient } from '@angular/common/http';
-import { environment } from 'src/environments/environment';
-import { VerificationTypeCodes } from 'src/app/core/enums/verification-type-codes';
-import { Login } from 'src/app/business/entities/security-entities.generated';
 import { TranslocoService } from '@jsverse/transloco';
-import { TranslateClassNamesService } from 'src/app/business/services/translates/merge-class-names';
-import { ValidatorService } from 'src/app/business/services/validators/validation-rules';
+import { ConfigService } from 'src/app/business/services/config.service';
+import { BaseFormCopy, SpiderFormGroup, Login, SpiderMessageService, BaseFormService } from '@playerty/spider';
 
 @Component({
     selector: 'app-login',
     templateUrl: './login.component.html',
 })
-export class LoginComponent extends BaseForm<Login> implements OnInit {
+export class LoginComponent extends BaseFormCopy implements OnInit {
+    loginFormGroup = new SpiderFormGroup<Login>({});
+
     companyName: string;
-    usersCanRegister: boolean = environment.usersCanRegister;
     showEmailSentDialog: boolean = false;
-    verificationType: VerificationTypeCodes = VerificationTypeCodes.Login;
+    usersCanRegister: boolean = this.config.usersCanRegister;
 
     constructor(
       protected override differs: KeyValueDiffers,
       protected override http: HttpClient,
-      protected override messageService: SoftMessageService, 
+      protected override messageService: SpiderMessageService, 
       protected override changeDetectorRef: ChangeDetectorRef,
       protected override router: Router, 
       protected override route: ActivatedRoute,
       protected override translocoService: TranslocoService,
-      protected override translateClassNamesService: TranslateClassNamesService,
-      protected override validatorService: ValidatorService,
+      protected override baseFormService: BaseFormService,
       public layoutService: LayoutService, 
       private authService: AuthService, 
+      private config: ConfigService
     ) { 
-      super(differs, http, messageService, changeDetectorRef, router, route, translocoService, translateClassNamesService, validatorService);
+      super(differs, http, messageService, changeDetectorRef, router, route, translocoService, baseFormService);
     }
 
     override ngOnInit(){
-        this.init(new Login());
+        this.initLoginFormGroup(new Login({}));
     }
-
-    init(model: Login){
-        this.initFormGroup(model);
+    
+    initLoginFormGroup(model: Login){
+      this.initFormGroup(this.loginFormGroup, this.formGroup, model, model.typeName, []);
     }
 
     companyNameChange(companyName: string){
@@ -53,7 +49,7 @@ export class LoginComponent extends BaseForm<Login> implements OnInit {
     sendLoginVerificationEmail() {
         let isFormGroupValid: boolean = this.checkFormGroupValidity();
         if (isFormGroupValid == false) return;
-        this.authService.sendLoginVerificationEmail(this.model).subscribe(()=>{
+        this.authService.sendLoginVerificationEmail(this.loginFormGroup.getRawValue()).subscribe(()=>{
             this.showEmailSentDialog = true;
         });
     }

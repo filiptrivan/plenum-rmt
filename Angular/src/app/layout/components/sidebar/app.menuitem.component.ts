@@ -1,16 +1,13 @@
 import { ChangeDetectorRef, Component, HostBinding, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { animate, state, style, transition, trigger } from '@angular/animations';
-import { firstValueFrom, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { filter } from 'rxjs/operators';
 import { MenuService } from './app.menu.service';
 import { LayoutService } from '../../services/app.layout.service';
 import { AuthService } from '../../../business/services/auth/auth.service';
 import { SoftMenuItem } from './app.menu.component';
 import { ApiService } from '../../../business/services/api/api.service';
-import { AutoCompleteCompleteEvent } from 'primeng/autocomplete';
-import { SoftFormControl } from '../../../core/components/soft-form-control/soft-form-control';
-import { environment } from 'src/environments/environment';
 
 @Component({
     // eslint-disable-next-line @angular-eslint/component-selector
@@ -82,11 +79,12 @@ export class AppMenuitemComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        this.permissionSubscription = this.authService.currentUserPermissions$.subscribe((currentUserPermissionCodes: string[]) => {
-            if (this.item && typeof this.item.hasPermission === 'function') {
-                this.item.visible = this.item.hasPermission(currentUserPermissionCodes);
-            }
-        });
+        // TODO FT:
+        // this.permissionSubscription = this.authService.currentUserPermissions$.subscribe((currentUserPermissionCodes: string[]) => {
+        //     if (this.item && typeof this.item.hasPermission === 'function') {
+        //         this.item.visible = this.item.hasPermission(currentUserPermissionCodes);
+        //     }
+        // });
 
         this.key = this.parentKey ? this.parentKey + '-' + this.index : String(this.index);
 

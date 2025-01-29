@@ -1,9 +1,7 @@
 import { PreloadAllModules, RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
-import { NotfoundComponent } from './core/components/notfound/notfound.component';
 import { AppLayoutComponent } from "./layout/components/layout/app.layout.component";
-import { AuthGuard } from './core/guards/auth.guard';
-import { NotAuthGuard } from './core/guards/not-auth.guard';
+import { AuthGuard, NotAuthGuard, NotFoundComponent } from '@playerty/spider';
 
 @NgModule({
     imports: [
@@ -17,6 +15,21 @@ import { NotAuthGuard } from './core/guards/not-auth.guard';
                         loadChildren: () => import('./layout/components/dashboard/dashboard.module').then(m => m.DashboardModule),
                         canActivate: [AuthGuard]
                     },
+                    { 
+                        path: 'administration',
+                        loadChildren: () => import('./modules/administration/administration.module').then(m => m.AdministrationModule),
+                        canActivate: [AuthGuard]
+                    },
+                    { 
+                        path: '',
+                        loadChildren: () => import('./modules/notification/notification.module').then(m => m.NotificationModule),
+                        canActivate: [AuthGuard]
+                    },
+                    { 
+                        path: '',
+                        loadChildren: () => import('./modules/voting-theme/voting-theme.module').then(m => m.VotingThemeModule),
+                        canActivate: [AuthGuard]
+                    }
                 ],
             },
             {
@@ -29,7 +42,7 @@ import { NotAuthGuard } from './core/guards/not-auth.guard';
                     },
                 ],
             },
-            { path: 'not-found', component: NotfoundComponent },
+            { path: 'not-found', component: NotFoundComponent },
             { path: '**', redirectTo: 'not-found' },
         ], { scrollPositionRestoration: 'enabled', anchorScrolling: 'enabled', onSameUrlNavigation: 'reload', preloadingStrategy: PreloadAllModules })
     ],
