@@ -2,60 +2,75 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { ApiService } from 'src/app/business/services/api/api.service';
 import { AuthService } from 'src/app/business/services/auth/auth.service';
 import { MenuItem } from 'primeng/api';
-import { PaginatorState } from 'primeng/paginator';
 import { TranslocoService } from '@jsverse/transloco';
-import { Notification, VotingTheme } from 'src/app/business/entities/business-entities.generated';
+import { UserExtendedVotingThemeItem, VoteType, VotingTheme, VotingThemeItem } from 'src/app/business/entities/business-entities.generated';
 import { Menu } from 'primeng/menu';
-import { TableResponse, TableFilter, TableFilterContext, SpiderMessageService } from '@playerty/spider';
+import { SpiderMessageService } from '@playerty/spider';
+import { ActivatedRoute } from '@angular/router';
+import { firstValueFrom } from 'rxjs';
 
 @Component({
   templateUrl: './voting-theme.component.html',
 })
 export class VotingThemeComponent implements OnInit {
-  votingThemes: TableResponse<VotingTheme>;
+  votingThemeId: number;
+  votingThemeItems: VotingThemeItem[];
+  voteTypes: VoteType[];
 
   crudMenu: MenuItem[] = [];
   @ViewChild('menu') menu: Menu;
   lastMenuToggledVotingTheme: VotingTheme;
-
-  tableFilter: TableFilter = new TableFilter({
-    first: 0,
-    rows: 10,
-    filters: new Map<string, TableFilterContext[]>()
-  });
 
   constructor(
     private apiService: ApiService,
     private authService: AuthService,
     private translocoService: TranslocoService,
     private messageService: SpiderMessageService,
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit() {
-    this.crudMenu = [
-      {label: this.translocoService.translate('Delete'), command: null, icon: 'pi pi-trash'},
-      {label: this.translocoService.translate('MarkAsRead'), command: null, icon: 'pi pi-eye'},
-      {label: this.translocoService.translate('MarkAsUnread'), command: null, icon: 'pi pi-eye-slash'},
-    ];
+    this.apiService.getVoteTypeList().subscribe((res) => {
+      this.voteTypes = res;
+    });
 
-    this.getVotingThemes();
-  }
-
-  onLazyLoad(event: PaginatorState){
-    this.tableFilter.first = event.first;
-    this.tableFilter.rows = event.rows;
-    this.getVotingThemes();
+    this.route.params.subscribe(async (params) => {
+      this.votingThemeId = params['id'];
+      this.getVotingThemeItems();
+    });
   }
   
-  getVotingThemes(){
-    this.apiService.getVotingThemeListForDisplay(this.tableFilter).subscribe((res) => {
-      this.votingThemes = res;
+  getVotingThemeItems(){
+    this.apiService.getVotingThemeItemListForDisplay(this.votingThemeId).subscribe((res) => {
+      this.votingThemeItems = res;
     });
   }
 
-  menuToggle($event: MouseEvent, notification: Notification) {
+  menuToggle($event: MouseEvent, votingThemeItem: VotingThemeItem) {
     this.menu.toggle($event);
-    this.lastMenuToggledVotingTheme = notification;
+    this.lastMenuToggledVotingTheme = votingThemeItem;
+  }
+
+  getVotingNumber(votingThemeItem: VotingThemeItem, voteType: VoteType): string {
+    return votingThemeItem.usersVotedDTOList.filter(x => x.voteTypeId === voteType.id).length.toString();
+  }
+
+  async vote(votingThemeItem: VotingThemeItem, voteType: VoteType) {
+    this.apiService.vote(votingThemeItem.id, voteType.id).subscribe();
+
+    const currentUser = await firstValueFrom(this.authService.user$);
+
+    const hasAlreadyVoted = votingThemeItem.usersVotedDTOList.some(x => x.userId === currentUser.id && x.voteTypeId === voteType.id);
+    if (hasAlreadyVoted) {
+      votingThemeItem.usersVotedDTOList = votingThemeItem.usersVotedDTOList.filter(x => x.userId !== currentUser.id || x.voteTypeId !== voteType.id);
+    }
+    else {
+      votingThemeItem.usersVotedDTOList.push(new UserExtendedVotingThemeItem({
+        userDisplayName: currentUser.email,
+        userId: currentUser.id,
+        voteTypeId: voteType.id,
+      }));
+    }
   }
 
 }

@@ -8,6 +8,6 @@ namespace PlenumRMT.Business.DTO
 {
     public partial class UserExtendedVotingThemeItemDTO
     {
-        public string VoteTypeIcon { get; set; }
+        
     }
 }

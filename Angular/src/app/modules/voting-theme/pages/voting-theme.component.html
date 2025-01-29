@@ -1,61 +1,50 @@
 <ng-container *transloco="let t">
   <div class="card dashboard-card-wrapper">
-    <div class="big-header" style="margin-bottom: 10px;">
-      {{t('VotingThemeList')}}
-      <div class="bold-header-separator"></div>
-    </div>
-    <div style="display: flex; flex-direction: column; position: relative; z-index: 2;">
-      <div style="display: flex; justify-content: space-between;">
+    @if (votingThemeItems) {
+      <div class="big-header" style="margin-bottom: 10px;">
+        {{t('VotingTheme')}} - {{votingThemeItems[0].votingThemeDisplayName}}
+        <div class="bold-header-separator"></div>
       </div>
-      @for (votingTheme of votingThemes?.data; track $index) {
-        <div [class]="'notification-border'" style="padding: 18px; margin: 0px;">
-          <div class="text-wrapper">
-            <div class="header" style="margin-bottom: 10px; position: relative;">
-              <div>
-                <div>{{votingTheme.name}}</div>
-                <div class="header-separator"></div>
-              </div>
-            </div>
-            <div style="margin-bottom: 10px;">
-              {{votingTheme.description}}
-            </div>
-            @for (votingThemeItem of votingTheme.votingThemeItemsDTOList; track $index) {
-              <div [class]="'notification-border'" style="padding: 18px; margin: 0px;">
-                <div class="text-wrapper">
-                  <div class="header" style="margin-bottom: 10px; display: flex; justify-content: space-between; position: relative;">
-                    <div>
-                      <div>{{votingThemeItem.name}}</div>
-                      <div class="header-separator"></div>
-                    </div>
-                    <div>
-                      <i class="pi pi-ellipsis-h icon-hover" (click)="menuToggle($event, votingTheme)"></i>
-                        <p-menu #menu [model]="crudMenu" [popup]="true" appendTo="body"></p-menu>
-                    </div>
-                  </div>
-                  <div>
-                    {{votingTheme.description}}
-                  </div>
+      <div style="display: flex; flex-direction: column; position: relative; z-index: 2;">
+        <div style="display: flex; justify-content: space-between;">
+        </div>
+        @for (votingThemeItem of votingThemeItems; track $index) {
+          <div [class]="'notification-border'" style="padding: 18px; margin: 0px;">
+            <div class="text-wrapper">
+              <div class="header" style="margin-bottom: 10px; display: flex; justify-content: space-between; position: relative;">
+                <div>
+                  <div>{{votingThemeItem.name}}</div>
+                  <div class="header-separator"></div>
                 </div>
               </div>
-            }
-            @if (votingThemes?.totalRecords == 0) {
-              {{t('YouDoNotHaveAnyNotifications')}}
-            }
+              <div>
+                {{votingThemeItem.description}}
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. In rerum quia dolor. Quidem esse illo amet ab vel sunt assumenda explicabo est eveniet, fugiat eum mollitia molestiae provident, sapiente recusandae!
+              </div>
+              <div style="display: flex; gap: 10px; margin-top: 18px;">
+                @for (voteType of voteTypes; track $index) {
+                  <p-button 
+                  (onClick)="vote(votingThemeItem, voteType)"
+                  label=" "
+                  [icon]="voteType.icon" 
+                  [pTooltip]="voteType.name" 
+                  tooltipPosition="bottom"
+                  [outlined]="true"
+                  [badge]="getVotingNumber(votingThemeItem, voteType)"
+                  badgeClass="white-color primary-color-background"
+                  ></p-button>
+                }
+              </div>
+            </div>
           </div>
-        </div>
-      }
-      @if (votingThemes?.totalRecords == 0) {
-        {{t('YouDoNotHaveAnyNotifications')}}
-      }
-    </div>
-    <p-paginator
-      (onPageChange)="onLazyLoad($event)"
-      [first]="tableFilter.first"
-      [rows]="tableFilter.rows" 
-      [totalRecords]="votingThemes?.totalRecords">
-    </p-paginator>
-    <div class="card-overflow-icon">
-      <i class="pi pi-hammer"></i>
-    </div>
+        }
+      </div>
+      <div class="card-overflow-icon">
+        <i class="pi pi-hammer"></i>
+      </div>
+    }
+    @else {
+      <!-- TODO FT: Add skeleton -->
+    }
   </div>
 </ng-container>

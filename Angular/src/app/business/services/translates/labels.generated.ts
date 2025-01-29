@@ -158,8 +158,6 @@ export class TranslateLabelsGeneratedService {
                 return this.translocoService.translate('SelectedRolesIds');
             case 'userExtendedDTO':
                 return this.translocoService.translate('UserExtendedDTO');
-            case 'voteTypeIcon':
-                return this.translocoService.translate('VoteTypeIcon');
             case 'votingThemeItem':
                 return this.translocoService.translate('VotingThemeItem');
             case 'voteType':

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PlenumRMT.Infrastructure;
 
@@ -11,9 +12,11 @@ using PlenumRMT.Infrastructure;
 namespace PlenumRMT.Infrastructure.Migrations
 {
     [DbContext(typeof(PlenumRMTApplicationDbContext))]
-    partial class PlenumRMTApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250129131850_M2MAdditionalKey")]
+    partial class M2MAdditionalKey
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

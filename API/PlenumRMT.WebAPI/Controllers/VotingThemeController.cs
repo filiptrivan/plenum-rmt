@@ -25,11 +25,19 @@ namespace PlenumRMT.WebAPI.Controllers
             _plenumRMTBusinessService = plenumRMTBusinessService;
         }
 
-        [HttpPost]
+        [HttpGet]
         [AuthGuard]
-        public async Task<TableResponseDTO<VotingThemeDTO>> GetVotingThemeListForDisplay(TableFilterDTO tableFilterDTO)
+        public async Task<List<VotingThemeItemDTO>> GetVotingThemeItemListForDisplay(long votingThemeId)
         {
-            return await _plenumRMTBusinessService.GetVotingThemeListForDisplay(tableFilterDTO);
+            return await _plenumRMTBusinessService.GetVotingThemeItemListForDisplay(votingThemeId);
+        }
+
+        [HttpGet]
+        [AuthGuard]
+        [SkipSpinner]
+        public async Task Vote(long votingThemeId, int voteTypeId)
+        {
+            await _plenumRMTBusinessService.Vote(votingThemeId, voteTypeId);
         }
     }
 }

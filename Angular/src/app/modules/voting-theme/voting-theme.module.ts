@@ -3,10 +3,15 @@ import { VotingThemeComponent } from "./pages/voting-theme.component";
 import { NgModule } from "@angular/core";
 import { TranslocoDirective } from "@jsverse/transloco";
 import { PrimengModule, CardSkeletonComponent, SpiderControlsModule, SpiderDataTableComponent } from "@playerty/spider";
+import { VotingThemeTableComponent } from "./pages/voting-theme-table.component";
 
 const routes: Routes = [
     {
         path: 'voting-themes',
+        component: VotingThemeTableComponent,
+    },
+    {
+        path: 'voting-themes/:id',
         component: VotingThemeComponent,
     },
 ];
@@ -22,6 +27,7 @@ const routes: Routes = [
     ],
     declarations: [
         VotingThemeComponent,
+        VotingThemeTableComponent,
     ],
     providers:[]
 })

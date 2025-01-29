@@ -18,6 +18,7 @@ namespace PlenumRMT.Business.Entities
 
         [ManyToOneRequired]
         [WithMany(nameof(VoteType.Votes))]
+        [Key]
         public virtual VoteType VoteType { get; set; }
     }
 }

@@ -178,55 +178,75 @@ namespace PlenumRMT.Business.Services
 
         #region Voting Theme
 
-        public async Task<TableResponseDTO<VotingThemeDTO>> GetVotingThemeListForDisplay(TableFilterDTO tableFilterDTO)
+        public async Task<List<VotingThemeItemDTO>> GetVotingThemeItemListForDisplay(long votingThemeId)
         {
             return await _context.WithTransactionAsync(async () =>
             {
-                List<VotingThemeDTO> votingThemeDTOList = new List<VotingThemeDTO>();
+                List<VotingThemeItemDTO> votingThemeItemDTOList = new();
 
-                IQueryable<VotingTheme> votingThemeQuery = _context.DbSet<VotingTheme>();
-
-                int count = await votingThemeQuery.CountAsync();
-
-                List<VotingTheme> votingThemeList = await GetVotingThemeList(votingThemeQuery
+                List<VotingThemeItem> votingThemeItemList = await GetVotingThemeItemList(_context.DbSet<VotingThemeItem>()
                     .AsNoTracking()
-                    .Include(x => x.VotingThemeItems)
-                        .ThenInclude(x => x.UsersVoted)
-                            .ThenInclude(x => x.VoteType)
-                    .OrderByDescending(x => x.CreatedAt)
-                    .Skip(tableFilterDTO.First)
-                    .Take(tableFilterDTO.Rows)
+                    .Where(x => x.VotingTheme.Id == votingThemeId)
+                    .Include(x => x.VotingTheme)
+                    .Include(x => x.UsersVoted)
+                        .ThenInclude(x => x.VoteType)
+                    .Include(x => x.UsersVoted)
+                        .ThenInclude(x => x.User)
+                    .OrderBy(x => x.OrderNumber)
                     , false);
 
-                foreach (VotingTheme votingTheme in votingThemeList)
+                foreach (VotingThemeItem votingThemeItem in votingThemeItemList)
                 {
-                    VotingThemeDTO votingThemeDTO = votingTheme.Adapt<VotingThemeDTO>(Mapper.VotingThemeToDTOConfig());
-                    votingThemeDTO.VotingThemeItemsDTOList = new List<VotingThemeItemDTO>();
+                    VotingThemeItemDTO votingThemeItemDTO = votingThemeItem.Adapt<VotingThemeItemDTO>(Mapper.VotingThemeItemToDTOConfig());
+                    votingThemeItemDTO.UsersVotedDTOList = new List<UserExtendedVotingThemeItemDTO>();
 
-                    foreach (VotingThemeItem votingThemeItem in votingTheme.VotingThemeItems.OrderBy(x => x.OrderNumber))
+                    foreach (UserExtendedVotingThemeItem userVoted in votingThemeItem.UsersVoted)
                     {
-                        VotingThemeItemDTO votingThemeItemDTO = votingThemeItem.Adapt<VotingThemeItemDTO>(Mapper.VotingThemeItemToDTOConfig());
-                        votingThemeItemDTO.UsersVotedDTOList = new List<UserExtendedVotingThemeItemDTO>();
-
-                        foreach (UserExtendedVotingThemeItem userVoted in votingThemeItem.UsersVoted)
-                        {
-                            UserExtendedVotingThemeItemDTO userVotedDTO = userVoted.Adapt<UserExtendedVotingThemeItemDTO>(Mapper.UserExtendedVotingThemeItemToDTOConfig());
-                            votingThemeItemDTO.UsersVotedDTOList.Add(userVotedDTO);
-                        }
-
-                        votingThemeDTO.VotingThemeItemsDTOList.Add(votingThemeItemDTO);
+                        UserExtendedVotingThemeItemDTO userVotedDTO = userVoted.Adapt<UserExtendedVotingThemeItemDTO>(Mapper.UserExtendedVotingThemeItemToDTOConfig());
+                        votingThemeItemDTO.UsersVotedDTOList.Add(userVotedDTO);
                     }
 
-                    votingThemeDTOList.Add(votingThemeDTO);
+                    votingThemeItemDTOList.Add(votingThemeItemDTO);
                 }
 
-                TableResponseDTO<VotingThemeDTO> votingThemeTableResponse = new TableResponseDTO<VotingThemeDTO>
-                {
-                    Data = votingThemeDTOList,
-                    TotalRecords = count,
-                };
+                return votingThemeItemDTOList;
+            });
+        }
 
-                return votingThemeTableResponse;
+        public async Task Vote(long votingThemeItemId, int voteTypeId)
+        {
+            await _context.WithTransactionAsync(async () =>
+            {
+                VotingThemeItem votingThemeItem = await GetInstanceAsync<VotingThemeItem, long>(votingThemeItemId, null);
+                VoteType voteType = await GetInstanceAsync<VoteType, int>(voteTypeId, null);
+
+                UserExtended currentUser = await _authenticationService.GetCurrentUser<UserExtended>();
+
+                bool hasAlreadyVoted = votingThemeItem.UsersVoted
+                    .Where(x => x.User.Id == currentUser.Id && x.VoteType.Id == voteType.Id)
+                    .Any();
+
+                if (hasAlreadyVoted)
+                {
+                    await _context.DbSet<UserExtendedVotingThemeItem>()
+                        .Where(x =>
+                            x.User.Id == currentUser.Id &&
+                            x.VotingThemeItem.Id == votingThemeItem.Id &&
+                            x.VoteType.Id == voteType.Id
+                        )
+                        .ExecuteDeleteAsync();
+                }
+                else
+                {
+                    await _context.DbSet<UserExtendedVotingThemeItem>().AddAsync(new UserExtendedVotingThemeItem
+                    {
+                        VotingThemeItem = votingThemeItem,
+                        User = currentUser,
+                        VoteType = voteType,
+                    });
+
+                    await _context.SaveChangesAsync();
+                }
             });
         }
 

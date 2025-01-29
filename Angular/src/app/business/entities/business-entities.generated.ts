@@ -266,7 +266,6 @@ export class UserExtendedVotingThemeItem extends BaseEntity
 	votingThemeItemId?: number;
 	voteTypeDisplayName?: string;
 	voteTypeId?: number;
-	voteTypeIcon?: string;
 
     constructor(
     {
@@ -275,16 +274,14 @@ export class UserExtendedVotingThemeItem extends BaseEntity
 		votingThemeItemDisplayName,
 		votingThemeItemId,
 		voteTypeDisplayName,
-		voteTypeId,
-		voteTypeIcon
+		voteTypeId
     }:{
         userDisplayName?: string;
 		userId?: number;
 		votingThemeItemDisplayName?: string;
 		votingThemeItemId?: number;
 		voteTypeDisplayName?: string;
-		voteTypeId?: number;
-		voteTypeIcon?: string;     
+		voteTypeId?: number;     
     } = {}
     ) {
         super('UserExtendedVotingThemeItem'); 
@@ -295,7 +292,6 @@ export class UserExtendedVotingThemeItem extends BaseEntity
 		this.votingThemeItemId = votingThemeItemId;
 		this.voteTypeDisplayName = voteTypeDisplayName;
 		this.voteTypeId = voteTypeId;
-		this.voteTypeIcon = voteTypeIcon;
     }
 }
 
