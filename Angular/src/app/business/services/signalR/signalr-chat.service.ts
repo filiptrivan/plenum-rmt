@@ -1,3 +1,4 @@
+import { AuthService } from './../auth/auth.service';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpTransportType, HubConnection, HubConnectionBuilder, LogLevel } from '@microsoft/signalr';
@@ -11,11 +12,14 @@ export class SignalRChatService {
   private hubConnection: HubConnection;
 
   constructor(
-    private config: ConfigService
+    private config: ConfigService,
+    private authService: AuthService,
   ) {
     this.hubConnection = new HubConnectionBuilder()
         // .configureLogging(LogLevel.Trace)  // add this for diagnostic clues
-        .withUrl(`${config.apiUrl}/messages`) // SignalR hub URL
+        .withUrl(`${config.apiUrl}/hubs/messages`, {
+          accessTokenFactory: () => authService.getAccessToken()
+        }) // SignalR hub URL
         .build();
   }
 

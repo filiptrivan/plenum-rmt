@@ -52,7 +52,7 @@ public class Startup
 
         app.UseEndpoints(endpoints =>
         {
-            endpoints.MapHub<ChatHub>("api/messages");
+            endpoints.MapHub<ChatHub>("api/hubs/messages");
             endpoints.MapControllers();
         });
     }

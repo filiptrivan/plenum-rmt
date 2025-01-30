@@ -16,7 +16,6 @@ export class MessageComponent implements OnInit, OnDestroy {
 
   currentUser: UserExtended;
   users: UserExtended[];
-  recipientId: number;
   messages: UserExtendedMessage[];
   correspondentId: number;
 
@@ -35,6 +34,7 @@ export class MessageComponent implements OnInit, OnDestroy {
   async ngOnInit() {    
     this.chatSubscription = this.signalRChatService.startConnection().subscribe(() => {
       this.signalRChatService.receiveMessage().subscribe((sendMessageSaveBody: SendMessageSaveBody) => {
+        console.log('Is message received.')
         if (
           (sendMessageSaveBody.senderId == this.currentUser.id && sendMessageSaveBody.recipientId == this.correspondentId) || 
           (sendMessageSaveBody.senderId == this.correspondentId && sendMessageSaveBody.recipientId == this.currentUser.id) 
@@ -45,7 +45,7 @@ export class MessageComponent implements OnInit, OnDestroy {
     });
 
     this.route.params.subscribe((params) => {
-      this.correspondentId = params['id'];
+      this.correspondentId = +params['id'];
 
       if (this.correspondentId > 0) {
         this.openMessages(this.correspondentId)
@@ -64,13 +64,12 @@ export class MessageComponent implements OnInit, OnDestroy {
 
   openMessages(correspondentId: number) {
     this.router.navigate([`messages/${correspondentId}`]);
-    this.recipientId = correspondentId;
     this.messageFormControl.enable();
     this.getMessages();
   }
 
   getMessages(){
-    this.apiService.getMessages(this.recipientId).subscribe(res => {
+    this.apiService.getMessages(this.correspondentId).subscribe(res => {
       this.messages = res;
     });
   }
@@ -81,7 +80,7 @@ export class MessageComponent implements OnInit, OnDestroy {
 
     let sendMessageSaveBody = new SendMessageSaveBody({
       senderId: this.currentUser.id,
-      recipientId: this.recipientId, 
+      recipientId: this.correspondentId, 
       messageText: this.messageFormControl.value,
     });
     
