@@ -199,7 +199,7 @@
   <data name="UserExtendedMessageExcelExportName" xml:space="preserve">
     <value />
   </data>
-  <data name="User" xml:space="preserve">
+  <data name="Recipient" xml:space="preserve">
     <value />
   </data>
   <data name="UserExtendedVotingThemeItem" xml:space="preserve">
@@ -209,6 +209,9 @@
     <value />
   </data>
   <data name="UserExtendedVotingThemeItemExcelExportName" xml:space="preserve">
+    <value />
+  </data>
+  <data name="User" xml:space="preserve">
     <value />
   </data>
   <data name="VotingThemeItem" xml:space="preserve">

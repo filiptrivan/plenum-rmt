@@ -3,6 +3,7 @@ using Spider.Shared.Helpers;
 using Spider.Shared.Extensions;
 using PlenumRMT.WebAPI.DI;
 using PlenumRMT.Infrastructure;
+using PlenumRMT.Business.SignalRHubs;
 
 public class Startup
 {
@@ -31,6 +32,11 @@ public class Startup
     public void ConfigureServices(IServiceCollection services)
     {
         services.SpiderConfigureServices<PlenumRMTApplicationDbContext>();
+
+        services.AddSignalR(options =>
+        {
+            options.EnableDetailedErrors = true;
+        });
     }
 
     public void ConfigureContainer(IServiceContainer container)
@@ -43,5 +49,11 @@ public class Startup
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
     {
         app.SpiderConfigure(env);
+
+        app.UseEndpoints(endpoints =>
+        {
+            endpoints.MapHub<ChatHub>("api/messages");
+            endpoints.MapControllers();
+        });
     }
 }

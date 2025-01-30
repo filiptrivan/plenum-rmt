@@ -7,7 +7,7 @@ import { PrimengModule, CardSkeletonComponent, SpiderControlsModule, SpiderDataT
 
 const routes: Routes = [
     {
-        path: 'messages',
+        path: 'messages/:id',
         component: MessageComponent,
     },
 ];

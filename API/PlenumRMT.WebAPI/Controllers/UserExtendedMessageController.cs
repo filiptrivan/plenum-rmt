@@ -25,11 +25,5 @@ namespace PlenumRMT.WebAPI.Controllers
             _plenumRMTBusinessService = plenumRMTBusinessService;
         }
 
-        [HttpGet]
-        [AuthGuard]
-        public async Task<List<UserExtendedMessageDTO>> GetUserExtendedMessageList(long userExtendedId)
-        {
-            return await _plenumRMTBusinessService.GetUserExtendedMessageList(userExtendedId);
-        }
     }
 }

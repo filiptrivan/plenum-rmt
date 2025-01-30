@@ -14,6 +14,8 @@ using Azure.Storage.Blobs;
 using Mapster;
 using Spider.Security.DTO;
 using PlenumRMT.Business.DataMappers;
+using System.Net.Sockets;
+using PlenumRMT.Business.SignalRHubs;
 
 namespace PlenumRMT.Business.Services
 {
@@ -269,22 +271,50 @@ namespace PlenumRMT.Business.Services
 
         #region Message
 
-        public async Task<List<UserExtendedMessageDTO>> GetUserExtendedMessageList(long userExtendedId)
+        /// <summary>
+        /// This will get group chat messages between users also, but because we will not implement in on the in this test project UI, we don't care
+        /// </summary>
+        public async Task<List<UserExtendedMessageDTO>> GetMessages(long correspondentId)
         {
-            return null;
-            //return await _context.WithTransactionAsync(async () =>
-            //{
-            //    return await _context.DbSet<UserExtendedMessage>()
-            //        .AsNoTracking()
-            //        .Where(x => x.User.Id == userExtendedId)
-            //        .ProjectToType<UserExtendedMessageDTO>(Mapper.UserExtendedMessageToDTOConfig())
-            //        .ToListAsync();
-            //});
+            long currentUserId = _authenticationService.GetCurrentUserId();
+
+            return await _context.WithTransactionAsync(async () =>
+            {
+                var r = await _context.DbSet<UserExtendedMessage>()
+                    .AsNoTracking()
+                    .Where(x => 
+                        (x.Recipient.Id == currentUserId && x.Message.Sender.Id == correspondentId) || 
+                        (x.Recipient.Id == correspondentId && x.Message.Sender.Id == currentUserId)
+                    )
+                    .OrderByDescending(x => x.Message.ModifiedAt) // FT: Descending because on the UI we are using 'flex-direction: column-reverse;'
+                    .ProjectToType<UserExtendedMessageDTO>(Mapper.UserExtendedMessageToDTOConfig())
+                    .ToListAsync();
+
+                return r;
+            });
         }
 
         public async Task SendMessage(SendMessageSaveBodyDTO saveBodyDTO)
         {
-            
+            long senderId = _authenticationService.GetCurrentUserId();
+
+            await _context.WithTransactionAsync(async () =>
+            {
+                UserExtended sender = await GetInstanceAsync<UserExtended, long>(senderId, null);
+                UserExtended recipient = await GetInstanceAsync<UserExtended, long>(saveBodyDTO.RecipientId, null);
+
+                Message message = new Message
+                {
+                    Sender = sender,
+                    Text = saveBodyDTO.MessageText
+                };
+
+                message.Recipients.Add(recipient);
+
+                await _context.DbSet<Message>().AddAsync(message);
+
+                await _context.SaveChangesAsync();
+            });
         }
 
         #endregion

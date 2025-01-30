@@ -44,7 +44,7 @@ export class AppMenuComponent implements OnInit {
                     {
                         label: this.translocoService.translate('MessageList'),
                         icon: 'pi pi-fw pi-inbox',
-                        routerLink: [`/messages`],
+                        routerLink: [`/messages/0`],
                         visible: true,
                     },
                     {

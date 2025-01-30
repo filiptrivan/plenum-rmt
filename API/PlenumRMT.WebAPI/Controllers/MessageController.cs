@@ -27,6 +27,7 @@ namespace PlenumRMT.WebAPI.Controllers
 
         [HttpPut]
         [AuthGuard]
+        [SkipSpinner]
         public async Task SendMessage(SendMessageSaveBodyDTO saveBodyDTO)
         {
             await _plenumRMTBusinessService.SendMessage(saveBodyDTO);
@@ -34,9 +35,10 @@ namespace PlenumRMT.WebAPI.Controllers
 
         [HttpGet]
         [AuthGuard]
-        public async Task GetMessageList(long senderId)
+        [SkipSpinner]
+        public async Task<List<UserExtendedMessageDTO>> GetMessages(long correspondentId)
         {
-            await _plenumRMTBusinessService.GetUserExtendedMessageList(senderId);
+            return await _plenumRMTBusinessService.GetMessages(correspondentId);
         }
     }
 }

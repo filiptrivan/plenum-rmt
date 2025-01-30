@@ -148,21 +148,25 @@ export class NotificationSaveBody extends BaseEntity
 
 export class SendMessageSaveBody extends BaseEntity
 {
-    recipientId?: number;
+    senderId?: number;
+	recipientId?: number;
 	messageText?: string;
 
     constructor(
     {
-        recipientId,
+        senderId,
+		recipientId,
 		messageText
     }:{
-        recipientId?: number;
+        senderId?: number;
+		recipientId?: number;
 		messageText?: string;     
     } = {}
     ) {
         super('SendMessageSaveBody'); 
 
-        this.recipientId = recipientId;
+        this.senderId = senderId;
+		this.recipientId = recipientId;
 		this.messageText = messageText;
     }
 }
@@ -234,30 +238,38 @@ export class UserExtendedSaveBody extends BaseEntity
 
 export class UserExtendedMessage extends BaseEntity
 {
-    userDisplayName?: string;
-	userId?: number;
+    recipientDisplayName?: string;
+	recipientId?: number;
 	messageDisplayName?: string;
 	messageId?: number;
+	senderId?: number;
+	senderDisplayName?: string;
 
     constructor(
     {
-        userDisplayName,
-		userId,
+        recipientDisplayName,
+		recipientId,
 		messageDisplayName,
-		messageId
+		messageId,
+		senderId,
+		senderDisplayName
     }:{
-        userDisplayName?: string;
-		userId?: number;
+        recipientDisplayName?: string;
+		recipientId?: number;
 		messageDisplayName?: string;
-		messageId?: number;     
+		messageId?: number;
+		senderId?: number;
+		senderDisplayName?: string;     
     } = {}
     ) {
         super('UserExtendedMessage'); 
 
-        this.userDisplayName = userDisplayName;
-		this.userId = userId;
+        this.recipientDisplayName = recipientDisplayName;
+		this.recipientId = recipientId;
 		this.messageDisplayName = messageDisplayName;
 		this.messageId = messageId;
+		this.senderId = senderId;
+		this.senderDisplayName = senderDisplayName;
     }
 }
 

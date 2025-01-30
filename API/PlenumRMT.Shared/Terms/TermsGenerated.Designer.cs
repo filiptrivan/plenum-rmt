@@ -306,6 +306,15 @@ namespace PlenumRMT.Shared.Terms {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        public static string Recipient {
+            get {
+                return ResourceManager.GetString("Recipient", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         public static string Recipients {
             get {
                 return ResourceManager.GetString("Recipients", resourceCulture);

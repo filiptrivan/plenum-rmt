@@ -10,7 +10,7 @@ import { ActivatedRoute } from '@angular/router';
 import { firstValueFrom, forkJoin, Observable } from 'rxjs';
 import { MenuItem } from 'primeng/api';
 import { PrimengModule, SpiderControlsModule, CardSkeletonComponent, IndexCardComponent, SpiderDataTableComponent, SpiderFormArray, BaseEntity, LastMenuIconIndexClicked, SpiderFormGroup, SpiderButton, nameof, BaseFormService, getControl, Column, TableFilter, LazyLoadSelectedIdsResult, AllClickEvent, SpiderFileSelectEvent, getPrimengNamebookListForDropdown, PrimengOption, SpiderFormControl, getPrimengNamebookListForAutocomplete } from '@playerty/spider';
-import { Notification, NotificationSaveBody, SendMessageSaveBody, UserExtendedSaveBody, UserExtendedVotingThemeItem, Message, UserExtended, UserExtendedMessage, UserNotification, VoteType, VotingTheme, VotingThemeItem, MessageSaveBody, UserExtendedMessageSaveBody, UserExtendedVotingThemeItemSaveBody, UserNotificationSaveBody, VoteTypeSaveBody, VotingThemeSaveBody, VotingThemeItemSaveBody } from '../../entities/business-entities.generated';
+import { Notification, NotificationSaveBody, SendMessageSaveBody, UserExtendedMessage, UserExtendedSaveBody, UserExtendedVotingThemeItem, Message, UserExtended, UserNotification, VoteType, VotingTheme, VotingThemeItem, MessageSaveBody, UserExtendedMessageSaveBody, UserExtendedVotingThemeItemSaveBody, UserNotificationSaveBody, VoteTypeSaveBody, VotingThemeSaveBody, VotingThemeItemSaveBody } from '../../entities/business-entities.generated';
 
 @Component({
     selector: 'notification-base-details',

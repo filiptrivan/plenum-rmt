@@ -9,8 +9,8 @@ namespace PlenumRMT.Business.Entities
 {
     public class UserExtendedMessage
     {
-        [M2MMaintanceEntity(nameof(User.ReceivedMessages))]
-        public virtual UserExtended User { get; set; }
+        [M2MMaintanceEntity(nameof(Recipient.ReceivedMessages))]
+        public virtual UserExtended Recipient { get; set; }
 
         [M2MEntity(nameof(Message.Recipients))]
         public virtual Message Message { get; set; }
