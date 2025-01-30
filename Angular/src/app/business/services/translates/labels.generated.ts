@@ -120,6 +120,10 @@ export class TranslateLabelsGeneratedService {
                 return this.translocoService.translate('SelectedUserIds');
             case 'roleDTO':
                 return this.translocoService.translate('RoleDTO');
+            case 'recipient':
+                return this.translocoService.translate('Recipient');
+            case 'messageText':
+                return this.translocoService.translate('MessageText');
             case 'value':
                 return this.translocoService.translate('Value');
             case 'matchMode':

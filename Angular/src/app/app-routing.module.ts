@@ -29,7 +29,12 @@ import { AuthGuard, NotAuthGuard, NotFoundComponent } from '@playerty/spider';
                         path: '',
                         loadChildren: () => import('./modules/voting-theme/voting-theme.module').then(m => m.VotingThemeModule),
                         canActivate: [AuthGuard]
-                    }
+                    },
+                    { 
+                        path: '',
+                        loadChildren: () => import('./modules/message/message.module').then(m => m.MessageModule),
+                        canActivate: [AuthGuard]
+                    },
                 ],
             },
             {

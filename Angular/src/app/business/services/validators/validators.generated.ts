@@ -99,6 +99,7 @@ export class ValidatorServiceGenerated {
 
 
 
+
         case 'emailUserExtended':
             return this.emailUserExtendedValidator(formControl);
         case 'versionUserExtended':
@@ -621,6 +622,7 @@ export class ValidatorServiceGenerated {
         control.updateValueAndValidity(); // FT: It's necessary for Date angular type
         return validator;
     }
+
 
 
 

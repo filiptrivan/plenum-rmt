@@ -174,6 +174,21 @@ namespace PlenumRMT.Business.Services
             return result;
         }
 
+        public async Task<int> GetUnreadNotificationCountForCurrentUser()
+        {
+            long currentUserId = _authenticationService.GetCurrentUserId();
+
+            return await _context.WithTransactionAsync(async () =>
+            {
+                IQueryable<UserNotification> notificationUsersQuery = _context.DbSet<UserNotification>()
+                    .Where(x => x.User.Id == currentUserId && x.IsMarkedAsRead == false);
+
+                int count = await notificationUsersQuery.CountAsync();
+
+                return count;
+            });
+        }
+
         #endregion
 
         #region Voting Theme
@@ -248,6 +263,28 @@ namespace PlenumRMT.Business.Services
                     await _context.SaveChangesAsync();
                 }
             });
+        }
+
+        #endregion
+
+        #region Message
+
+        public async Task<List<UserExtendedMessageDTO>> GetUserExtendedMessageList(long userExtendedId)
+        {
+            return null;
+            //return await _context.WithTransactionAsync(async () =>
+            //{
+            //    return await _context.DbSet<UserExtendedMessage>()
+            //        .AsNoTracking()
+            //        .Where(x => x.User.Id == userExtendedId)
+            //        .ProjectToType<UserExtendedMessageDTO>(Mapper.UserExtendedMessageToDTOConfig())
+            //        .ToListAsync();
+            //});
+        }
+
+        public async Task SendMessage(SendMessageSaveBodyDTO saveBodyDTO)
+        {
+            
         }
 
         #endregion

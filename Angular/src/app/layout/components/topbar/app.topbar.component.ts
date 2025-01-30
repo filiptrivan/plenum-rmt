@@ -8,7 +8,7 @@ import { AuthService } from 'src/app/business/services/auth/auth.service';
 import { UserExtended } from 'src/app/business/entities/business-entities.generated';
 import { ConfigService } from 'src/app/business/services/config.service';
 
-interface SoftMenuItem {
+interface SpiderMenuItem {
   label?: string;
   icon?: string;
   showSeparator?: boolean;
@@ -27,7 +27,7 @@ export class AppTopBarComponent implements OnDestroy {
 
     currentUser: UserExtended;
     currentUserNotificationsCount: number;
-    menuItems: SoftMenuItem[] = [];
+    menuItems: SpiderMenuItem[] = [];
     avatarLabel: string;
     companyName: string = this.config.companyName;
     showProfileIcon: boolean = false;
@@ -79,6 +79,10 @@ export class AppTopBarComponent implements OnDestroy {
         }
       }
     ]
+
+    this.apiService.getUnreadNotificationCountForCurrentUser().subscribe(count => {
+      this.currentUserNotificationsCount = count;
+    });
 
     this.userSubscription = this.authService.user$.subscribe(currentUser => {
         this.currentUser = currentUser;

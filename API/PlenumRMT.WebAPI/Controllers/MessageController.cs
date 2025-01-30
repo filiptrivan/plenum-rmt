@@ -25,5 +25,18 @@ namespace PlenumRMT.WebAPI.Controllers
             _plenumRMTBusinessService = plenumRMTBusinessService;
         }
 
+        [HttpPut]
+        [AuthGuard]
+        public async Task SendMessage(SendMessageSaveBodyDTO saveBodyDTO)
+        {
+            await _plenumRMTBusinessService.SendMessage(saveBodyDTO);
+        }
+
+        [HttpGet]
+        [AuthGuard]
+        public async Task GetMessageList(long senderId)
+        {
+            await _plenumRMTBusinessService.GetUserExtendedMessageList(senderId);
+        }
     }
 }

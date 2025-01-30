@@ -5,7 +5,7 @@ import { LayoutService } from '../../services/app.layout.service';
 import { MenuItem } from 'primeng/api';
 import { ConfigService } from 'src/app/business/services/config.service';
 
-export interface SoftMenuItem extends MenuItem{
+export interface SpiderMenuItem extends MenuItem{
     hasPermission?: (permissionCodes: string[]) => boolean;
 }
 
@@ -14,7 +14,7 @@ export interface SoftMenuItem extends MenuItem{
     templateUrl: './app.menu.component.html'
 })
 export class AppMenuComponent implements OnInit {
-    menu: SoftMenuItem[] = [];
+    menu: SpiderMenuItem[] = [];
 
     constructor(
         public layoutService: LayoutService, 
@@ -39,6 +39,12 @@ export class AppMenuComponent implements OnInit {
                         label: this.translocoService.translate('VotingThemeList'),
                         icon: 'pi pi-fw pi-hammer',
                         routerLink: [`/voting-themes`],
+                        visible: true,
+                    },
+                    {
+                        label: this.translocoService.translate('MessageList'),
+                        icon: 'pi pi-fw pi-inbox',
+                        routerLink: [`/messages`],
                         visible: true,
                     },
                     {

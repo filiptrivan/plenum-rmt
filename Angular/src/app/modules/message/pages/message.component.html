@@ -1,0 +1,21 @@
+<ng-container *transloco="let t">
+  <div style="display: flex; gap: 28px; height: calc(78vh); overflow-y: auto;">
+    <div class="card" style="width: 350px; margin-bottom: 0;">
+      @for (user of users; track $index) {
+        <div class="hover-card" (click)="openMessages(user)">
+          {{user.email}}
+        </div>
+      }
+    </div>
+    <div class="card" style="width: 100%; display: flex; flex-direction: column; justify-content: space-between;">
+      <div>
+        @for (message of messages; track $index) {
+          <!-- {{message.userDisplayName}} - {{message.messageDisplayName}} -->
+        }
+      </div>
+      <div style="width: 100%;">
+          <spider-textbox [control]="messageFormControl" [showButton]="true" buttonIcon="pi-send" (onButtonClick)="sendMessage()"></spider-textbox>
+      </div>
+    </div>
+  </div>
+</ng-container>

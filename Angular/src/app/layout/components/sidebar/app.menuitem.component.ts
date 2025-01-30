@@ -6,7 +6,7 @@ import { filter } from 'rxjs/operators';
 import { MenuService } from './app.menu.service';
 import { LayoutService } from '../../services/app.layout.service';
 import { AuthService } from '../../../business/services/auth/auth.service';
-import { SoftMenuItem } from './app.menu.component';
+import { SpiderMenuItem } from './app.menu.component';
 import { ApiService } from '../../../business/services/api/api.service';
 
 @Component({
@@ -27,7 +27,7 @@ import { ApiService } from '../../../business/services/api/api.service';
 })
 export class AppMenuitemComponent implements OnInit, OnDestroy {
 
-    @Input() item: SoftMenuItem;
+    @Input() item: SpiderMenuItem;
 
     @Input() index!: number;
 

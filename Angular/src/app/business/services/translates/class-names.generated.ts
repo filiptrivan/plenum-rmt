@@ -72,6 +72,8 @@ export class TranslateClassNamesGeneratedService {
                 return this.translocoService.translate('RolePermissionSaveBody');
             case 'RoleSaveBody':
                 return this.translocoService.translate('RoleSaveBody');
+            case 'SendMessageSaveBody':
+                return this.translocoService.translate('SendMessageSaveBody');
             case 'SimpleSaveResult':
                 return this.translocoService.translate('SimpleSaveResult');
             case 'TableFilterContext':

@@ -13,6 +13,7 @@ namespace PlenumRMT.Business.Entities
     [UIDoNotGenerate]
     public class Message : BusinessObject<long>
     {
+        [DisplayName]
         [StringLength(8000, MinimumLength = 1)]
         [Required]
         public string Text { get; set; }

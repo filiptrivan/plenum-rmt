@@ -1,10 +1,8 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ApiService } from 'src/app/business/services/api/api.service';
 import { AuthService } from 'src/app/business/services/auth/auth.service';
-import { MenuItem } from 'primeng/api';
 import { TranslocoService } from '@jsverse/transloco';
-import { UserExtendedVotingThemeItem, VoteType, VotingTheme, VotingThemeItem } from 'src/app/business/entities/business-entities.generated';
-import { Menu } from 'primeng/menu';
+import { UserExtendedVotingThemeItem, VoteType, VotingThemeItem } from 'src/app/business/entities/business-entities.generated';
 import { SpiderMessageService } from '@playerty/spider';
 import { ActivatedRoute } from '@angular/router';
 import { firstValueFrom } from 'rxjs';
@@ -16,10 +14,6 @@ export class VotingThemeComponent implements OnInit {
   votingThemeId: number;
   votingThemeItems: VotingThemeItem[];
   voteTypes: VoteType[];
-
-  crudMenu: MenuItem[] = [];
-  @ViewChild('menu') menu: Menu;
-  lastMenuToggledVotingTheme: VotingTheme;
 
   constructor(
     private apiService: ApiService,
@@ -44,11 +38,6 @@ export class VotingThemeComponent implements OnInit {
     this.apiService.getVotingThemeItemListForDisplay(this.votingThemeId).subscribe((res) => {
       this.votingThemeItems = res;
     });
-  }
-
-  menuToggle($event: MouseEvent, votingThemeItem: VotingThemeItem) {
-    this.menu.toggle($event);
-    this.lastMenuToggledVotingTheme = votingThemeItem;
   }
 
   getVotingNumber(votingThemeItem: VotingThemeItem, voteType: VoteType): string {

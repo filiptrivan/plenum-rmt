@@ -7,6 +7,7 @@ import { NotificationSaveBody } from '../../entities/business-entities.generated
 import { Notification } from '../../entities/business-entities.generated';
 import { UserExtendedVotingThemeItem } from '../../entities/business-entities.generated';
 import { UserExtendedSaveBody } from '../../entities/business-entities.generated';
+import { SendMessageSaveBody } from '../../entities/business-entities.generated';
 import { Message } from '../../entities/business-entities.generated';
 import { MessageSaveBody } from '../../entities/business-entities.generated';
 import { UserExtended } from '../../entities/business-entities.generated';
@@ -34,6 +35,14 @@ export class ApiGeneratedService extends ApiSecurityService {
         super(http, config);
     }
 
+    sendMessage = (saveBodyDTO: SendMessageSaveBody): Observable<any> => { 
+        return this.http.put(`${this.config.apiUrl}/Message/SendMessage`, saveBodyDTO, this.config.httpOptions);
+    }
+
+    getMessageList = (senderId: number): Observable<any> => { 
+        return this.http.get(`${this.config.apiUrl}/Message/GetMessageList?senderId=${senderId}`, this.config.httpOptions);
+    }
+
     sendNotificationEmail = (notificationId: number, notificationVersion: number): Observable<any> => { 
         return this.http.get(`${this.config.apiUrl}/Notification/SendNotificationEmail?notificationId=${notificationId}&notificationVersion=${notificationVersion}`, this.config.httpOptions);
     }
@@ -54,12 +63,20 @@ export class ApiGeneratedService extends ApiSecurityService {
         return this.http.post<TableResponse<Notification>>(`${this.config.apiUrl}/Notification/GetNotificationsForCurrentUser`, tableFilterDTO, this.config.httpSkipSpinnerOptions);
     }
 
+    getUnreadNotificationCountForCurrentUser = (): Observable<number> => { 
+        return this.http.get<number>(`${this.config.apiUrl}/Notification/GetUnreadNotificationCountForCurrentUser`, this.config.httpOptions);
+    }
+
     getCurrentUserExtended = (): Observable<UserExtended> => { 
         return this.http.get<UserExtended>(`${this.config.apiUrl}/UserExtended/GetCurrentUserExtended`, this.config.httpSkipSpinnerOptions);
     }
 
     getCurrentUserPermissionCodes = (): Observable<string[]> => { 
         return this.http.get<string[]>(`${this.config.apiUrl}/UserExtended/GetCurrentUserPermissionCodes`, this.config.httpSkipSpinnerOptions);
+    }
+
+    getUserExtendedMessageList = (userExtendedId: number): Observable<UserExtendedMessage[]> => { 
+        return this.http.get<UserExtendedMessage[]>(`${this.config.apiUrl}/UserExtendedMessage/GetUserExtendedMessageList?userExtendedId=${userExtendedId}`, this.config.httpOptions);
     }
 
     getVotingThemeItemListForDisplay = (votingThemeId: number): Observable<VotingThemeItem[]> => { 
@@ -117,9 +134,7 @@ export class ApiGeneratedService extends ApiSecurityService {
         return this.http.post(`${this.config.apiUrl}/Message/ExportMessageTableDataToExcel`, tableFilterDTO, { observe: 'response', responseType: 'blob' });
     }
 
-    getMessageList = (): Observable<Message[]> => { 
-        return this.http.get<Message[]>(`${this.config.apiUrl}/Message/GetMessageList`, this.config.httpOptions);
-    }
+
 
     getMessage = (id: number): Observable<Message> => { 
         return this.http.get<Message>(`${this.config.apiUrl}/Message/GetMessage?id=${id}`, this.config.httpOptions);
@@ -314,9 +329,7 @@ export class ApiGeneratedService extends ApiSecurityService {
         return this.http.post(`${this.config.apiUrl}/UserExtendedMessage/ExportUserExtendedMessageTableDataToExcel`, tableFilterDTO, { observe: 'response', responseType: 'blob' });
     }
 
-    getUserExtendedMessageList = (): Observable<UserExtendedMessage[]> => { 
-        return this.http.get<UserExtendedMessage[]>(`${this.config.apiUrl}/UserExtendedMessage/GetUserExtendedMessageList`, this.config.httpOptions);
-    }
+
 
     getUserExtendedMessage = (id: number): Observable<UserExtendedMessage> => { 
         return this.http.get<UserExtendedMessage>(`${this.config.apiUrl}/UserExtendedMessage/GetUserExtendedMessage?id=${id}`, this.config.httpOptions);

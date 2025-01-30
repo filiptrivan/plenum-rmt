@@ -57,13 +57,12 @@ namespace PlenumRMT.WebAPI.Controllers
             return await _plenumRMTBusinessService.GetNotificationsForCurrentUser(tableFilterDTO);
         }
 
-        // TODO FT: This should exist in other systems
-        //[HttpGet]
-        //[AuthGuard]
-        //public async Task<int> GetUnreadNotificationCountForTheCurrentUser()
-        //{
-        //    return await _plenumRMTBusinessService.GetUnreGetUnreadNotificationCountForTheCurrentUser();
-        //}
+        [HttpGet]
+        [AuthGuard]
+        public async Task<int> GetUnreadNotificationCountForCurrentUser()
+        {
+            return await _plenumRMTBusinessService.GetUnreadNotificationCountForCurrentUser();
+        }
 
     }
 }

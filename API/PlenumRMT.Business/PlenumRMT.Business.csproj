@@ -12,7 +12,6 @@
 
   <ItemGroup>
     <Folder Include="DataMappers\" />
-    <Folder Include="DTO\Helpers" />
     <Folder Include="Enums\" />
     <Folder Include="Services\" />
     <Folder Include="ValidationRules\" />

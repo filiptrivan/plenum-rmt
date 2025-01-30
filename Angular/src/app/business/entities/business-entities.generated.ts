@@ -146,6 +146,28 @@ export class NotificationSaveBody extends BaseEntity
 }
 
 
+export class SendMessageSaveBody extends BaseEntity
+{
+    recipientId?: number;
+	messageText?: string;
+
+    constructor(
+    {
+        recipientId,
+		messageText
+    }:{
+        recipientId?: number;
+		messageText?: string;     
+    } = {}
+    ) {
+        super('SendMessageSaveBody'); 
+
+        this.recipientId = recipientId;
+		this.messageText = messageText;
+    }
+}
+
+
 export class UserExtended extends BaseEntity
 {
     email?: string;
