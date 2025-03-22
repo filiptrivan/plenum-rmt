@@ -1,16 +1,7 @@
-﻿using Azure.Core;
-using Microsoft.AspNetCore.SignalR;
+﻿using Microsoft.AspNetCore.SignalR;
 using PlenumRMT.Business.DTO;
-using PlenumRMT.Business.Entities;
 using Spider.Security.Services;
-using Spider.Shared.Attributes;
 using Spider.Shared.Helpers;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Claims;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PlenumRMT.Business.SignalRHubs
 {
@@ -27,7 +18,7 @@ namespace PlenumRMT.Business.SignalRHubs
         {
             if (!Helper.IsJwtTokenValid(await _authenticationService.GetAccessTokenAsync()))
             {
-                // TODO FT: Log
+                // TODO: Log
                 return;
             }
 
@@ -39,7 +30,7 @@ namespace PlenumRMT.Business.SignalRHubs
         {
             if (!Helper.IsJwtTokenValid(await _authenticationService.GetAccessTokenAsync()))
             {
-                // TODO FT: Log
+                // TODO: Log
                 return;
             }
 

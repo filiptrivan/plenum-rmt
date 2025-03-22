@@ -108,18 +108,22 @@ export class TranslateLabelsGeneratedService {
                 return this.translocoService.translate('Status');
             case 'message':
                 return this.translocoService.translate('Message');
+            case 'usersNamebookDTOList':
+                return this.translocoService.translate('UsersNamebookDTOList');
+            case 'roleDTO':
+                return this.translocoService.translate('RoleDTO');
+            case 'permissionsNamebookDTOList':
+                return this.translocoService.translate('PermissionsNamebookDTOList');
             case 'role':
                 return this.translocoService.translate('Role');
             case 'permission':
                 return this.translocoService.translate('Permission');
             case 'rolePermissionDTO':
                 return this.translocoService.translate('RolePermissionDTO');
-            case 'selectedPermissionIds':
-                return this.translocoService.translate('SelectedPermissionIds');
-            case 'selectedUserIds':
-                return this.translocoService.translate('SelectedUserIds');
-            case 'roleDTO':
-                return this.translocoService.translate('RoleDTO');
+            case 'selectedUsersIds':
+                return this.translocoService.translate('SelectedUsersIds');
+            case 'selectedPermissionsIds':
+                return this.translocoService.translate('SelectedPermissionsIds');
             case 'recipient':
                 return this.translocoService.translate('Recipient');
             case 'messageText':
@@ -156,12 +160,12 @@ export class TranslateLabelsGeneratedService {
                 return this.translocoService.translate('HasLoggedInWithExternalProvider');
             case 'isDisabled':
                 return this.translocoService.translate('IsDisabled');
+            case 'userExtendedDTO':
+                return this.translocoService.translate('UserExtendedDTO');
             case 'userExtendedMessageDTO':
                 return this.translocoService.translate('UserExtendedMessageDTO');
             case 'selectedRolesIds':
                 return this.translocoService.translate('SelectedRolesIds');
-            case 'userExtendedDTO':
-                return this.translocoService.translate('UserExtendedDTO');
             case 'votingThemeItem':
                 return this.translocoService.translate('VotingThemeItem');
             case 'voteType':
@@ -192,6 +196,8 @@ export class TranslateLabelsGeneratedService {
                 return this.translocoService.translate('VotingThemeItemDTO');
             case 'votingThemeDTO':
                 return this.translocoService.translate('VotingThemeDTO');
+            case 'orderedVotingThemeItemsDTO':
+                return this.translocoService.translate('OrderedVotingThemeItemsDTO');
             case 'votingThemeItemsDTO':
                 return this.translocoService.translate('VotingThemeItemsDTO');
             default:

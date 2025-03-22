@@ -1,38 +1,38 @@
 import { PreloadAllModules, RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
-import { AppLayoutComponent } from "./layout/components/layout/app.layout.component";
 import { AuthGuard, NotAuthGuard, NotFoundComponent } from '@playerty/spider';
+import { LayoutComponent } from './business/layout/layout.component';
 
 @NgModule({
     imports: [
         RouterModule.forRoot([
             {
                 path: '', 
-                component: AppLayoutComponent,
+                component: LayoutComponent,
                 children: [
                     {
                         path: '',
-                        loadChildren: () => import('./layout/components/dashboard/dashboard.module').then(m => m.DashboardModule),
+                        loadChildren: () => import('./features/dashboard/dashboard.module').then(m => m.DashboardModule),
                         canActivate: [AuthGuard]
                     },
                     { 
                         path: 'administration',
-                        loadChildren: () => import('./modules/administration/administration.module').then(m => m.AdministrationModule),
+                        loadChildren: () => import('./features/administration/administration.module').then(m => m.AdministrationModule),
                         canActivate: [AuthGuard]
                     },
                     { 
                         path: '',
-                        loadChildren: () => import('./modules/notification/notification.module').then(m => m.NotificationModule),
+                        loadChildren: () => import('./features/notification/notification.module').then(m => m.NotificationModule),
                         canActivate: [AuthGuard]
                     },
                     { 
                         path: '',
-                        loadChildren: () => import('./modules/voting-theme/voting-theme.module').then(m => m.VotingThemeModule),
+                        loadChildren: () => import('./features/voting-theme/voting-theme.module').then(m => m.VotingThemeModule),
                         canActivate: [AuthGuard]
                     },
                     { 
                         path: '',
-                        loadChildren: () => import('./modules/message/message.module').then(m => m.MessageModule),
+                        loadChildren: () => import('./features/message/message.module').then(m => m.MessageModule),
                         canActivate: [AuthGuard]
                     },
                 ],
@@ -41,9 +41,18 @@ import { AuthGuard, NotAuthGuard, NotFoundComponent } from '@playerty/spider';
                 path: '',
                 children: [
                     { 
-                        path: 'auth',
-                        loadChildren: () => import('./layout/components/auth/auth.module').then(m => m.AuthModule),
+                        path: '',
+                        loadChildren: () => import('@playerty/spider').then(m => m.AuthModule),
                         canActivate: [NotAuthGuard],
+                    },
+                ],
+            },
+            {
+                path: '',
+                children: [
+                    { 
+                        path: '',
+                        loadChildren: () => import('./features/legal/legal.module').then(m => m.LegalModule),
                     },
                 ],
             },

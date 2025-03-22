@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace PlenumRMT.Business.Entities
 {
+    [DoNotAuthorize]
     [TranslateSingularSrLatnRS("Tip glasa")]
     [TranslatePluralSrLatnRS("Tipovi glasova")]
     public class VoteType : BusinessObject<int>

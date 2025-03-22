@@ -25,7 +25,12 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Compile Update="Terms\TermsGenerated.Designer.cs">
+	  <Compile Update="Resources\Terms.Designer.cs">
+	    <DesignTime>True</DesignTime>
+	    <AutoGen>True</AutoGen>
+	    <DependentUpon>Terms.resx</DependentUpon>
+	  </Compile>
+	  <Compile Update="Resources\TermsGenerated.Designer.cs">
 	    <DesignTime>True</DesignTime>
 	    <AutoGen>True</AutoGen>
 	    <DependentUpon>TermsGenerated.resx</DependentUpon>
@@ -33,7 +38,11 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <EmbeddedResource Update="Terms\TermsGenerated.resx">
+	  <EmbeddedResource Update="Resources\Terms.resx">
+	    <Generator>PublicResXFileCodeGenerator</Generator>
+	    <LastGenOutput>Terms.Designer.cs</LastGenOutput>
+	  </EmbeddedResource>
+	  <EmbeddedResource Update="Resources\TermsGenerated.resx">
 	    <Generator>PublicResXFileCodeGenerator</Generator>
 	    <LastGenOutput>TermsGenerated.Designer.cs</LastGenOutput>
 	  </EmbeddedResource>

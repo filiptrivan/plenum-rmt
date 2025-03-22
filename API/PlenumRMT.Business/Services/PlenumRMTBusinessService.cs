@@ -83,7 +83,7 @@ namespace PlenumRMT.Business.Services
         {
             await _context.WithTransactionAsync(async () =>
             {
-                await _authorizationService.AuthorizeAndThrowAsync<UserExtended>(PermissionCodes.EditNotification);
+                await _authorizationService.AuthorizeAndThrowAsync<UserExtended>(BusinessPermissionCodes.UpdateNotification);
 
                 // FT: Checking version because if the user didn't save and some other user changed the version, he will send emails to wrong users
                 Notification notification = await GetInstanceAsync<Notification, long>(notificationId, notificationVersion);
@@ -94,13 +94,14 @@ namespace PlenumRMT.Business.Services
             });
         }
 
+        /// <summary>
+        /// FT: Don't need authorization because user can do whatever he wants with his notifications
+        /// </summary>
         public async Task DeleteNotificationForCurrentUser(long notificationId, int notificationVersion)
         {
             await _context.WithTransactionAsync(async () =>
             {
                 long currentUserId = _authenticationService.GetCurrentUserId();
-
-                //await _authorizationService.AuthorizeAndThrowAsync<UserExtended>(PermissionCodes.EditNotification);
 
                 Notification notification = await GetInstanceAsync<Notification, long>(notificationId, notificationVersion);
 
@@ -110,13 +111,14 @@ namespace PlenumRMT.Business.Services
             });
         }
 
+        /// <summary>
+        /// FT: Don't need authorization because user can do whatever he wants with his notifications
+        /// </summary>
         public async Task MarkNotificationAsReadForCurrentUser(long notificationId, int notificationVersion)
         {
             await _context.WithTransactionAsync(async () =>
             {
                 long currentUserId = _authenticationService.GetCurrentUserId();
-
-                //await _authorizationService.AuthorizeAndThrowAsync<UserExtended>(PermissionCodes.EditNotification);
 
                 Notification notification = await GetInstanceAsync<Notification, long>(notificationId, notificationVersion);
 
@@ -126,13 +128,14 @@ namespace PlenumRMT.Business.Services
             });
         }
 
+        /// <summary>
+        /// FT: Don't need authorization because user can do whatever he wants with his notifications
+        /// </summary>
         public async Task MarkNotificationAsUnreadForCurrentUser(long notificationId, int notificationVersion)
         {
             await _context.WithTransactionAsync(async () =>
             {
                 long currentUserId = _authenticationService.GetCurrentUserId();
-
-                //await _authorizationService.AuthorizeAndThrowAsync<UserExtended>(PermissionCodes.EditNotification);
 
                 Notification notification = await GetInstanceAsync<Notification, long>(notificationId, notificationVersion);
 
@@ -142,53 +145,69 @@ namespace PlenumRMT.Business.Services
             });
         }
 
-        public async Task<TableResponseDTO<NotificationDTO>> GetNotificationsForCurrentUser(TableFilterDTO tableFilterDTO)
-        {
-            TableResponseDTO<NotificationDTO> result = new TableResponseDTO<NotificationDTO>();
-            long currentUserId = _authenticationService.GetCurrentUserId(); // FT: Not doing user.Notifications, because he could have a lot of them.
-
-            await _context.WithTransactionAsync(async () =>
-            {
-                IQueryable<UserNotification> userNotificationsQuery = _context.DbSet<UserNotification>()
-                    .Where(x => x.User.Id == currentUserId);
-
-                int count = await userNotificationsQuery.CountAsync();
-
-                List<NotificationDTO> notificationDTOList = await userNotificationsQuery
-                    .Skip(tableFilterDTO.First)
-                    .Take(tableFilterDTO.Rows)
-                    .Select(x => new NotificationDTO
-                    {
-                        Id = x.Notification.Id,
-                        Version = x.Notification.Version,
-                        Title = x.Notification.Title,
-                        Description = x.Notification.Description,
-                        CreatedAt = x.Notification.CreatedAt,
-                        IsMarkedAsRead = x.IsMarkedAsRead,
-                    })
-                    .OrderByDescending(x => x.CreatedAt)
-                    .ToListAsync();
-
-                result.Data = notificationDTOList;
-                result.TotalRecords = count;
-            });
-
-            return result;
-        }
-
-        public async Task<int> GetUnreadNotificationCountForCurrentUser()
+        public async Task<int> GetUnreadNotificationsCountForCurrentUser()
         {
             long currentUserId = _authenticationService.GetCurrentUserId();
 
             return await _context.WithTransactionAsync(async () =>
             {
-                IQueryable<UserNotification> notificationUsersQuery = _context.DbSet<UserNotification>()
+                var notificationUsersQuery = _context.DbSet<UserNotification>()
                     .Where(x => x.User.Id == currentUserId && x.IsMarkedAsRead == false);
 
                 int count = await notificationUsersQuery.CountAsync();
 
                 return count;
             });
+        }
+
+        public async Task<TableResponseDTO<NotificationDTO>> GetNotificationsForCurrentUser(TableFilterDTO tableFilterDTO)
+        {
+            TableResponseDTO<NotificationDTO> result = new();
+            long currentUserId = _authenticationService.GetCurrentUserId(); // FT: Not doing user.Notifications, because he could have a lot of them.
+
+            await _context.WithTransactionAsync(async () =>
+            {
+                var notificationUsersQuery = _context.DbSet<UserNotification>()
+                    .Where(x => x.User.Id == currentUserId)
+                    .Select(x => new
+                    {
+                        UserId = x.User.Id,
+                        NotificationId = x.Notification.Id,
+                        IsMarkedAsRead = x.IsMarkedAsRead,
+                    });
+
+                int count = await notificationUsersQuery.CountAsync();
+
+                var notificationUsers = await notificationUsersQuery
+                    .Skip(tableFilterDTO.First)
+                    .Take(tableFilterDTO.Rows)
+                    .ToListAsync();
+
+                List<NotificationDTO> notificationsDTO = new();
+
+                foreach (var item in notificationUsers)
+                {
+                    NotificationDTO notificationDTO = new();
+
+                    Notification notification = await GetInstanceAsync<Notification, long>(item.NotificationId, null);
+                    notificationDTO.Id = notification.Id;
+                    notificationDTO.Version = notification.Version;
+                    notificationDTO.Title = notification.Title;
+                    notificationDTO.Description = notification.Description;
+                    notificationDTO.CreatedAt = notification.CreatedAt;
+
+                    notificationDTO.IsMarkedAsRead = item.IsMarkedAsRead;
+
+                    notificationsDTO.Add(notificationDTO);
+                }
+
+                notificationsDTO = notificationsDTO.OrderByDescending(x => x.CreatedAt).ToList();
+
+                result.Data = notificationsDTO;
+                result.TotalRecords = count;
+            });
+
+            return result;
         }
 
         #endregion

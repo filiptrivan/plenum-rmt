@@ -1,0 +1,33 @@
+using Microsoft.AspNetCore.Mvc;
+using Spider.Shared.Attributes;
+using Spider.Shared.Interfaces;
+using Azure.Storage.Blobs;
+using Spider.Security.Services;
+using PlenumRMT.Business.Services;
+using PlenumRMT.Business.DTO;
+
+namespace PlenumRMT.WebAPI.Controllers
+{
+    [ApiController]
+    [Route("/api/[controller]/[action]")]
+    public class {{filename}}Controller : {{filename}}BaseController
+    {
+        private readonly IApplicationDbContext _context;
+        private readonly PlenumRMTBusinessService _plenumRMTBusinessService;
+        private readonly AuthenticationService _authenticationService;
+
+        public {{filename}}Controller(
+            IApplicationDbContext context, 
+            PlenumRMTBusinessService plenumRMTBusinessService, 
+            BlobContainerClient blobContainerClient, 
+            AuthenticationService authenticationService
+        )
+            : base(context, plenumRMTBusinessService, blobContainerClient)
+        {
+            _context = context;
+            _plenumRMTBusinessService = plenumRMTBusinessService;
+            _authenticationService = authenticationService;
+        }
+
+    }
+}

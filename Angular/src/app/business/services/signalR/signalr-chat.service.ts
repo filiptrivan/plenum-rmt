@@ -1,7 +1,7 @@
 import { AuthService } from './../auth/auth.service';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { HttpTransportType, HubConnection, HubConnectionBuilder, LogLevel } from '@microsoft/signalr';
+import { HubConnection, HubConnectionBuilder, LogLevel } from '@microsoft/signalr';
 import { SendMessageSaveBody } from '../../entities/business-entities.generated';
 import { ConfigService } from '../config.service';
 
@@ -16,7 +16,7 @@ export class SignalRChatService {
     private authService: AuthService,
   ) {
     this.hubConnection = new HubConnectionBuilder()
-        // .configureLogging(LogLevel.Trace)  // add this for diagnostic clues
+        .configureLogging(LogLevel.None)
         .withUrl(`${config.apiUrl}/hubs/messages`, {
           accessTokenFactory: () => authService.getAccessToken()
         }) // SignalR hub URL
@@ -28,7 +28,6 @@ export class SignalRChatService {
       this.hubConnection
         .start()
         .then(() => {
-          console.log('Connection established with SignalR hub');
           observer.next();
           observer.complete();
         })
@@ -39,8 +38,8 @@ export class SignalRChatService {
     });
   }
 
-  async closeConnection() {
-    await this.hubConnection.stop();
+  closeConnection() {
+    this.hubConnection.stop();
   }
 
   receiveMessage(): Observable<SendMessageSaveBody> {

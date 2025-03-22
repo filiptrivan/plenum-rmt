@@ -7,6 +7,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace PlenumRMT.Business.Entities
 {
+    [DoNotAuthorize]
     [TranslateSingularSrLatnRS("Tema glasanja")]
     [TranslatePluralSrLatnRS("Teme glasanja")]
     public class VotingTheme : BusinessObject<long>

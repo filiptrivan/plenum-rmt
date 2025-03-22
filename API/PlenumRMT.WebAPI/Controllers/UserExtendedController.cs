@@ -6,7 +6,7 @@ using Azure.Storage.Blobs;
 using PlenumRMT.Business.DTO;
 using PlenumRMT.Business.Entities;
 using Spider.Shared.DTO;
-using Spider.Shared.Terms;
+using Spider.Shared.Resources;
 using Spider.Security.Services;
 
 namespace PlenumRMT.WebAPI.Controllers
@@ -33,15 +33,7 @@ namespace PlenumRMT.WebAPI.Controllers
         public async Task<UserExtendedDTO> GetCurrentUserExtended()
         {
             long userId = _authenticationService.GetCurrentUserId();
-            return await _loyalsBusinessService.GetUserExtendedDTOAsync(userId);
-        }
-
-        [HttpGet]
-        [AuthGuard]
-        [SkipSpinner]
-        public async Task<List<string>> GetCurrentUserPermissionCodes()
-        {
-            return await _loyalsBusinessService.GetCurrentUserPermissionCodes(); // FT: Not authorizing because we are reading this from the jwt token
+            return await _loyalsBusinessService.GetUserExtendedDTO(userId, false);
         }
 
     }

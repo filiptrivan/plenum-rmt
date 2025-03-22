@@ -1,5 +1,5 @@
 using PlenumRMT.Business.Entities;
-using Spider.Security.Interface;
+using Spider.Security.Interfaces;
 using Spider.Shared.Extensions;
 using Spider.Shared.Interfaces;
 using System;

@@ -1,0 +1,11 @@
+<ng-container *transloco="let t">
+    <spider-card [title]="t('Role')" icon="pi pi-id-card">
+
+        <role-base-details 
+        [formGroup]="formGroup" 
+        [roleFormGroup]="roleFormGroup" 
+        (onSave)="onSave()" 
+        ></role-base-details>
+
+    </spider-card>
+</ng-container>

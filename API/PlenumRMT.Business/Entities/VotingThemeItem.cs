@@ -6,6 +6,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace PlenumRMT.Business.Entities
 {
+    [DoNotAuthorize]
     [UIDoNotGenerate]
     public class VotingThemeItem : BusinessObject<long>
     {

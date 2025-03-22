@@ -1,5 +1,5 @@
 using LightInject;
-using Spider.Security.Interface;
+using Spider.Security.Interfaces;
 using Spider.Shared.Excel;
 using Spider.Security.Services;
 using Microsoft.Extensions.Options;
@@ -8,6 +8,7 @@ using Spider.Shared.FluentValidation;
 using Spider.Shared.Emailing;
 using PlenumRMT.Business.Services;
 using PlenumRMT.Business.Entities;
+using PlenumRMT.Shared.FluentValidation;
 
 namespace PlenumRMT.WebAPI.DI
 {
@@ -21,7 +22,7 @@ namespace PlenumRMT.WebAPI.DI
             registry.Register<Spider.Security.Services.SecurityBusinessService<UserExtended>>();
             registry.Register<Spider.Security.Services.BusinessServiceGenerated<UserExtended>>();
             registry.Register<Spider.Security.Services.AuthorizationBusinessService<UserExtended>>();
-            registry.Register<Spider.Security.Services.AuthorizationBusinessServiceGenerated>();
+            registry.Register<Spider.Security.Services.AuthorizationBusinessServiceGenerated<UserExtended>>();
             registry.Register<ExcelService>();
             registry.Register<EmailingService>();
             registry.RegisterSingleton<IConfigureOptions<MvcOptions>, TranslatePropertiesConfiguration>();

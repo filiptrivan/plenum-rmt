@@ -1,4 +1,4 @@
-import { BaseEntity, TableFilter, TableFilterContext, TableFilterSortMeta, MimeTypes } from '@playerty/spider';
+import { BaseEntity, TableFilter, TableFilterContext, TableFilterSortMeta, MimeTypes, Namebook } from '@playerty/spider';
 
 
 
@@ -56,6 +56,24 @@ export class MessageSaveBody extends BaseEntity
     } = {}
     ) {
         super('MessageSaveBody'); 
+
+        this.messageDTO = messageDTO;
+    }
+}
+
+
+export class MessageMainUIForm extends BaseEntity
+{
+    messageDTO?: Message;
+
+    constructor(
+    {
+        messageDTO
+    }:{
+        messageDTO?: Message;     
+    } = {}
+    ) {
+        super('MessageMainUIForm'); 
 
         this.messageDTO = messageDTO;
     }
@@ -142,6 +160,24 @@ export class NotificationSaveBody extends BaseEntity
 		this.areAllRecipientsSelected = areAllRecipientsSelected;
 		this.recipientsTableFilter = recipientsTableFilter;
 		this.isMarkedAsRead = isMarkedAsRead;
+    }
+}
+
+
+export class NotificationMainUIForm extends BaseEntity
+{
+    notificationDTO?: Notification;
+
+    constructor(
+    {
+        notificationDTO
+    }:{
+        notificationDTO?: Notification;     
+    } = {}
+    ) {
+        super('NotificationMainUIForm'); 
+
+        this.notificationDTO = notificationDTO;
     }
 }
 
@@ -236,6 +272,24 @@ export class UserExtendedSaveBody extends BaseEntity
 }
 
 
+export class UserExtendedMainUIForm extends BaseEntity
+{
+    userExtendedDTO?: UserExtended;
+
+    constructor(
+    {
+        userExtendedDTO
+    }:{
+        userExtendedDTO?: UserExtended;     
+    } = {}
+    ) {
+        super('UserExtendedMainUIForm'); 
+
+        this.userExtendedDTO = userExtendedDTO;
+    }
+}
+
+
 export class UserExtendedMessage extends BaseEntity
 {
     recipientDisplayName?: string;
@@ -286,6 +340,24 @@ export class UserExtendedMessageSaveBody extends BaseEntity
     } = {}
     ) {
         super('UserExtendedMessageSaveBody'); 
+
+        this.userExtendedMessageDTO = userExtendedMessageDTO;
+    }
+}
+
+
+export class UserExtendedMessageMainUIForm extends BaseEntity
+{
+    userExtendedMessageDTO?: UserExtendedMessage;
+
+    constructor(
+    {
+        userExtendedMessageDTO
+    }:{
+        userExtendedMessageDTO?: UserExtendedMessage;     
+    } = {}
+    ) {
+        super('UserExtendedMessageMainUIForm'); 
 
         this.userExtendedMessageDTO = userExtendedMessageDTO;
     }
@@ -348,6 +420,24 @@ export class UserExtendedVotingThemeItemSaveBody extends BaseEntity
 }
 
 
+export class UserExtendedVotingThemeItemMainUIForm extends BaseEntity
+{
+    userExtendedVotingThemeItemDTO?: UserExtendedVotingThemeItem;
+
+    constructor(
+    {
+        userExtendedVotingThemeItemDTO
+    }:{
+        userExtendedVotingThemeItemDTO?: UserExtendedVotingThemeItem;     
+    } = {}
+    ) {
+        super('UserExtendedVotingThemeItemMainUIForm'); 
+
+        this.userExtendedVotingThemeItemDTO = userExtendedVotingThemeItemDTO;
+    }
+}
+
+
 export class UserNotification extends BaseEntity
 {
     notificationDisplayName?: string;
@@ -394,6 +484,24 @@ export class UserNotificationSaveBody extends BaseEntity
     } = {}
     ) {
         super('UserNotificationSaveBody'); 
+
+        this.userNotificationDTO = userNotificationDTO;
+    }
+}
+
+
+export class UserNotificationMainUIForm extends BaseEntity
+{
+    userNotificationDTO?: UserNotification;
+
+    constructor(
+    {
+        userNotificationDTO
+    }:{
+        userNotificationDTO?: UserNotification;     
+    } = {}
+    ) {
+        super('UserNotificationMainUIForm'); 
 
         this.userNotificationDTO = userNotificationDTO;
     }
@@ -450,6 +558,24 @@ export class VoteTypeSaveBody extends BaseEntity
     } = {}
     ) {
         super('VoteTypeSaveBody'); 
+
+        this.voteTypeDTO = voteTypeDTO;
+    }
+}
+
+
+export class VoteTypeMainUIForm extends BaseEntity
+{
+    voteTypeDTO?: VoteType;
+
+    constructor(
+    {
+        voteTypeDTO
+    }:{
+        voteTypeDTO?: VoteType;     
+    } = {}
+    ) {
+        super('VoteTypeMainUIForm'); 
 
         this.voteTypeDTO = voteTypeDTO;
     }
@@ -520,6 +646,28 @@ export class VotingThemeSaveBody extends BaseEntity
 }
 
 
+export class VotingThemeMainUIForm extends BaseEntity
+{
+    votingThemeDTO?: VotingTheme;
+	orderedVotingThemeItemsDTO?: VotingThemeItem[];
+
+    constructor(
+    {
+        votingThemeDTO,
+		orderedVotingThemeItemsDTO
+    }:{
+        votingThemeDTO?: VotingTheme;
+		orderedVotingThemeItemsDTO?: VotingThemeItem[];     
+    } = {}
+    ) {
+        super('VotingThemeMainUIForm'); 
+
+        this.votingThemeDTO = votingThemeDTO;
+		this.orderedVotingThemeItemsDTO = orderedVotingThemeItemsDTO;
+    }
+}
+
+
 export class VotingThemeItem extends BaseEntity
 {
     name?: string;
@@ -586,6 +734,24 @@ export class VotingThemeItemSaveBody extends BaseEntity
     } = {}
     ) {
         super('VotingThemeItemSaveBody'); 
+
+        this.votingThemeItemDTO = votingThemeItemDTO;
+    }
+}
+
+
+export class VotingThemeItemMainUIForm extends BaseEntity
+{
+    votingThemeItemDTO?: VotingThemeItem;
+
+    constructor(
+    {
+        votingThemeItemDTO
+    }:{
+        votingThemeItemDTO?: VotingThemeItem;     
+    } = {}
+    ) {
+        super('VotingThemeItemMainUIForm'); 
 
         this.votingThemeItemDTO = votingThemeItemDTO;
     }

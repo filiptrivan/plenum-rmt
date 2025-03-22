@@ -1,0 +1,43 @@
+<ng-container *transloco="let t">
+  <div class="card dashboard-card-wrapper">
+    <div class="big-header" style="margin-bottom: 10px;">
+      {{t('NotificationList')}}
+      <div class="bold-header-separator"></div>
+    </div>
+    <div style="display: flex; flex-direction: column; position: relative; z-index: 2;">
+      <div style="display: flex; justify-content: space-between;">
+      </div>
+      @for (notification of currentUserNotifications?.data; track $index) {
+        <div [class]="(notification.isMarkedAsRead ? 'primary-lighter-color-background' : '') + ' transparent-card'" style="margin: 0px;">
+          <div class="text-wrapper">
+            <div class="header" style="margin-bottom: 10px; display: flex; justify-content: space-between; position: relative;">
+              <div>
+                <div [class]="notification.isMarkedAsRead ? '' : 'bold'">{{notification.title}}</div>
+                <div class="header-separator"></div>
+              </div>
+              <div>
+                <i class="pi pi-ellipsis-h icon-hover" (click)="menuToggle($event, notification)"></i>
+                  <p-menu #menu [model]="crudMenu" [popup]="true" appendTo="body"></p-menu>
+              </div>
+            </div>
+            <div>
+              {{notification.description}}
+            </div>
+          </div>
+        </div>
+      }
+      @if (currentUserNotifications?.totalRecords == 0) {
+        {{t('YouDoNotHaveAnyNotification')}}
+      }
+    </div>
+    <p-paginator
+      (onPageChange)="onLazyLoad($event)"
+      [first]="tableFilter.first"
+      [rows]="tableFilter.rows" 
+      [totalRecords]="currentUserNotifications?.totalRecords">
+    </p-paginator>
+    <div class="card-overflow-icon">
+      <i class="pi pi-bell"></i>
+    </div>
+  </div>
+</ng-container>

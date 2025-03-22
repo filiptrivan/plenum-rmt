@@ -3,25 +3,34 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ApiSecurityService, TableFilter, TableResponse, Namebook, Codebook, LazyLoadSelectedIdsResult, VerificationTokenRequest, AuthResult, ExternalProvider } from '@playerty/spider';
 import { ConfigService } from '../config.service';
-import { SendMessageSaveBody } from '../../entities/business-entities.generated';
-import { Notification } from '../../entities/business-entities.generated';
-import { NotificationSaveBody } from '../../entities/business-entities.generated';
-import { UserExtendedMessage } from '../../entities/business-entities.generated';
-import { UserExtendedSaveBody } from '../../entities/business-entities.generated';
 import { UserExtendedVotingThemeItem } from '../../entities/business-entities.generated';
+import { Notification } from '../../entities/business-entities.generated';
+import { UserExtendedSaveBody } from '../../entities/business-entities.generated';
+import { UserExtendedMessage } from '../../entities/business-entities.generated';
+import { SendMessageSaveBody } from '../../entities/business-entities.generated';
+import { NotificationSaveBody } from '../../entities/business-entities.generated';
 import { Message } from '../../entities/business-entities.generated';
 import { MessageSaveBody } from '../../entities/business-entities.generated';
+import { MessageMainUIForm } from '../../entities/business-entities.generated';
+import { NotificationMainUIForm } from '../../entities/business-entities.generated';
 import { UserExtended } from '../../entities/business-entities.generated';
+import { UserExtendedMainUIForm } from '../../entities/business-entities.generated';
 import { UserExtendedMessageSaveBody } from '../../entities/business-entities.generated';
+import { UserExtendedMessageMainUIForm } from '../../entities/business-entities.generated';
 import { UserExtendedVotingThemeItemSaveBody } from '../../entities/business-entities.generated';
+import { UserExtendedVotingThemeItemMainUIForm } from '../../entities/business-entities.generated';
 import { UserNotification } from '../../entities/business-entities.generated';
 import { UserNotificationSaveBody } from '../../entities/business-entities.generated';
+import { UserNotificationMainUIForm } from '../../entities/business-entities.generated';
 import { VoteType } from '../../entities/business-entities.generated';
 import { VoteTypeSaveBody } from '../../entities/business-entities.generated';
+import { VoteTypeMainUIForm } from '../../entities/business-entities.generated';
 import { VotingTheme } from '../../entities/business-entities.generated';
 import { VotingThemeSaveBody } from '../../entities/business-entities.generated';
+import { VotingThemeMainUIForm } from '../../entities/business-entities.generated';
 import { VotingThemeItem } from '../../entities/business-entities.generated';
 import { VotingThemeItemSaveBody } from '../../entities/business-entities.generated';
+import { VotingThemeItemMainUIForm } from '../../entities/business-entities.generated';
 
 @Injectable({
     providedIn: 'root'
@@ -63,16 +72,8 @@ export class ApiGeneratedService extends ApiSecurityService {
         return this.http.post<TableResponse<Notification>>(`${this.config.apiUrl}/Notification/GetNotificationsForCurrentUser`, tableFilterDTO, this.config.httpSkipSpinnerOptions);
     }
 
-    getUnreadNotificationCountForCurrentUser = (): Observable<number> => { 
-        return this.http.get<number>(`${this.config.apiUrl}/Notification/GetUnreadNotificationCountForCurrentUser`, this.config.httpOptions);
-    }
-
     getCurrentUserExtended = (): Observable<UserExtended> => { 
         return this.http.get<UserExtended>(`${this.config.apiUrl}/UserExtended/GetCurrentUserExtended`, this.config.httpSkipSpinnerOptions);
-    }
-
-    getCurrentUserPermissionCodes = (): Observable<string[]> => { 
-        return this.http.get<string[]>(`${this.config.apiUrl}/UserExtended/GetCurrentUserPermissionCodes`, this.config.httpSkipSpinnerOptions);
     }
 
     getVotingThemeItemListForDisplay = (votingThemeId: number): Observable<VotingThemeItem[]> => { 
@@ -95,17 +96,17 @@ export class ApiGeneratedService extends ApiSecurityService {
         return this.http.get<Message[]>(`${this.config.apiUrl}/Message/GetMessageList`, this.config.httpOptions);
     }
 
+    getMessageMainUIFormDTO = (id: number): Observable<MessageMainUIForm> => { 
+        return this.http.get<MessageMainUIForm>(`${this.config.apiUrl}/Message/GetMessageMainUIFormDTO?id=${id}`, this.config.httpOptions);
+    }
+
     getMessage = (id: number): Observable<Message> => { 
         return this.http.get<Message>(`${this.config.apiUrl}/Message/GetMessage?id=${id}`, this.config.httpOptions);
     }
 
-    getMessageListForAutocomplete = (limit: number, query: string): Observable<Namebook[]> => { 
-        return this.http.get<Namebook[]>(`${this.config.apiUrl}/Message/GetMessageListForAutocomplete?limit=${limit}&query=${query}`, this.config.httpSkipSpinnerOptions);
-    }
 
-    getMessageListForDropdown = (): Observable<Namebook[]> => { 
-        return this.http.get<Namebook[]>(`${this.config.apiUrl}/Message/GetMessageListForDropdown`, this.config.httpSkipSpinnerOptions);
-    }
+
+
 
 
 
@@ -122,6 +123,86 @@ export class ApiGeneratedService extends ApiSecurityService {
     }
 
 
+
+
+    getVotingThemeItemTableData = (tableFilterDTO: TableFilter): Observable<TableResponse<VotingThemeItem>> => { 
+        return this.http.post<TableResponse<VotingThemeItem>>(`${this.config.apiUrl}/VotingThemeItem/GetVotingThemeItemTableData`, tableFilterDTO, this.config.httpSkipSpinnerOptions);
+    }
+
+    exportVotingThemeItemTableDataToExcel = (tableFilterDTO: TableFilter): Observable<any> => { 
+        return this.http.post(`${this.config.apiUrl}/VotingThemeItem/ExportVotingThemeItemTableDataToExcel`, tableFilterDTO, { observe: 'response', responseType: 'blob' });
+    }
+
+    getVotingThemeItemList = (): Observable<VotingThemeItem[]> => { 
+        return this.http.get<VotingThemeItem[]>(`${this.config.apiUrl}/VotingThemeItem/GetVotingThemeItemList`, this.config.httpOptions);
+    }
+
+    getVotingThemeItemMainUIFormDTO = (id: number): Observable<VotingThemeItemMainUIForm> => { 
+        return this.http.get<VotingThemeItemMainUIForm>(`${this.config.apiUrl}/VotingThemeItem/GetVotingThemeItemMainUIFormDTO?id=${id}`, this.config.httpOptions);
+    }
+
+    getVotingThemeItem = (id: number): Observable<VotingThemeItem> => { 
+        return this.http.get<VotingThemeItem>(`${this.config.apiUrl}/VotingThemeItem/GetVotingThemeItem?id=${id}`, this.config.httpOptions);
+    }
+
+
+
+
+
+
+
+
+
+    saveVotingThemeItem = (saveBodyDTO: VotingThemeItemSaveBody): Observable<VotingThemeItemSaveBody> => { 
+        return this.http.put<VotingThemeItemSaveBody>(`${this.config.apiUrl}/VotingThemeItem/SaveVotingThemeItem`, saveBodyDTO, this.config.httpOptions);
+    }
+
+
+
+    deleteVotingThemeItem = (id: number): Observable<any> => { 
+        return this.http.delete(`${this.config.apiUrl}/VotingThemeItem/DeleteVotingThemeItem?id=${id}`, this.config.httpOptions);
+    }
+
+
+    getUserExtendedTableData = (tableFilterDTO: TableFilter): Observable<TableResponse<UserExtended>> => { 
+        return this.http.post<TableResponse<UserExtended>>(`${this.config.apiUrl}/UserExtended/GetUserExtendedTableData`, tableFilterDTO, this.config.httpSkipSpinnerOptions);
+    }
+
+    exportUserExtendedTableDataToExcel = (tableFilterDTO: TableFilter): Observable<any> => { 
+        return this.http.post(`${this.config.apiUrl}/UserExtended/ExportUserExtendedTableDataToExcel`, tableFilterDTO, { observe: 'response', responseType: 'blob' });
+    }
+
+    getUserExtendedList = (): Observable<UserExtended[]> => { 
+        return this.http.get<UserExtended[]>(`${this.config.apiUrl}/UserExtended/GetUserExtendedList`, this.config.httpOptions);
+    }
+
+    getUserExtendedMainUIFormDTO = (id: number): Observable<UserExtendedMainUIForm> => { 
+        return this.http.get<UserExtendedMainUIForm>(`${this.config.apiUrl}/UserExtended/GetUserExtendedMainUIFormDTO?id=${id}`, this.config.httpOptions);
+    }
+
+    getUserExtended = (id: number): Observable<UserExtended> => { 
+        return this.http.get<UserExtended>(`${this.config.apiUrl}/UserExtended/GetUserExtended?id=${id}`, this.config.httpOptions);
+    }
+
+
+
+
+
+
+
+
+
+    saveUserExtended = (saveBodyDTO: UserExtendedSaveBody): Observable<UserExtendedSaveBody> => { 
+        return this.http.put<UserExtendedSaveBody>(`${this.config.apiUrl}/UserExtended/SaveUserExtended`, saveBodyDTO, this.config.httpOptions);
+    }
+
+
+
+    deleteUserExtended = (id: number): Observable<any> => { 
+        return this.http.delete(`${this.config.apiUrl}/UserExtended/DeleteUserExtended?id=${id}`, this.config.httpOptions);
+    }
+
+
     getNotificationTableData = (tableFilterDTO: TableFilter): Observable<TableResponse<Notification>> => { 
         return this.http.post<TableResponse<Notification>>(`${this.config.apiUrl}/Notification/GetNotificationTableData`, tableFilterDTO, this.config.httpSkipSpinnerOptions);
     }
@@ -134,17 +215,17 @@ export class ApiGeneratedService extends ApiSecurityService {
         return this.http.get<Notification[]>(`${this.config.apiUrl}/Notification/GetNotificationList`, this.config.httpOptions);
     }
 
+    getNotificationMainUIFormDTO = (id: number): Observable<NotificationMainUIForm> => { 
+        return this.http.get<NotificationMainUIForm>(`${this.config.apiUrl}/Notification/GetNotificationMainUIFormDTO?id=${id}`, this.config.httpOptions);
+    }
+
     getNotification = (id: number): Observable<Notification> => { 
         return this.http.get<Notification>(`${this.config.apiUrl}/Notification/GetNotification?id=${id}`, this.config.httpOptions);
     }
 
-    getNotificationListForAutocomplete = (limit: number, query: string): Observable<Namebook[]> => { 
-        return this.http.get<Namebook[]>(`${this.config.apiUrl}/Notification/GetNotificationListForAutocomplete?limit=${limit}&query=${query}`, this.config.httpSkipSpinnerOptions);
-    }
 
-    getNotificationListForDropdown = (): Observable<Namebook[]> => { 
-        return this.http.get<Namebook[]>(`${this.config.apiUrl}/Notification/GetNotificationListForDropdown`, this.config.httpSkipSpinnerOptions);
-    }
+
+
 
 
 
@@ -171,88 +252,6 @@ export class ApiGeneratedService extends ApiSecurityService {
     }
 
 
-    getUserExtendedTableData = (tableFilterDTO: TableFilter): Observable<TableResponse<UserExtended>> => { 
-        return this.http.post<TableResponse<UserExtended>>(`${this.config.apiUrl}/UserExtended/GetUserExtendedTableData`, tableFilterDTO, this.config.httpSkipSpinnerOptions);
-    }
-
-    exportUserExtendedTableDataToExcel = (tableFilterDTO: TableFilter): Observable<any> => { 
-        return this.http.post(`${this.config.apiUrl}/UserExtended/ExportUserExtendedTableDataToExcel`, tableFilterDTO, { observe: 'response', responseType: 'blob' });
-    }
-
-    getUserExtendedList = (): Observable<UserExtended[]> => { 
-        return this.http.get<UserExtended[]>(`${this.config.apiUrl}/UserExtended/GetUserExtendedList`, this.config.httpOptions);
-    }
-
-    getUserExtended = (id: number): Observable<UserExtended> => { 
-        return this.http.get<UserExtended>(`${this.config.apiUrl}/UserExtended/GetUserExtended?id=${id}`, this.config.httpOptions);
-    }
-
-    getUserExtendedListForAutocomplete = (limit: number, query: string): Observable<Namebook[]> => { 
-        return this.http.get<Namebook[]>(`${this.config.apiUrl}/UserExtended/GetUserExtendedListForAutocomplete?limit=${limit}&query=${query}`, this.config.httpSkipSpinnerOptions);
-    }
-
-    getUserExtendedListForDropdown = (): Observable<Namebook[]> => { 
-        return this.http.get<Namebook[]>(`${this.config.apiUrl}/UserExtended/GetUserExtendedListForDropdown`, this.config.httpSkipSpinnerOptions);
-    }
-
-
-
-
-
-    saveUserExtended = (saveBodyDTO: UserExtendedSaveBody): Observable<UserExtendedSaveBody> => { 
-        return this.http.put<UserExtendedSaveBody>(`${this.config.apiUrl}/UserExtended/SaveUserExtended`, saveBodyDTO, this.config.httpOptions);
-    }
-
-
-
-    deleteUserExtended = (id: number): Observable<any> => { 
-        return this.http.delete(`${this.config.apiUrl}/UserExtended/DeleteUserExtended?id=${id}`, this.config.httpOptions);
-    }
-
-
-
-
-
-
-
-
-    getVoteTypeTableData = (tableFilterDTO: TableFilter): Observable<TableResponse<VoteType>> => { 
-        return this.http.post<TableResponse<VoteType>>(`${this.config.apiUrl}/VoteType/GetVoteTypeTableData`, tableFilterDTO, this.config.httpSkipSpinnerOptions);
-    }
-
-    exportVoteTypeTableDataToExcel = (tableFilterDTO: TableFilter): Observable<any> => { 
-        return this.http.post(`${this.config.apiUrl}/VoteType/ExportVoteTypeTableDataToExcel`, tableFilterDTO, { observe: 'response', responseType: 'blob' });
-    }
-
-    getVoteTypeList = (): Observable<VoteType[]> => { 
-        return this.http.get<VoteType[]>(`${this.config.apiUrl}/VoteType/GetVoteTypeList`, this.config.httpOptions);
-    }
-
-    getVoteType = (id: number): Observable<VoteType> => { 
-        return this.http.get<VoteType>(`${this.config.apiUrl}/VoteType/GetVoteType?id=${id}`, this.config.httpOptions);
-    }
-
-    getVoteTypeListForAutocomplete = (limit: number, query: string): Observable<Namebook[]> => { 
-        return this.http.get<Namebook[]>(`${this.config.apiUrl}/VoteType/GetVoteTypeListForAutocomplete?limit=${limit}&query=${query}`, this.config.httpSkipSpinnerOptions);
-    }
-
-    getVoteTypeListForDropdown = (): Observable<Namebook[]> => { 
-        return this.http.get<Namebook[]>(`${this.config.apiUrl}/VoteType/GetVoteTypeListForDropdown`, this.config.httpSkipSpinnerOptions);
-    }
-
-
-
-
-
-    saveVoteType = (saveBodyDTO: VoteTypeSaveBody): Observable<VoteTypeSaveBody> => { 
-        return this.http.put<VoteTypeSaveBody>(`${this.config.apiUrl}/VoteType/SaveVoteType`, saveBodyDTO, this.config.httpOptions);
-    }
-
-
-
-    deleteVoteType = (id: number): Observable<any> => { 
-        return this.http.delete(`${this.config.apiUrl}/VoteType/DeleteVoteType?id=${id}`, this.config.httpOptions);
-    }
 
 
     getVotingThemeTableData = (tableFilterDTO: TableFilter): Observable<TableResponse<VotingTheme>> => { 
@@ -267,17 +266,17 @@ export class ApiGeneratedService extends ApiSecurityService {
         return this.http.get<VotingTheme[]>(`${this.config.apiUrl}/VotingTheme/GetVotingThemeList`, this.config.httpOptions);
     }
 
+    getVotingThemeMainUIFormDTO = (id: number): Observable<VotingThemeMainUIForm> => { 
+        return this.http.get<VotingThemeMainUIForm>(`${this.config.apiUrl}/VotingTheme/GetVotingThemeMainUIFormDTO?id=${id}`, this.config.httpOptions);
+    }
+
     getVotingTheme = (id: number): Observable<VotingTheme> => { 
         return this.http.get<VotingTheme>(`${this.config.apiUrl}/VotingTheme/GetVotingTheme?id=${id}`, this.config.httpOptions);
     }
 
-    getVotingThemeListForAutocomplete = (limit: number, query: string): Observable<Namebook[]> => { 
-        return this.http.get<Namebook[]>(`${this.config.apiUrl}/VotingTheme/GetVotingThemeListForAutocomplete?limit=${limit}&query=${query}`, this.config.httpSkipSpinnerOptions);
-    }
 
-    getVotingThemeListForDropdown = (): Observable<Namebook[]> => { 
-        return this.http.get<Namebook[]>(`${this.config.apiUrl}/VotingTheme/GetVotingThemeListForDropdown`, this.config.httpSkipSpinnerOptions);
-    }
+
+
 
     getOrderedVotingThemeItemsForVotingTheme = (id: number): Observable<VotingThemeItem[]> => { 
         return this.http.get<VotingThemeItem[]>(`${this.config.apiUrl}/VotingTheme/GetOrderedVotingThemeItemsForVotingTheme?id=${id}`, this.config.httpOptions);
@@ -296,42 +295,44 @@ export class ApiGeneratedService extends ApiSecurityService {
     }
 
 
-    getVotingThemeItemTableData = (tableFilterDTO: TableFilter): Observable<TableResponse<VotingThemeItem>> => { 
-        return this.http.post<TableResponse<VotingThemeItem>>(`${this.config.apiUrl}/VotingThemeItem/GetVotingThemeItemTableData`, tableFilterDTO, this.config.httpSkipSpinnerOptions);
+
+
+    getVoteTypeTableData = (tableFilterDTO: TableFilter): Observable<TableResponse<VoteType>> => { 
+        return this.http.post<TableResponse<VoteType>>(`${this.config.apiUrl}/VoteType/GetVoteTypeTableData`, tableFilterDTO, this.config.httpSkipSpinnerOptions);
     }
 
-    exportVotingThemeItemTableDataToExcel = (tableFilterDTO: TableFilter): Observable<any> => { 
-        return this.http.post(`${this.config.apiUrl}/VotingThemeItem/ExportVotingThemeItemTableDataToExcel`, tableFilterDTO, { observe: 'response', responseType: 'blob' });
+    exportVoteTypeTableDataToExcel = (tableFilterDTO: TableFilter): Observable<any> => { 
+        return this.http.post(`${this.config.apiUrl}/VoteType/ExportVoteTypeTableDataToExcel`, tableFilterDTO, { observe: 'response', responseType: 'blob' });
     }
 
-    getVotingThemeItemList = (): Observable<VotingThemeItem[]> => { 
-        return this.http.get<VotingThemeItem[]>(`${this.config.apiUrl}/VotingThemeItem/GetVotingThemeItemList`, this.config.httpOptions);
+    getVoteTypeList = (): Observable<VoteType[]> => { 
+        return this.http.get<VoteType[]>(`${this.config.apiUrl}/VoteType/GetVoteTypeList`, this.config.httpOptions);
     }
 
-    getVotingThemeItem = (id: number): Observable<VotingThemeItem> => { 
-        return this.http.get<VotingThemeItem>(`${this.config.apiUrl}/VotingThemeItem/GetVotingThemeItem?id=${id}`, this.config.httpOptions);
+    getVoteTypeMainUIFormDTO = (id: number): Observable<VoteTypeMainUIForm> => { 
+        return this.http.get<VoteTypeMainUIForm>(`${this.config.apiUrl}/VoteType/GetVoteTypeMainUIFormDTO?id=${id}`, this.config.httpOptions);
     }
 
-    getVotingThemeItemListForAutocomplete = (limit: number, query: string): Observable<Namebook[]> => { 
-        return this.http.get<Namebook[]>(`${this.config.apiUrl}/VotingThemeItem/GetVotingThemeItemListForAutocomplete?limit=${limit}&query=${query}`, this.config.httpSkipSpinnerOptions);
-    }
-
-    getVotingThemeItemListForDropdown = (): Observable<Namebook[]> => { 
-        return this.http.get<Namebook[]>(`${this.config.apiUrl}/VotingThemeItem/GetVotingThemeItemListForDropdown`, this.config.httpSkipSpinnerOptions);
-    }
-
-
-
-
-
-    saveVotingThemeItem = (saveBodyDTO: VotingThemeItemSaveBody): Observable<VotingThemeItemSaveBody> => { 
-        return this.http.put<VotingThemeItemSaveBody>(`${this.config.apiUrl}/VotingThemeItem/SaveVotingThemeItem`, saveBodyDTO, this.config.httpOptions);
+    getVoteType = (id: number): Observable<VoteType> => { 
+        return this.http.get<VoteType>(`${this.config.apiUrl}/VoteType/GetVoteType?id=${id}`, this.config.httpOptions);
     }
 
 
 
-    deleteVotingThemeItem = (id: number): Observable<any> => { 
-        return this.http.delete(`${this.config.apiUrl}/VotingThemeItem/DeleteVotingThemeItem?id=${id}`, this.config.httpOptions);
+
+
+
+
+
+
+    saveVoteType = (saveBodyDTO: VoteTypeSaveBody): Observable<VoteTypeSaveBody> => { 
+        return this.http.put<VoteTypeSaveBody>(`${this.config.apiUrl}/VoteType/SaveVoteType`, saveBodyDTO, this.config.httpOptions);
+    }
+
+
+
+    deleteVoteType = (id: number): Observable<any> => { 
+        return this.http.delete(`${this.config.apiUrl}/VoteType/DeleteVoteType?id=${id}`, this.config.httpOptions);
     }
 
 

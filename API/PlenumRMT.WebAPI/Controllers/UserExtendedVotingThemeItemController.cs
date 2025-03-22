@@ -7,7 +7,7 @@ using Spider.Shared.Interfaces;
 using PlenumRMT.Business.DTO;
 using PlenumRMT.Business.Entities;
 using PlenumRMT.Business.Services;
-using PlenumRMT.Shared.Terms;
+using PlenumRMT.Shared.Resources;
 
 namespace PlenumRMT.WebAPI.Controllers
 {

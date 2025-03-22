@@ -38,18 +38,24 @@ export class TranslateClassNamesGeneratedService {
                 return this.translocoService.translate('LoginVerificationToken');
             case 'Message':
                 return this.translocoService.translate('Message');
+            case 'MessageMainUIForm':
+                return this.translocoService.translate('MessageMainUIForm');
             case 'MessageSaveBody':
                 return this.translocoService.translate('MessageSaveBody');
             case 'Namebook':
                 return this.translocoService.translate('Namebook');
             case 'Notification':
                 return this.translocoService.translate('Notification');
+            case 'NotificationMainUIForm':
+                return this.translocoService.translate('NotificationMainUIForm');
             case 'NotificationSaveBody':
                 return this.translocoService.translate('NotificationSaveBody');
             case 'PaginationResult':
                 return this.translocoService.translate('PaginationResult');
             case 'Permission':
                 return this.translocoService.translate('Permission');
+            case 'PermissionMainUIForm':
+                return this.translocoService.translate('PermissionMainUIForm');
             case 'PermissionSaveBody':
                 return this.translocoService.translate('PermissionSaveBody');
             case 'ReadonlyObject':
@@ -66,8 +72,12 @@ export class TranslateClassNamesGeneratedService {
                 return this.translocoService.translate('RegistrationVerificationToken');
             case 'Role':
                 return this.translocoService.translate('Role');
+            case 'RoleMainUIForm':
+                return this.translocoService.translate('RoleMainUIForm');
             case 'RolePermission':
                 return this.translocoService.translate('RolePermission');
+            case 'RolePermissionMainUIForm':
+                return this.translocoService.translate('RolePermissionMainUIForm');
             case 'RolePermissionSaveBody':
                 return this.translocoService.translate('RolePermissionSaveBody');
             case 'RoleSaveBody':
@@ -88,36 +98,52 @@ export class TranslateClassNamesGeneratedService {
                 return this.translocoService.translate('User');
             case 'UserExtended':
                 return this.translocoService.translate('UserExtended');
+            case 'UserExtendedMainUIForm':
+                return this.translocoService.translate('UserExtendedMainUIForm');
             case 'UserExtendedMessage':
                 return this.translocoService.translate('UserExtendedMessage');
+            case 'UserExtendedMessageMainUIForm':
+                return this.translocoService.translate('UserExtendedMessageMainUIForm');
             case 'UserExtendedMessageSaveBody':
                 return this.translocoService.translate('UserExtendedMessageSaveBody');
             case 'UserExtendedSaveBody':
                 return this.translocoService.translate('UserExtendedSaveBody');
             case 'UserExtendedVotingThemeItem':
                 return this.translocoService.translate('UserExtendedVotingThemeItem');
+            case 'UserExtendedVotingThemeItemMainUIForm':
+                return this.translocoService.translate('UserExtendedVotingThemeItemMainUIForm');
             case 'UserExtendedVotingThemeItemSaveBody':
                 return this.translocoService.translate('UserExtendedVotingThemeItemSaveBody');
             case 'UserNotification':
                 return this.translocoService.translate('UserNotification');
+            case 'UserNotificationMainUIForm':
+                return this.translocoService.translate('UserNotificationMainUIForm');
             case 'UserNotificationSaveBody':
                 return this.translocoService.translate('UserNotificationSaveBody');
             case 'UserRole':
                 return this.translocoService.translate('UserRole');
+            case 'UserRoleMainUIForm':
+                return this.translocoService.translate('UserRoleMainUIForm');
             case 'UserRoleSaveBody':
                 return this.translocoService.translate('UserRoleSaveBody');
             case 'VerificationTokenRequest':
                 return this.translocoService.translate('VerificationTokenRequest');
             case 'VoteType':
                 return this.translocoService.translate('VoteType');
+            case 'VoteTypeMainUIForm':
+                return this.translocoService.translate('VoteTypeMainUIForm');
             case 'VoteTypeSaveBody':
                 return this.translocoService.translate('VoteTypeSaveBody');
             case 'VotingTheme':
                 return this.translocoService.translate('VotingTheme');
             case 'VotingThemeItem':
                 return this.translocoService.translate('VotingThemeItem');
+            case 'VotingThemeItemMainUIForm':
+                return this.translocoService.translate('VotingThemeItemMainUIForm');
             case 'VotingThemeItemSaveBody':
                 return this.translocoService.translate('VotingThemeItemSaveBody');
+            case 'VotingThemeMainUIForm':
+                return this.translocoService.translate('VotingThemeMainUIForm');
             case 'VotingThemeSaveBody':
                 return this.translocoService.translate('VotingThemeSaveBody');
             default:

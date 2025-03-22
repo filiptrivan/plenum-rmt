@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
-using Spider.Security.Interface;
+using Spider.Security.Interfaces;
 using Spider.Security.Services;
 using Spider.Security.SecurityControllers;
 using Spider.Shared.Interfaces;
@@ -9,7 +9,7 @@ using PlenumRMT.Business.Services;
 using PlenumRMT.Business.DTO;
 using Spider.Shared.DTO;
 using Microsoft.EntityFrameworkCore;
-using Spider.Shared.Terms;
+using Spider.Shared.Resources;
 using Spider.Security.DTO;
 using Spider.Shared.Extensions;
 
@@ -27,9 +27,16 @@ namespace PlenumRMT.WebAPI.Controllers
         private readonly PlenumRMTBusinessService _plenumRMTBusinessService;
 
 
-        public SecurityController(ILogger<SecurityController> logger, SecurityBusinessService<UserExtended> securityBusinessService, IJwtAuthManager jwtAuthManagerService, IApplicationDbContext context, AuthenticationService authenticationService,
-            PlenumRMTBusinessService plenumRMTBusinessService)
-            : base(securityBusinessService, jwtAuthManagerService, context, authenticationService)
+        public SecurityController(
+            ILogger<SecurityController> logger, 
+            SecurityBusinessService<UserExtended> securityBusinessService, 
+            IJwtAuthManager jwtAuthManagerService, 
+            IApplicationDbContext context, 
+            AuthenticationService authenticationService,
+            AuthorizationService authorizationService,
+            PlenumRMTBusinessService plenumRMTBusinessService
+        )
+            : base(securityBusinessService, jwtAuthManagerService, context, authenticationService, authorizationService)
         {
             _logger = logger;
             _securityBusinessService = securityBusinessService;

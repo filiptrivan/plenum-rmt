@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { AppLayoutModule } from './layout/components/layout/app.layout.module';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { SocialAuthServiceConfig } from '@abacritt/angularx-social-login';
 import { GoogleLoginProvider } from '@abacritt/angularx-social-login';
@@ -12,7 +11,8 @@ import { AuthService } from './business/services/auth/auth.service';
 import { ConfigService } from './business/services/config.service';
 import { TranslateLabelsService } from './business/services/translates/merge-labels';
 import { ValidatorService } from './business/services/validators/validators';
-import { AuthBaseService, ConfigBaseService, CoreModule, SpiderTranslocoModule, TranslateLabelsAbstractService, ValidatorAbstractService } from '@playerty/spider';
+import { AuthBaseService, ConfigBaseService, CoreModule, LayoutBaseService, SpiderTranslocoModule, TranslateLabelsAbstractService, ValidatorAbstractService } from '@playerty/spider';
+import { LayoutService } from './business/services/layout/layout.service';
 
 @NgModule({
   declarations: [
@@ -20,7 +20,6 @@ import { AuthBaseService, ConfigBaseService, CoreModule, SpiderTranslocoModule, 
   ],
   imports: [
     AppRoutingModule,
-    AppLayoutModule,
     SpiderTranslocoModule.forRoot(),
     NgxSpinnerModule.forRoot({ type: 'ball-clip-rotate-multiple' }),
     BusinessModule,
@@ -66,6 +65,10 @@ import { AuthBaseService, ConfigBaseService, CoreModule, SpiderTranslocoModule, 
     { 
       provide: ConfigBaseService, 
       useExisting: ConfigService 
+    },
+    { 
+      provide: LayoutBaseService, 
+      useExisting: LayoutService 
     },
   ],
   bootstrap: [AppComponent],
