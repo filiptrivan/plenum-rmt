@@ -1,0 +1,12 @@
+<ng-container *transloco="let t">
+    <spiderly-card [title]="t('VotingTheme')" icon="pi pi-file">
+
+        <voting-theme-base-details
+        [formGroup]="formGroup" 
+        [votingThemeFormGroup]="votingThemeFormGroup" 
+        (onSave)="onSave()" 
+        [getCrudMenuForOrderedData]="getCrudMenuForOrderedData"
+        ></voting-theme-base-details>
+
+    </spiderly-card>
+</ng-container>

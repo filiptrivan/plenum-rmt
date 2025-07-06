@@ -1,0 +1,11 @@
+<ng-container *transloco="let t">
+    <spiderly-card [title]="t('Role')" icon="pi pi-id-card">
+
+        <role-base-details 
+        [formGroup]="formGroup" 
+        [roleFormGroup]="roleFormGroup" 
+        (onSave)="onSave()" 
+        ></role-base-details>
+
+    </spiderly-card>
+</ng-container>

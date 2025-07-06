@@ -1,0 +1,10 @@
+<ng-container *transloco="let t">
+    <spiderly-data-table 
+    [tableTitle]="t('VoteTypeList')" 
+    [cols]="cols" 
+    [getTableDataObservableMethod]="getVoteTypeTableDataObservableMethod" 
+    [exportListToExcelObservableMethod]="exportVoteTypeListToExcelObservableMethod"
+    [deleteItemFromTableObservableMethod]="deleteVoteTypeObservableMethod"
+    ></spiderly-data-table>
+</ng-container>
+

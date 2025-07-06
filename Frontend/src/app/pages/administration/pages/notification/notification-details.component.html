@@ -1,0 +1,23 @@
+<ng-container *transloco="let t">
+    <spiderly-card [title]="t('Notification')" icon="pi pi-bell">
+        <spiderly-panel [isFirstMultiplePanel]="true" [showPanelHeader]="false">
+            <panel-body>
+                <div class="grid">
+                    <div class="col-12">
+                        <spiderly-checkbox [control]="isMarkedAsRead" [label]="t('NotifyUsers')" [fakeLabel]="false"></spiderly-checkbox>
+                    </div>
+                </div>
+            </panel-body>
+        </spiderly-panel>
+
+        <notification-base-details
+        [formGroup]="formGroup" 
+        [notificationFormGroup]="notificationFormGroup" 
+        (onSave)="onSave()"
+        [isLastMultiplePanel]="true"
+        [additionalButtons]="additionalButtons"
+        (onIsAuthorizedForSaveChange)="isAuthorizedForSaveChange($event)"
+        />
+
+    </spiderly-card>
+</ng-container>

@@ -1,0 +1,9 @@
+<ng-container *transloco="let t">
+    <spiderly-data-table [tableTitle]="t('UserList')" 
+    [cols]="cols" 
+    [getTableDataObservableMethod]="getUserTableDataObservableMethod" 
+    [exportListToExcelObservableMethod]="exportUserListToExcelObservableMethod"
+    [deleteItemFromTableObservableMethod]="deleteUserObservableMethod"
+    [showAddButton]="false"
+    ></spiderly-data-table>
+</ng-container>
