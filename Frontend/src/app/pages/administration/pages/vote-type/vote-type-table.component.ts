@@ -7,12 +7,13 @@ import { Column } from 'spiderly';
 @Component({
     selector: 'vote-type-table',
     templateUrl: './vote-type-table.component.html',
+    standalone: false,
     styles: []
 })
 export class VoteTypeTableComponent implements OnInit {
     cols: Column<VoteType>[];
 
-    getVoteTypeTableDataObservableMethod = this.apiService.getVoteTypeTableData;
+    getVoteTypeTableDataObservableMethod = this.apiService.getPaginatedVoteTypeList;
     exportVoteTypeListToExcelObservableMethod = this.apiService.exportVoteTypeListToExcel;
     deleteVoteTypeObservableMethod = this.apiService.deleteVoteType;
 

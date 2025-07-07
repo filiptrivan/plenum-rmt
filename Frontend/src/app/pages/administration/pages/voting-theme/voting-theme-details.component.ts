@@ -9,6 +9,7 @@ import { BaseFormCopy, SpiderlyFormGroup, SpiderlyMessageService, BaseFormServic
 @Component({
     selector: 'voting-theme-details',
     templateUrl: './voting-theme-details.component.html',
+    standalone: false,
     styles: [],
 })
 export class VotingThemeDetailsComponent extends BaseFormCopy implements OnInit {

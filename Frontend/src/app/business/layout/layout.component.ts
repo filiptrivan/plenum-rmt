@@ -4,7 +4,7 @@ import { RouterModule } from '@angular/router';
 import { ConfigService } from 'src/app/business/services/config.service';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
-import { SpiderlylyLayoutComponent, SpiderlylyMenuItem, SecurityPermissionCodes } from 'spiderly';
+import { SpiderlyLayoutComponent, SpiderlyMenuItem, SecurityPermissionCodes } from 'spiderly';
 import { CommonModule } from '@angular/common';
 import { BusinessPermissionCodes } from '../enums/business-enums.generated';
 
@@ -16,11 +16,11 @@ import { BusinessPermissionCodes } from '../enums/business-enums.generated';
         FormsModule,
         HttpClientModule,
         RouterModule,
-        SpiderlylyLayoutComponent,
+        SpiderlyLayoutComponent,
     ]
 })
 export class LayoutComponent {
-    menu: SpiderlylyMenuItem[];
+    menu: SpiderlyMenuItem[];
 
     constructor(
         private config: ConfigService,

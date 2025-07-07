@@ -2,8 +2,10 @@ import { RouterModule, Routes } from "@angular/router";
 import { VotingThemeComponent } from "./pages/voting-theme.component";
 import { NgModule } from "@angular/core";
 import { TranslocoDirective } from "@jsverse/transloco";
-import { PrimengModule, CardSkeletonComponent, SpiderlyControlsModule, SpiderlyDataTableComponent } from "spiderly";
+import { CardSkeletonComponent, SpiderlyControlsModule, SpiderlyDataTableComponent } from "spiderly";
 import { VotingThemeTableComponent } from "./pages/voting-theme-table.component";
+import { ButtonModule } from "primeng/button";
+import { TooltipModule } from "primeng/tooltip";
 
 const routes: Routes = [
     {
@@ -19,11 +21,12 @@ const routes: Routes = [
 @NgModule({
     imports: [
         RouterModule.forChild(routes),
-        PrimengModule,
         SpiderlyDataTableComponent,
         SpiderlyControlsModule,
         CardSkeletonComponent,
         TranslocoDirective,
+        ButtonModule,
+        TooltipModule,
     ],
     declarations: [
         VotingThemeComponent,

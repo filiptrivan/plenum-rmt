@@ -12,7 +12,7 @@ import { ActivatedRoute } from '@angular/router';
 import { combineLatest, firstValueFrom, forkJoin, map, Observable, of, Subscription } from 'rxjs';
 import { MenuItem } from 'primeng/api';
 import { AuthService } from '../../services/auth/auth.service';
-import { SpiderlyControlsModule, CardSkeletonComponent, IndexCardComponent, IsAuthorizedForSaveEvent, SpiderlyDataTableComponent, SpiderlyFormArray, BaseEntity, LastMenuIconIndexClicked, SpiderlyFormGroup, SpiderlyButton, nameof, BaseFormService, getControl, Column, Filter, LazyLoadSelectedIdsResult, AllClickEvent, SpiderlyFileSelectEvent, getPrimengDropdownNamebookOptions, PrimengOption, SpiderlyFormControl, getPrimengAutocompleteNamebookOptions } from 'spiderly';
+import { SpiderlyControlsModule, CardSkeletonComponent, IndexCardComponent, IsAuthorizedForSaveEvent, SpiderlyDataTableComponent, SpiderlyFormArray, BaseEntity, LastMenuIconIndexClicked, SpiderlyFormGroup, SpiderlyButton, nameof, BaseFormService, getControl, Column, Filter, LazyLoadSelectedIdsResult, AllClickEvent, SpiderlyFileSelectEvent, getPrimengDropdownNamebookOptions, PrimengOption, SpiderlyFormControl, getPrimengAutocompleteNamebookOptions, SpiderlyPanelsModule } from 'spiderly';
 import { Notification, NotificationSaveBody, SendMessageSaveBody, UserMessage, UserSaveBody, UserVotingThemeItem, Message, User, UserNotification, VoteType, VotingTheme, VotingThemeItem, MessageSaveBody, UserMessageSaveBody, UserNotificationSaveBody, UserVotingThemeItemSaveBody, VoteTypeSaveBody, VotingThemeSaveBody, VotingThemeItemSaveBody } from '../../entities/business-entities.generated';
 
 @Component({
@@ -62,7 +62,7 @@ import { Notification, NotificationSaveBody, SendMessageSaveBody, UserMessage, U
         </panel-body>
 
         <panel-footer>
-            <spiderly-button [disabled]="!isAuthorizedForSave" (onClick)="save()" [label]="t('Save')" icon="pi pi-save"></spiderly-button>
+            <spiderly-button *ngIf="isAuthorizedForSave" (onClick)="save()" [label]="t('Save')" icon="pi pi-save"></spiderly-button>
             @for (button of additionalButtons; track button.label) {
                 <spiderly-button (onClick)="button.onClick()" [disabled]="button.disabled" [label]="button.label" [icon]="button.icon"></spiderly-button>
             }
@@ -80,6 +80,7 @@ import { Notification, NotificationSaveBody, SendMessageSaveBody, UserMessage, U
         CardSkeletonComponent,
         IndexCardComponent,
         SpiderlyDataTableComponent,
+        SpiderlyPanelsModule,
     ]
 })
 export class NotificationBaseDetailsComponent {
@@ -305,7 +306,7 @@ export class NotificationBaseDetailsComponent {
         </panel-body>
 
         <panel-footer>
-            <spiderly-button [disabled]="!isAuthorizedForSave" (onClick)="save()" [label]="t('Save')" icon="pi pi-save"></spiderly-button>
+            <spiderly-button *ngIf="isAuthorizedForSave" (onClick)="save()" [label]="t('Save')" icon="pi pi-save"></spiderly-button>
             @for (button of additionalButtons; track button.label) {
                 <spiderly-button (onClick)="button.onClick()" [disabled]="button.disabled" [label]="button.label" [icon]="button.icon"></spiderly-button>
             }
@@ -323,6 +324,7 @@ export class NotificationBaseDetailsComponent {
         CardSkeletonComponent,
         IndexCardComponent,
         SpiderlyDataTableComponent,
+        SpiderlyPanelsModule,
     ]
 })
 export class UserBaseDetailsComponent {
@@ -519,7 +521,7 @@ export class UserBaseDetailsComponent {
         </panel-body>
 
         <panel-footer>
-            <spiderly-button [disabled]="!isAuthorizedForSave" (onClick)="save()" [label]="t('Save')" icon="pi pi-save"></spiderly-button>
+            <spiderly-button *ngIf="isAuthorizedForSave" (onClick)="save()" [label]="t('Save')" icon="pi pi-save"></spiderly-button>
             @for (button of additionalButtons; track button.label) {
                 <spiderly-button (onClick)="button.onClick()" [disabled]="button.disabled" [label]="button.label" [icon]="button.icon"></spiderly-button>
             }
@@ -537,6 +539,7 @@ export class UserBaseDetailsComponent {
         CardSkeletonComponent,
         IndexCardComponent,
         SpiderlyDataTableComponent,
+        SpiderlyPanelsModule,
     ]
 })
 export class VoteTypeBaseDetailsComponent {
@@ -758,7 +761,7 @@ export class VoteTypeBaseDetailsComponent {
         </panel-body>
 
         <panel-footer>
-            <spiderly-button [disabled]="!isAuthorizedForSave" (onClick)="save()" [label]="t('Save')" icon="pi pi-save"></spiderly-button>
+            <spiderly-button *ngIf="isAuthorizedForSave" (onClick)="save()" [label]="t('Save')" icon="pi pi-save"></spiderly-button>
             @for (button of additionalButtons; track button.label) {
                 <spiderly-button (onClick)="button.onClick()" [disabled]="button.disabled" [label]="button.label" [icon]="button.icon"></spiderly-button>
             }
@@ -776,6 +779,7 @@ export class VoteTypeBaseDetailsComponent {
         CardSkeletonComponent,
         IndexCardComponent,
         SpiderlyDataTableComponent,
+        SpiderlyPanelsModule,
     ]
 })
 export class VotingThemeBaseDetailsComponent {

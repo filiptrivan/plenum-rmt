@@ -6,22 +6,22 @@ import { PaginatorState } from 'primeng/paginator';
 import { TranslocoService } from '@jsverse/transloco';
 import { Notification } from 'src/app/business/entities/business-entities.generated';
 import { Menu } from 'primeng/menu';
-import { TableResponse, TableFilter, TableFilterContext, SpiderlyMessageService } from 'spiderly';
+import { Filter, PaginatedResult, SpiderlyMessageService } from 'spiderly';
 
 @Component({
   templateUrl: './notification.component.html',
+  standalone: false
 })
 export class NotificationComponent implements OnInit {
-  currentUserNotifications: TableResponse<Notification>;
+  currentUserNotifications: PaginatedResult<Notification>;
 
   crudMenu: MenuItem[] = [];
   @ViewChild('menu') menu: Menu;
   lastMenuToggledNotification: Notification;
 
-  tableFilter: TableFilter = new TableFilter({
+  filter = new Filter<Notification>({
     first: 0,
     rows: 10,
-    filters: new Map<string, TableFilterContext[]>()
   });
 
   constructor(
@@ -42,14 +42,14 @@ export class NotificationComponent implements OnInit {
   }
 
   onLazyLoad(event: PaginatorState){
-    this.tableFilter.first = event.first;
-    this.tableFilter.rows = event.rows;
+    this.filter.first = event.first;
+    this.filter.rows = event.rows;
     this.getNotificationsForCurrentUser();
   }
 
   getNotificationsForCurrentUser(){
-    this.apiService.getNotificationsForCurrentUser(this.tableFilter).subscribe((res) => {
-      this.currentUserNotifications = res;
+    this.apiService.getNotificationsForCurrentUser(this.filter).subscribe((notifications) => {
+      this.currentUserNotifications = notifications;
     });
   }
 
@@ -81,7 +81,7 @@ export class NotificationComponent implements OnInit {
 
   onAfterNotificationCrudOperation = () => {
     this.getNotificationsForCurrentUser();
-    this.layoutService.setUnreadNotificationsCountForCurrentUser().subscribe(); // FT: Don't need to unsubscribe from the http observable
+    this.layoutService.setUnreadNotificationsCountForCurrentUser().subscribe(); // Don't need to unsubscribe from the http observable
   }
 
 }

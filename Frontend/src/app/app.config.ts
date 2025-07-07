@@ -10,7 +10,7 @@ import { MessageService, ConfirmationService } from 'primeng/api';
 import { provideHttpClient, withFetch, withInterceptors } from '@angular/common/http';
 import { SocialAuthServiceConfig, GoogleLoginProvider } from '@abacritt/angularx-social-login';
 import { environment } from '../environments/environment';
-import { AuthBaseService, authInitializer, ConfigBaseService, httpLoadingInterceptor, jsonHttpInterceptor, jwtInterceptor, LayoutBaseService, SpiderlylyErrorHandler, SpiderlylyTranslocoLoader, TranslateLabelsAbstractService, unauthorizedInterceptor, ValidatorAbstractService } from 'spiderly';
+import { AuthBaseService, authInitializer, ConfigBaseService, httpLoadingInterceptor, jsonHttpInterceptor, jwtInterceptor, LayoutBaseService, SpiderlyErrorHandler, SpiderlyTranslocoLoader, TranslateLabelsAbstractService, unauthorizedInterceptor, ValidatorAbstractService } from 'spiderly';
 import { DialogService } from "primeng/dynamicdialog";
 import { provideTransloco } from '@jsverse/transloco';
 import { AuthService } from './business/services/auth/auth.service';
@@ -40,7 +40,7 @@ export const appConfig: ApplicationConfig = {
         },
         reRenderOnLangChange: true,
       },
-      loader: SpiderlylyTranslocoLoader
+      loader: SpiderlyTranslocoLoader
     }),
     providePrimeNG({
       theme: {
@@ -85,7 +85,7 @@ export const appConfig: ApplicationConfig = {
     DialogService,
     {
       provide: ErrorHandler,
-      useClass: SpiderlylyErrorHandler,
+      useClass: SpiderlyErrorHandler,
     },
     {
       provide: APP_INITIALIZER,

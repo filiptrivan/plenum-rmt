@@ -11,6 +11,7 @@ import { BusinessPermissionCodes } from 'src/app/business/enums/business-enums.g
 @Component({
     selector: 'user-details',
     templateUrl: './user-details.component.html',
+    standalone: false,
     styles: [],
 })
 export class UserDetailsComponent extends BaseFormCopy implements OnInit {

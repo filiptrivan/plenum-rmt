@@ -25,6 +25,10 @@
 	</ItemGroup>
 	
 	<ItemGroup>
+		<ProjectReference Include="..\..\..\Spiderly\spiderly\Spiderly.Infrastructure\Spiderly.Infrastructure.csproj" />
+		<ProjectReference Include="..\..\..\Spiderly\spiderly\Spiderly.Security\Spiderly.Security.csproj" />
+		<ProjectReference Include="..\..\..\Spiderly\spiderly\Spiderly.Shared\Spiderly.Shared.csproj" />
+		<ProjectReference Include="..\..\..\Spiderly\spiderly\Spiderly.SourceGenerators\Spiderly.SourceGenerators.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
 		<ProjectReference Include="..\PlenumRMT.Business\PlenumRMT.Business.csproj" />
 		<ProjectReference Include="..\PlenumRMT.Infrastructure\PlenumRMT.Infrastructure.csproj" />
 		<ProjectReference Include="..\PlenumRMT.Shared\PlenumRMT.Shared.csproj" />
@@ -39,10 +43,6 @@
 		<PackageReference Include="Microsoft.Win32.Primitives" Version="4.3.0" />
 		<PackageReference Include="System.Diagnostics.Tracing" Version="4.3.0" />
 		<PackageReference Include="System.Net.Primitives" Version="4.3.0" />
-		<PackageReference Include="Spiderly.Infrastructure" Version="19.2.0" />
-		<PackageReference Include="Spiderly.Security" Version="19.2.0" />
-		<PackageReference Include="Spiderly.Shared" Version="19.2.0" />
-		<PackageReference Include="Spiderly.SourceGenerators" Version="19.2.0" />
 	</ItemGroup>
 
 </Project>

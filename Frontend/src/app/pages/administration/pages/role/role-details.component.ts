@@ -7,6 +7,7 @@ import { Role, SpiderlyMessageService, BaseFormCopy, BaseFormService, SpiderlyFo
 @Component({
     selector: 'role-details',
     templateUrl: './role-details.component.html',
+    standalone: false,
     styles: [],
 })
 export class RoleDetailsComponent extends BaseFormCopy implements OnInit {

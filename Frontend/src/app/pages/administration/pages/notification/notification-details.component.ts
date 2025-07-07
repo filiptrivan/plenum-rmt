@@ -9,6 +9,7 @@ import { BaseFormCopy, SpiderlyFormGroup, SpiderlyFormControl, SpiderlyButton, S
 @Component({
     selector: 'notification-details',
     templateUrl: './notification-details.component.html',
+    standalone: false,
     styles: [],
 })
 export class NotificationDetailsComponent extends BaseFormCopy implements OnInit {

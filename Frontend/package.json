@@ -24,6 +24,7 @@
     "@angular/router": "19.2.13",
 
     "@jsverse/transloco": "7.5.0",
+    "@jsverse/transloco-preload-langs": "7.0.1",
 
     "@microsoft/signalr": "8.0.7",
     

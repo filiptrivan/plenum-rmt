@@ -1,12 +1,12 @@
-﻿-- FT: First you need to register the user in the app
+﻿-- First you need to register the user in the app
 
 begin transaction;
 
 use PlenumRMT
 
-insert into Permission(Name, Description, Code) values(N'Pregled korisnika', null, N'ReadUserExtended');
-insert into Permission(Name, Description, Code) values(N'Promena postojećih korisnika', null, N'UpdateUserExtended');
-insert into Permission(Name, Description, Code) values(N'Brisanje korisnika', null, N'DeleteUserExtended');
+insert into Permission(Name, Description, Code) values(N'Pregled korisnika', null, N'ReadUser');
+insert into Permission(Name, Description, Code) values(N'Promena postojećih korisnika', null, N'UpdateUser');
+insert into Permission(Name, Description, Code) values(N'Brisanje korisnika', null, N'DeleteUser');
 insert into Permission(Name, Description, Code) values(N'Pregled notifikacija', null, N'ReadNotification');
 insert into Permission(Name, Description, Code) values(N'Promena postojećih notifikacija', null, N'UpdateNotification');
 insert into Permission(Name, Description, Code) values(N'Dodavanje novih notifikacija', null, N'InsertNotification');

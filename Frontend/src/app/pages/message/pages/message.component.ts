@@ -9,6 +9,7 @@ import { SignalRChatService } from 'src/app/business/services/signalR/signalr-ch
 
 @Component({
   templateUrl: './message.component.html',
+  standalone: false,
 })
 export class MessageComponent implements OnInit, OnDestroy {
   chatSubscription: Subscription;

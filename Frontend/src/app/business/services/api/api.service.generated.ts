@@ -3,12 +3,12 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ApiSecurityService, Filter, PaginatedResult, Namebook, Codebook, LazyLoadSelectedIdsResult, VerificationTokenRequest, AuthResult, ExternalProvider } from 'spiderly';
 import { ConfigService } from '../config.service';
+import { NotificationSaveBody } from '../../entities/business-entities.generated';
+import { UserVotingThemeItem } from '../../entities/business-entities.generated';
 import { SendMessageSaveBody } from '../../entities/business-entities.generated';
 import { Notification } from '../../entities/business-entities.generated';
-import { NotificationSaveBody } from '../../entities/business-entities.generated';
-import { UserMessage } from '../../entities/business-entities.generated';
 import { UserSaveBody } from '../../entities/business-entities.generated';
-import { UserVotingThemeItem } from '../../entities/business-entities.generated';
+import { UserMessage } from '../../entities/business-entities.generated';
 import { Message } from '../../entities/business-entities.generated';
 import { MessageSaveBody } from '../../entities/business-entities.generated';
 import { MessageMainUIForm } from '../../entities/business-entities.generated';
@@ -84,6 +84,8 @@ export class ApiGeneratedService extends ApiSecurityService {
         return this.http.get(`${this.config.apiUrl}/VotingTheme/Vote?votingThemeId=${votingThemeId}&voteTypeId=${voteTypeId}`, this.config.httpSkipSpinnerOptions);
     }
 
+
+
     getPaginatedNotificationList = (filterDTO: Filter): Observable<PaginatedResult<Notification>> => { 
         return this.http.post<PaginatedResult<Notification>>(`${this.config.apiUrl}/Notification/GetPaginatedNotificationList`, filterDTO, this.config.httpSkipSpinnerOptions);
     }
@@ -133,6 +135,49 @@ export class ApiGeneratedService extends ApiSecurityService {
     }
 
 
+
+
+    getPaginatedVotingThemeList = (filterDTO: Filter): Observable<PaginatedResult<VotingTheme>> => { 
+        return this.http.post<PaginatedResult<VotingTheme>>(`${this.config.apiUrl}/VotingTheme/GetPaginatedVotingThemeList`, filterDTO, this.config.httpSkipSpinnerOptions);
+    }
+
+    exportVotingThemeListToExcel = (filterDTO: Filter): Observable<any> => { 
+        return this.http.post(`${this.config.apiUrl}/VotingTheme/ExportVotingThemeListToExcel`, filterDTO, { observe: 'response', responseType: 'blob' });
+    }
+
+    getVotingThemeList = (): Observable<VotingTheme[]> => { 
+        return this.http.get<VotingTheme[]>(`${this.config.apiUrl}/VotingTheme/GetVotingThemeList`, this.config.httpOptions);
+    }
+
+    getVotingThemeMainUIFormDTO = (id: number): Observable<VotingThemeMainUIForm> => { 
+        return this.http.get<VotingThemeMainUIForm>(`${this.config.apiUrl}/VotingTheme/GetVotingThemeMainUIFormDTO?id=${id}`, this.config.httpOptions);
+    }
+
+    getVotingTheme = (id: number): Observable<VotingTheme> => { 
+        return this.http.get<VotingTheme>(`${this.config.apiUrl}/VotingTheme/GetVotingTheme?id=${id}`, this.config.httpOptions);
+    }
+
+
+
+
+
+    getOrderedVotingThemeItemsForVotingTheme = (id: number): Observable<VotingThemeItem[]> => { 
+        return this.http.get<VotingThemeItem[]>(`${this.config.apiUrl}/VotingTheme/GetOrderedVotingThemeItemsForVotingTheme?id=${id}`, this.config.httpOptions);
+    }
+
+
+
+    saveVotingTheme = (saveBodyDTO: VotingThemeSaveBody): Observable<VotingThemeSaveBody> => { 
+        return this.http.put<VotingThemeSaveBody>(`${this.config.apiUrl}/VotingTheme/SaveVotingTheme`, saveBodyDTO, this.config.httpOptions);
+    }
+
+
+
+    deleteVotingTheme = (id: number): Observable<any> => { 
+        return this.http.delete(`${this.config.apiUrl}/VotingTheme/DeleteVotingTheme?id=${id}`, this.config.httpOptions);
+    }
+
+
     getPaginatedUserList = (filterDTO: Filter): Observable<PaginatedResult<User>> => { 
         return this.http.post<PaginatedResult<User>>(`${this.config.apiUrl}/User/GetPaginatedUserList`, filterDTO, this.config.httpSkipSpinnerOptions);
     }
@@ -174,10 +219,6 @@ export class ApiGeneratedService extends ApiSecurityService {
 
 
 
-
-
-
-
     getPaginatedVoteTypeList = (filterDTO: Filter): Observable<PaginatedResult<VoteType>> => { 
         return this.http.post<PaginatedResult<VoteType>>(`${this.config.apiUrl}/VoteType/GetPaginatedVoteTypeList`, filterDTO, this.config.httpSkipSpinnerOptions);
     }
@@ -214,47 +255,6 @@ export class ApiGeneratedService extends ApiSecurityService {
 
     deleteVoteType = (id: number): Observable<any> => { 
         return this.http.delete(`${this.config.apiUrl}/VoteType/DeleteVoteType?id=${id}`, this.config.httpOptions);
-    }
-
-
-    getPaginatedVotingThemeList = (filterDTO: Filter): Observable<PaginatedResult<VotingTheme>> => { 
-        return this.http.post<PaginatedResult<VotingTheme>>(`${this.config.apiUrl}/VotingTheme/GetPaginatedVotingThemeList`, filterDTO, this.config.httpSkipSpinnerOptions);
-    }
-
-    exportVotingThemeListToExcel = (filterDTO: Filter): Observable<any> => { 
-        return this.http.post(`${this.config.apiUrl}/VotingTheme/ExportVotingThemeListToExcel`, filterDTO, { observe: 'response', responseType: 'blob' });
-    }
-
-    getVotingThemeList = (): Observable<VotingTheme[]> => { 
-        return this.http.get<VotingTheme[]>(`${this.config.apiUrl}/VotingTheme/GetVotingThemeList`, this.config.httpOptions);
-    }
-
-    getVotingThemeMainUIFormDTO = (id: number): Observable<VotingThemeMainUIForm> => { 
-        return this.http.get<VotingThemeMainUIForm>(`${this.config.apiUrl}/VotingTheme/GetVotingThemeMainUIFormDTO?id=${id}`, this.config.httpOptions);
-    }
-
-    getVotingTheme = (id: number): Observable<VotingTheme> => { 
-        return this.http.get<VotingTheme>(`${this.config.apiUrl}/VotingTheme/GetVotingTheme?id=${id}`, this.config.httpOptions);
-    }
-
-
-
-
-
-    getOrderedVotingThemeItemsForVotingTheme = (id: number): Observable<VotingThemeItem[]> => { 
-        return this.http.get<VotingThemeItem[]>(`${this.config.apiUrl}/VotingTheme/GetOrderedVotingThemeItemsForVotingTheme?id=${id}`, this.config.httpOptions);
-    }
-
-
-
-    saveVotingTheme = (saveBodyDTO: VotingThemeSaveBody): Observable<VotingThemeSaveBody> => { 
-        return this.http.put<VotingThemeSaveBody>(`${this.config.apiUrl}/VotingTheme/SaveVotingTheme`, saveBodyDTO, this.config.httpOptions);
-    }
-
-
-
-    deleteVotingTheme = (id: number): Observable<any> => { 
-        return this.http.delete(`${this.config.apiUrl}/VotingTheme/DeleteVotingTheme?id=${id}`, this.config.httpOptions);
     }
 
 

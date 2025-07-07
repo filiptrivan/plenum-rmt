@@ -7,12 +7,13 @@ import { ApiService } from 'src/app/business/services/api/api.service';
 @Component({
     selector: 'notification-table',
     templateUrl: './notification-table.component.html',
+    standalone: false,
     styles: []
 })
 export class NotificationTableComponent implements OnInit {
     cols: Column<Notification>[];
 
-    getNotificationTableDataObservableMethod = this.apiService.getNotificationTableData;
+    getNotificationTableDataObservableMethod = this.apiService.getPaginatedNotificationList;
     exportNotificationListToExcelObservableMethod = this.apiService.exportNotificationListToExcel;
     deleteNotificationObservableMethod = this.apiService.deleteNotification;
 

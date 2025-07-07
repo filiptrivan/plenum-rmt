@@ -8,7 +8,7 @@ import { NotificationDetailsComponent } from './pages/notification/notification-
 import { NotificationTableComponent } from './pages/notification/notification-table.component';
 import { TranslocoDirective } from '@jsverse/transloco';
 import { NotificationBaseDetailsComponent, UserBaseDetailsComponent, VoteTypeBaseDetailsComponent, VotingThemeBaseDetailsComponent } from 'src/app/business/components/base-details/business-base-details.generated';
-import { SpiderlyDataTableComponent, SpiderlyControlsModule, CardSkeletonComponent } from 'spiderly';
+import { SpiderlyDataTableComponent, SpiderlyControlsModule, CardSkeletonComponent, RoleBaseDetailsComponent } from 'spiderly';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { VoteTypeDetailsComponent } from './pages/vote-type/vote-type-details.component';
@@ -72,7 +72,8 @@ const routes: Routes = [
         NotificationBaseDetailsComponent,
         UserBaseDetailsComponent,
         VoteTypeBaseDetailsComponent,
-        VotingThemeBaseDetailsComponent
+        VotingThemeBaseDetailsComponent,
+        RoleBaseDetailsComponent,
     ],
     declarations: [
         UserTableComponent,

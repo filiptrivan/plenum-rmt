@@ -7,12 +7,13 @@ import { Column } from 'spiderly';
 @Component({
     selector: 'voting-theme-table',
     templateUrl: './voting-theme-table.component.html',
+    standalone: false,
     styles: []
 })
 export class VotingThemeTableComponent implements OnInit {
     cols: Column<VotingTheme>[];
 
-    getVotingThemeTableDataObservableMethod = this.apiService.getVotingThemeTableData;
+    getVotingThemeTableDataObservableMethod = this.apiService.getPaginatedVotingThemeList;
     exportVotingThemeListToExcelObservableMethod = this.apiService.exportVotingThemeListToExcel;
     deleteVotingThemeObservableMethod = this.apiService.deleteVotingTheme;
 

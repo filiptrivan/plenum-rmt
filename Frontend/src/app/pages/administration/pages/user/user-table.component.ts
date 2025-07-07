@@ -7,6 +7,7 @@ import { User } from 'src/app/business/entities/business-entities.generated';
 @Component({
     selector: 'user-table',
     templateUrl: './user-table.component.html',
+    standalone: false,
     styles: []
 })
 export class UserTableComponent implements OnInit {

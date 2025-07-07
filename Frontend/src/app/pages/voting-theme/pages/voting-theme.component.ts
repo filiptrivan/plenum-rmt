@@ -9,6 +9,7 @@ import { firstValueFrom } from 'rxjs';
 
 @Component({
   templateUrl: './voting-theme.component.html',
+  standalone: false,
 })
 export class VotingThemeComponent implements OnInit {
   votingThemeId: number;

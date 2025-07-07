@@ -9,6 +9,8 @@ using Spiderly.Shared.Emailing;
 using PlenumRMT.Business.Services;
 using PlenumRMT.Business.Entities;
 using PlenumRMT.Shared.FluentValidation;
+using Spiderly.Shared.Interfaces;
+using Spiderly.Shared.Services;
 
 namespace PlenumRMT.WebAPI.DI
 {
@@ -16,23 +18,30 @@ namespace PlenumRMT.WebAPI.DI
     {
         public virtual void Compose(IServiceRegistry registry)
         {
-            // Framework
+            #region Spiderly
+
             registry.Register<AuthenticationService>();
             registry.Register<AuthorizationService>();
-            registry.Register<Spiderly.Security.Services.SecurityBusinessService<User>>();
+            registry.Register<SecurityBusinessService<User>>();
             registry.Register<Spiderly.Security.Services.BusinessServiceGenerated<User>>();
             registry.Register<Spiderly.Security.Services.AuthorizationBusinessService<User>>();
             registry.Register<Spiderly.Security.Services.AuthorizationBusinessServiceGenerated<User>>();
             registry.Register<ExcelService>();
             registry.Register<EmailingService>();
+            registry.Register<IFileManager, DiskStorageService>();
             registry.RegisterSingleton<IConfigureOptions<MvcOptions>, TranslatePropertiesConfiguration>();
             registry.RegisterSingleton<IJwtAuthManager, JwtAuthManagerService>();
 
-            // Business
+            #endregion
+
+            #region Business
+
             registry.Register<PlenumRMT.Business.Services.PlenumRMTBusinessService>();
             registry.Register<PlenumRMT.Business.Services.BusinessServiceGenerated>();
             registry.Register<PlenumRMT.Business.Services.AuthorizationBusinessService>();
             registry.Register<PlenumRMT.Business.Services.AuthorizationBusinessServiceGenerated>();
+
+            #endregion
         }
     }
 }

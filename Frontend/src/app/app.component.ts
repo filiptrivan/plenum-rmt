@@ -19,7 +19,7 @@ import { RouterModule } from '@angular/router';
 })
 export class AppComponent implements OnInit {
 
-    constructor(private primengConfig: PrimeNGConfig, private translocoService: TranslocoService) { }
+    constructor(private primengConfig: PrimeNG, private translocoService: TranslocoService) { }
 
     ngOnInit() {
         this.primengConfig.ripple.set(true);

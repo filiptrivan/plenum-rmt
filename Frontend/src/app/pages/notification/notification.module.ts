@@ -2,7 +2,7 @@ import { RouterModule, Routes } from "@angular/router";
 import { NotificationComponent } from "./pages/notification.component";
 import { NgModule } from "@angular/core";
 import { TranslocoDirective } from "@jsverse/transloco";
-import { PrimengModule, SpiderlyDataTableComponent, SpiderlyControlsModule, CardSkeletonComponent } from 'spiderly';
+import { SpiderlyDataTableComponent, SpiderlyControlsModule, CardSkeletonComponent } from 'spiderly';
 
 const routes: Routes = [
     {
@@ -14,7 +14,6 @@ const routes: Routes = [
 @NgModule({
     imports: [
         RouterModule.forChild(routes),
-        PrimengModule,
         SpiderlyDataTableComponent,
         SpiderlyControlsModule,
         CardSkeletonComponent,
