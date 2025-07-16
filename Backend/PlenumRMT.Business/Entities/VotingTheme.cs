@@ -8,11 +8,11 @@ using System.ComponentModel.DataAnnotations;
 namespace PlenumRMT.Business.Entities
 {
     [DoNotAuthorize]
-    [TranslateSrLatnRS("Tema glasanja")]
-    [TranslatePluralSrLatnRS("Teme glasanja")]
+    [TranslateEn("Voting topic")]
+    [TranslatePluralEn("Voting topics")]
     public class VotingTheme : BusinessObject<long>
     {
-        [UIControlWidth("col-12")]
+        [UIControlWidth("col-8")]
         [DisplayName]
         [StringLength(100, MinimumLength = 1)]
         [Required]
@@ -22,7 +22,7 @@ namespace PlenumRMT.Business.Entities
         [StringLength(1000, MinimumLength = 1)]
         public string Description { get; set; }
 
-        [TranslateSrLatnRS("Predlozi")]
+        [TranslateEn("Proposal")]
         [UIOrderedOneToMany]
         [IncludeInDTO]
         [Required]

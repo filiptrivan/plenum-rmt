@@ -62,10 +62,10 @@
     <value />
   </data>
   <data name="MessageList" xml:space="preserve">
-    <value>Poruke</value>
+    <value />
   </data>
   <data name="MessageExcelExportName" xml:space="preserve">
-    <value>Poruke</value>
+    <value />
   </data>
   <data name="Text" xml:space="preserve">
     <value />
@@ -233,13 +233,13 @@
     <value />
   </data>
   <data name="VoteType" xml:space="preserve">
-    <value>Tip glasa</value>
+    <value />
   </data>
   <data name="VoteTypeList" xml:space="preserve">
-    <value>Tipovi glasova</value>
+    <value />
   </data>
   <data name="VoteTypeExcelExportName" xml:space="preserve">
-    <value>Tipovi_Glasova</value>
+    <value />
   </data>
   <data name="Icon" xml:space="preserve">
     <value />
@@ -248,16 +248,16 @@
     <value />
   </data>
   <data name="VotingTheme" xml:space="preserve">
-    <value>Tema glasanja</value>
+    <value />
   </data>
   <data name="VotingThemeList" xml:space="preserve">
-    <value>Teme glasanja</value>
+    <value />
   </data>
   <data name="VotingThemeExcelExportName" xml:space="preserve">
-    <value>Teme_Glasanja</value>
+    <value />
   </data>
   <data name="VotingThemeItems" xml:space="preserve">
-    <value>Predlozi</value>
+    <value />
   </data>
   <data name="VotingThemeItemList" xml:space="preserve">
     <value />

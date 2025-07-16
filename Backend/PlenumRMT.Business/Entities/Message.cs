@@ -13,7 +13,7 @@ namespace PlenumRMT.Business.Entities
 {
     [UIDoNotGenerate]
     [DoNotAuthorize]
-    [TranslatePluralSrLatnRS("Poruke")]
+    [TranslatePluralEn("Messages")]
     public class Message : BusinessObject<long>
     {
         [DisplayName]

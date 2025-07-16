@@ -2,22 +2,22 @@
     <spiderly-card [title]="t('Notification')" icon="pi pi-bell">
         <spiderly-panel [isFirstMultiplePanel]="true" [showPanelHeader]="false">
             <panel-body>
-                <div class="grid">
-                    <div class="col-12">
-                        <spiderly-checkbox [control]="isMarkedAsRead" [label]="t('NotifyUsers')" [fakeLabel]="false"></spiderly-checkbox>
-                    </div>
-                </div>
+                <spiderly-checkbox [control]="isMarkedAsRead" [label]="t('NotifyUsers')"/>
             </panel-body>
         </spiderly-panel>
 
         <notification-base-details
+        [showBigPanelTitle]="false"
         [formGroup]="formGroup" 
         [notificationFormGroup]="notificationFormGroup" 
         (onSave)="onSave()"
         [isLastMultiplePanel]="true"
-        [additionalButtons]="additionalButtons"
         (onIsAuthorizedForSaveChange)="isAuthorizedForSaveChange($event)"
-        />
+        >
+            <div buttons *ngIf="notificationFormGroup.controls.id?.value > 0 && isAuthorizedForSave">
+                <spiderly-button [label]="t('SendEmailNotification')" (onClick)="sendEmailNotification()" icon="pi pi-send"/>
+            </div>
+        </notification-base-details>
 
     </spiderly-card>
 </ng-container>

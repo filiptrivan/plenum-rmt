@@ -10,7 +10,7 @@ namespace PlenumRMT.Business.Entities
 {
     public class Notification : BusinessObject<long>, INotification<User>
     {
-        [UIControlWidth("col-12")]
+        [UIControlWidth("col-8")]
         [DisplayName]
         [StringLength(100, MinimumLength = 1)]
         [Required]

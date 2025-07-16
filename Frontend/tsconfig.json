@@ -4,6 +4,7 @@
   "compilerOptions": {
     "baseUrl": "./",
     "paths": {
+      "spiderly": ["../../Spiderly/spiderly/Angular/projects/spiderly/src/public-api"] 
     },
     "outDir": "./dist/out-tsc",
     "forceConsistentCasingInFileNames": true,

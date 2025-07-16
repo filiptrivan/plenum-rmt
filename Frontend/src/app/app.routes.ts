@@ -14,7 +14,7 @@ const layoutRoutes: Routes = [
         canActivate: [AuthGuard],
     },
     { 
-        path: 'notifications',
+        path: '',
         loadChildren: () => import('./pages/notification/notification.module').then(c => c.NotificationModule),
         canActivate: [AuthGuard]
     },

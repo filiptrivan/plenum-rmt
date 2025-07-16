@@ -11,8 +11,8 @@ using System.Threading.Tasks;
 namespace PlenumRMT.Business.Entities
 {
     [DoNotAuthorize]
-    [TranslateSrLatnRS("Tip glasa")]
-    [TranslatePluralSrLatnRS("Tipovi glasova")]
+    [TranslateEn("Vote type")]
+    [TranslatePluralEn("Vote types")]
     public class VoteType : BusinessObject<int>
     {
         [DisplayName]

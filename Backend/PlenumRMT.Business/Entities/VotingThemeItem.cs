@@ -10,7 +10,7 @@ namespace PlenumRMT.Business.Entities
     [UIDoNotGenerate]
     public class VotingThemeItem : BusinessObject<long>
     {
-        [UIControlWidth("col-12")]
+        [UIControlWidth("col-8")]
         [DisplayName]
         [StringLength(100, MinimumLength = 1)]
         [Required]

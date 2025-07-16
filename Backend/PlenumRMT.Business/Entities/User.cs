@@ -11,6 +11,7 @@ using System.ComponentModel.DataAnnotations;
 namespace PlenumRMT.Business.Entities
 {
     [Index(nameof(Email), IsUnique = true)]
+    [DoNotAuthorize]
     public class User : BusinessObject<long>, IUser
     {
         [DisplayName]

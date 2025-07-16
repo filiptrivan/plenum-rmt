@@ -1,4 +1,4 @@
-import { Injectable, OnDestroy } from '@angular/core';
+import { Inject, Injectable, OnDestroy, PLATFORM_ID } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { ApiService } from 'src/app/business/services/api/api.service';
@@ -17,8 +17,9 @@ export class AuthService extends AuthBaseService implements OnDestroy {
     protected override externalAuthService: SocialAuthService,
     protected override apiService: ApiService,
     protected override config: ConfigService,
+    @Inject(PLATFORM_ID) protected override platformId: Object,
   ) {
-    super(router, http, externalAuthService, apiService, config);
+    super(router, http, externalAuthService, apiService, config, platformId);
   }
 
 }

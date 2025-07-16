@@ -169,7 +169,7 @@ namespace PlenumRMT.Shared.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to Messages.
         /// </summary>
         public static string MessageExcelExportName {
             get {
@@ -178,7 +178,7 @@ namespace PlenumRMT.Shared.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to Messages.
         /// </summary>
         public static string MessageList {
             get {
@@ -610,7 +610,7 @@ namespace PlenumRMT.Shared.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to Vote type.
         /// </summary>
         public static string VoteType {
             get {
@@ -619,7 +619,7 @@ namespace PlenumRMT.Shared.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to Vote_Types.
         /// </summary>
         public static string VoteTypeExcelExportName {
             get {
@@ -628,7 +628,7 @@ namespace PlenumRMT.Shared.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to Vote types.
         /// </summary>
         public static string VoteTypeList {
             get {
@@ -637,7 +637,7 @@ namespace PlenumRMT.Shared.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to Voting topic.
         /// </summary>
         public static string VotingTheme {
             get {
@@ -646,7 +646,7 @@ namespace PlenumRMT.Shared.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to Voting_Topics.
         /// </summary>
         public static string VotingThemeExcelExportName {
             get {
@@ -682,7 +682,7 @@ namespace PlenumRMT.Shared.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to Proposal.
         /// </summary>
         public static string VotingThemeItems {
             get {
@@ -691,7 +691,7 @@ namespace PlenumRMT.Shared.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to Voting topics.
         /// </summary>
         public static string VotingThemeList {
             get {

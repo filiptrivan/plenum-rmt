@@ -3,6 +3,8 @@ import { NotificationComponent } from "./pages/notification.component";
 import { NgModule } from "@angular/core";
 import { TranslocoDirective } from "@jsverse/transloco";
 import { SpiderlyDataTableComponent, SpiderlyControlsModule, CardSkeletonComponent } from 'spiderly';
+import { MenuModule } from "primeng/menu";
+import { PaginatorModule } from "primeng/paginator";
 
 const routes: Routes = [
     {
@@ -18,6 +20,8 @@ const routes: Routes = [
         SpiderlyControlsModule,
         CardSkeletonComponent,
         TranslocoDirective,
+        MenuModule,
+        PaginatorModule,
     ],
     declarations: [
         NotificationComponent,

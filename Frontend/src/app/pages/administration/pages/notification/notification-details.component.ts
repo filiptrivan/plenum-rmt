@@ -17,8 +17,7 @@ export class NotificationDetailsComponent extends BaseFormCopy implements OnInit
 
     isMarkedAsRead = new SpiderlyFormControl<boolean>(true, {updateOn: 'change'});
 
-    additionalButtons: SpiderlyButton[] = [];
-    sendEmailNotificationButton = new SpiderlyButton({label: this.translocoService.translate('SendEmailNotification'), icon: 'pi pi-send', disabled: true});
+    isAuthorizedForSave = false;
 
     constructor(
         protected override differs: KeyValueDiffers,
@@ -35,12 +34,10 @@ export class NotificationDetailsComponent extends BaseFormCopy implements OnInit
     }
 
     override ngOnInit() {
-        this.sendEmailNotificationButton.onClick = this.sendEmailNotification;
-        this.additionalButtons.push(this.sendEmailNotificationButton);
     }
 
     isAuthorizedForSaveChange = (event: IsAuthorizedForSaveEvent) => {
-        this.sendEmailNotificationButton.disabled = !event.isAuthorizedForSave;
+        this.isAuthorizedForSave = event.isAuthorizedForSave;
 
         if (event.isAuthorizedForSave) {
             this.isMarkedAsRead.enable();
@@ -50,7 +47,6 @@ export class NotificationDetailsComponent extends BaseFormCopy implements OnInit
         }
     }
 
-    // FT: We must to do it like arrow function
     sendEmailNotification = () => {
         this.apiService.sendNotificationEmail(this.notificationFormGroup.controls.id.value, this.notificationFormGroup.controls.version.value).subscribe(() => {
             this.messageService.successMessage(this.translocoService.translate('SuccessfulAttempt'));

@@ -32,8 +32,8 @@
     </div>
     <p-paginator
       (onPageChange)="onLazyLoad($event)"
-      [first]="tableFilter.first"
-      [rows]="tableFilter.rows" 
+      [first]="filter.first"
+      [rows]="filter.rows" 
       [totalRecords]="currentUserNotifications?.totalRecords">
     </p-paginator>
     <div class="card-overflow-icon">

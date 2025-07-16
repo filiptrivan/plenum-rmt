@@ -3,12 +3,12 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ApiSecurityService, Filter, PaginatedResult, Namebook, Codebook, LazyLoadSelectedIdsResult, VerificationTokenRequest, AuthResult, ExternalProvider } from 'spiderly';
 import { ConfigService } from '../config.service';
-import { NotificationSaveBody } from '../../entities/business-entities.generated';
 import { UserVotingThemeItem } from '../../entities/business-entities.generated';
+import { NotificationSaveBody } from '../../entities/business-entities.generated';
 import { SendMessageSaveBody } from '../../entities/business-entities.generated';
-import { Notification } from '../../entities/business-entities.generated';
-import { UserSaveBody } from '../../entities/business-entities.generated';
 import { UserMessage } from '../../entities/business-entities.generated';
+import { UserSaveBody } from '../../entities/business-entities.generated';
+import { Notification } from '../../entities/business-entities.generated';
 import { Message } from '../../entities/business-entities.generated';
 import { MessageSaveBody } from '../../entities/business-entities.generated';
 import { MessageMainUIForm } from '../../entities/business-entities.generated';
@@ -86,52 +86,83 @@ export class ApiGeneratedService extends ApiSecurityService {
 
 
 
-    getPaginatedNotificationList = (filterDTO: Filter): Observable<PaginatedResult<Notification>> => { 
-        return this.http.post<PaginatedResult<Notification>>(`${this.config.apiUrl}/Notification/GetPaginatedNotificationList`, filterDTO, this.config.httpSkipSpinnerOptions);
+    getPaginatedVoteTypeList = (filterDTO: Filter): Observable<PaginatedResult<VoteType>> => { 
+        return this.http.post<PaginatedResult<VoteType>>(`${this.config.apiUrl}/VoteType/GetPaginatedVoteTypeList`, filterDTO, this.config.httpSkipSpinnerOptions);
     }
 
-    exportNotificationListToExcel = (filterDTO: Filter): Observable<any> => { 
-        return this.http.post(`${this.config.apiUrl}/Notification/ExportNotificationListToExcel`, filterDTO, { observe: 'response', responseType: 'blob' });
+    exportVoteTypeListToExcel = (filterDTO: Filter): Observable<any> => { 
+        return this.http.post(`${this.config.apiUrl}/VoteType/ExportVoteTypeListToExcel`, filterDTO, { observe: 'response', responseType: 'blob' });
     }
 
-    getNotificationList = (): Observable<Notification[]> => { 
-        return this.http.get<Notification[]>(`${this.config.apiUrl}/Notification/GetNotificationList`, this.config.httpOptions);
+    getVoteTypeList = (): Observable<VoteType[]> => { 
+        return this.http.get<VoteType[]>(`${this.config.apiUrl}/VoteType/GetVoteTypeList`, this.config.httpOptions);
     }
 
-    getNotificationMainUIFormDTO = (id: number): Observable<NotificationMainUIForm> => { 
-        return this.http.get<NotificationMainUIForm>(`${this.config.apiUrl}/Notification/GetNotificationMainUIFormDTO?id=${id}`, this.config.httpOptions);
+    getVoteTypeMainUIFormDTO = (id: number): Observable<VoteTypeMainUIForm> => { 
+        return this.http.get<VoteTypeMainUIForm>(`${this.config.apiUrl}/VoteType/GetVoteTypeMainUIFormDTO?id=${id}`, this.config.httpOptions);
     }
 
-    getNotification = (id: number): Observable<Notification> => { 
-        return this.http.get<Notification>(`${this.config.apiUrl}/Notification/GetNotification?id=${id}`, this.config.httpOptions);
-    }
-
-
-
-
-
-
-
-    getPaginatedRecipientsListForNotification = (filterDTO: Filter): Observable<PaginatedResult<User>> => { 
-        return this.http.post<PaginatedResult<User>>(`${this.config.apiUrl}/Notification/GetPaginatedRecipientsListForNotification`, filterDTO, this.config.httpSkipSpinnerOptions);
-    }
-
-    exportRecipientsListToExcelForNotification = (filterDTO: Filter): Observable<any> => { 
-        return this.http.post(`${this.config.apiUrl}/Notification/ExportRecipientsListToExcelForNotification`, filterDTO, { observe: 'response', responseType: 'blob' });
-    }
-
-    lazyLoadSelectedRecipientsIdsForNotification = (filterDTO: Filter): Observable<LazyLoadSelectedIdsResult> => { 
-        return this.http.post<LazyLoadSelectedIdsResult>(`${this.config.apiUrl}/Notification/LazyLoadSelectedRecipientsIdsForNotification`, filterDTO, this.config.httpSkipSpinnerOptions);
-    }
-
-    saveNotification = (saveBodyDTO: NotificationSaveBody): Observable<NotificationSaveBody> => { 
-        return this.http.put<NotificationSaveBody>(`${this.config.apiUrl}/Notification/SaveNotification`, saveBodyDTO, this.config.httpOptions);
+    getVoteType = (id: number): Observable<VoteType> => { 
+        return this.http.get<VoteType>(`${this.config.apiUrl}/VoteType/GetVoteType?id=${id}`, this.config.httpOptions);
     }
 
 
 
-    deleteNotification = (id: number): Observable<any> => { 
-        return this.http.delete(`${this.config.apiUrl}/Notification/DeleteNotification?id=${id}`, this.config.httpOptions);
+
+
+
+
+
+
+    saveVoteType = (saveBodyDTO: VoteTypeSaveBody): Observable<VoteTypeSaveBody> => { 
+        return this.http.put<VoteTypeSaveBody>(`${this.config.apiUrl}/VoteType/SaveVoteType`, saveBodyDTO, this.config.httpOptions);
+    }
+
+
+
+    deleteVoteType = (id: number): Observable<any> => { 
+        return this.http.delete(`${this.config.apiUrl}/VoteType/DeleteVoteType?id=${id}`, this.config.httpOptions);
+    }
+
+
+
+
+    getPaginatedUserList = (filterDTO: Filter): Observable<PaginatedResult<User>> => { 
+        return this.http.post<PaginatedResult<User>>(`${this.config.apiUrl}/User/GetPaginatedUserList`, filterDTO, this.config.httpSkipSpinnerOptions);
+    }
+
+    exportUserListToExcel = (filterDTO: Filter): Observable<any> => { 
+        return this.http.post(`${this.config.apiUrl}/User/ExportUserListToExcel`, filterDTO, { observe: 'response', responseType: 'blob' });
+    }
+
+    getUserList = (): Observable<User[]> => { 
+        return this.http.get<User[]>(`${this.config.apiUrl}/User/GetUserList`, this.config.httpOptions);
+    }
+
+    getUserMainUIFormDTO = (id: number): Observable<UserMainUIForm> => { 
+        return this.http.get<UserMainUIForm>(`${this.config.apiUrl}/User/GetUserMainUIFormDTO?id=${id}`, this.config.httpOptions);
+    }
+
+    getUser = (id: number): Observable<User> => { 
+        return this.http.get<User>(`${this.config.apiUrl}/User/GetUser?id=${id}`, this.config.httpOptions);
+    }
+
+
+
+
+
+
+
+
+
+    saveUser = (saveBodyDTO: UserSaveBody): Observable<UserSaveBody> => { 
+        return this.http.put<UserSaveBody>(`${this.config.apiUrl}/User/SaveUser`, saveBodyDTO, this.config.httpOptions);
+    }
+
+
+
+    deleteUser = (id: number): Observable<any> => { 
+        return this.http.delete(`${this.config.apiUrl}/User/DeleteUser?id=${id}`, this.config.httpOptions);
     }
 
 
@@ -178,65 +209,24 @@ export class ApiGeneratedService extends ApiSecurityService {
     }
 
 
-    getPaginatedUserList = (filterDTO: Filter): Observable<PaginatedResult<User>> => { 
-        return this.http.post<PaginatedResult<User>>(`${this.config.apiUrl}/User/GetPaginatedUserList`, filterDTO, this.config.httpSkipSpinnerOptions);
+    getPaginatedNotificationList = (filterDTO: Filter): Observable<PaginatedResult<Notification>> => { 
+        return this.http.post<PaginatedResult<Notification>>(`${this.config.apiUrl}/Notification/GetPaginatedNotificationList`, filterDTO, this.config.httpSkipSpinnerOptions);
     }
 
-    exportUserListToExcel = (filterDTO: Filter): Observable<any> => { 
-        return this.http.post(`${this.config.apiUrl}/User/ExportUserListToExcel`, filterDTO, { observe: 'response', responseType: 'blob' });
+    exportNotificationListToExcel = (filterDTO: Filter): Observable<any> => { 
+        return this.http.post(`${this.config.apiUrl}/Notification/ExportNotificationListToExcel`, filterDTO, { observe: 'response', responseType: 'blob' });
     }
 
-    getUserList = (): Observable<User[]> => { 
-        return this.http.get<User[]>(`${this.config.apiUrl}/User/GetUserList`, this.config.httpOptions);
+    getNotificationList = (): Observable<Notification[]> => { 
+        return this.http.get<Notification[]>(`${this.config.apiUrl}/Notification/GetNotificationList`, this.config.httpOptions);
     }
 
-    getUserMainUIFormDTO = (id: number): Observable<UserMainUIForm> => { 
-        return this.http.get<UserMainUIForm>(`${this.config.apiUrl}/User/GetUserMainUIFormDTO?id=${id}`, this.config.httpOptions);
+    getNotificationMainUIFormDTO = (id: number): Observable<NotificationMainUIForm> => { 
+        return this.http.get<NotificationMainUIForm>(`${this.config.apiUrl}/Notification/GetNotificationMainUIFormDTO?id=${id}`, this.config.httpOptions);
     }
 
-    getUser = (id: number): Observable<User> => { 
-        return this.http.get<User>(`${this.config.apiUrl}/User/GetUser?id=${id}`, this.config.httpOptions);
-    }
-
-
-
-
-
-
-
-
-
-    saveUser = (saveBodyDTO: UserSaveBody): Observable<UserSaveBody> => { 
-        return this.http.put<UserSaveBody>(`${this.config.apiUrl}/User/SaveUser`, saveBodyDTO, this.config.httpOptions);
-    }
-
-
-
-    deleteUser = (id: number): Observable<any> => { 
-        return this.http.delete(`${this.config.apiUrl}/User/DeleteUser?id=${id}`, this.config.httpOptions);
-    }
-
-
-
-
-    getPaginatedVoteTypeList = (filterDTO: Filter): Observable<PaginatedResult<VoteType>> => { 
-        return this.http.post<PaginatedResult<VoteType>>(`${this.config.apiUrl}/VoteType/GetPaginatedVoteTypeList`, filterDTO, this.config.httpSkipSpinnerOptions);
-    }
-
-    exportVoteTypeListToExcel = (filterDTO: Filter): Observable<any> => { 
-        return this.http.post(`${this.config.apiUrl}/VoteType/ExportVoteTypeListToExcel`, filterDTO, { observe: 'response', responseType: 'blob' });
-    }
-
-    getVoteTypeList = (): Observable<VoteType[]> => { 
-        return this.http.get<VoteType[]>(`${this.config.apiUrl}/VoteType/GetVoteTypeList`, this.config.httpOptions);
-    }
-
-    getVoteTypeMainUIFormDTO = (id: number): Observable<VoteTypeMainUIForm> => { 
-        return this.http.get<VoteTypeMainUIForm>(`${this.config.apiUrl}/VoteType/GetVoteTypeMainUIFormDTO?id=${id}`, this.config.httpOptions);
-    }
-
-    getVoteType = (id: number): Observable<VoteType> => { 
-        return this.http.get<VoteType>(`${this.config.apiUrl}/VoteType/GetVoteType?id=${id}`, this.config.httpOptions);
+    getNotification = (id: number): Observable<Notification> => { 
+        return this.http.get<Notification>(`${this.config.apiUrl}/Notification/GetNotification?id=${id}`, this.config.httpOptions);
     }
 
 
@@ -245,16 +235,26 @@ export class ApiGeneratedService extends ApiSecurityService {
 
 
 
+    getPaginatedRecipientsListForNotification = (filterDTO: Filter): Observable<PaginatedResult<User>> => { 
+        return this.http.post<PaginatedResult<User>>(`${this.config.apiUrl}/Notification/GetPaginatedRecipientsListForNotification`, filterDTO, this.config.httpSkipSpinnerOptions);
+    }
 
+    exportRecipientsListToExcelForNotification = (filterDTO: Filter): Observable<any> => { 
+        return this.http.post(`${this.config.apiUrl}/Notification/ExportRecipientsListToExcelForNotification`, filterDTO, { observe: 'response', responseType: 'blob' });
+    }
 
-    saveVoteType = (saveBodyDTO: VoteTypeSaveBody): Observable<VoteTypeSaveBody> => { 
-        return this.http.put<VoteTypeSaveBody>(`${this.config.apiUrl}/VoteType/SaveVoteType`, saveBodyDTO, this.config.httpOptions);
+    lazyLoadSelectedRecipientsIdsForNotification = (filterDTO: Filter): Observable<LazyLoadSelectedIdsResult> => { 
+        return this.http.post<LazyLoadSelectedIdsResult>(`${this.config.apiUrl}/Notification/LazyLoadSelectedRecipientsIdsForNotification`, filterDTO, this.config.httpSkipSpinnerOptions);
+    }
+
+    saveNotification = (saveBodyDTO: NotificationSaveBody): Observable<NotificationSaveBody> => { 
+        return this.http.put<NotificationSaveBody>(`${this.config.apiUrl}/Notification/SaveNotification`, saveBodyDTO, this.config.httpOptions);
     }
 
 
 
-    deleteVoteType = (id: number): Observable<any> => { 
-        return this.http.delete(`${this.config.apiUrl}/VoteType/DeleteVoteType?id=${id}`, this.config.httpOptions);
+    deleteNotification = (id: number): Observable<any> => { 
+        return this.http.delete(`${this.config.apiUrl}/Notification/DeleteNotification?id=${id}`, this.config.httpOptions);
     }
 
 

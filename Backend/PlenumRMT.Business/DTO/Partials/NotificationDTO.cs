@@ -1,3 +1,5 @@
+using Spiderly.Shared.Attributes.Entity.UI;
+
 namespace PlenumRMT.Business.DTO
 {
     public partial class NotificationDTO
@@ -5,6 +7,7 @@ namespace PlenumRMT.Business.DTO
         /// <summary>
         /// This property is only for currently logged in user
         /// </summary>
+        [UIDoNotGenerate]
         public bool? IsMarkedAsRead { get; set; }
     }
 }

@@ -62,10 +62,10 @@
     <value />
   </data>
   <data name="MessageList" xml:space="preserve">
-    <value />
+    <value>Messages</value>
   </data>
   <data name="MessageExcelExportName" xml:space="preserve">
-    <value />
+    <value>Messages</value>
   </data>
   <data name="Text" xml:space="preserve">
     <value />
@@ -233,13 +233,13 @@
     <value />
   </data>
   <data name="VoteType" xml:space="preserve">
-    <value />
+    <value>Vote type</value>
   </data>
   <data name="VoteTypeList" xml:space="preserve">
-    <value />
+    <value>Vote types</value>
   </data>
   <data name="VoteTypeExcelExportName" xml:space="preserve">
-    <value />
+    <value>Vote_Types</value>
   </data>
   <data name="Icon" xml:space="preserve">
     <value />
@@ -248,16 +248,16 @@
     <value />
   </data>
   <data name="VotingTheme" xml:space="preserve">
-    <value />
+    <value>Voting topic</value>
   </data>
   <data name="VotingThemeList" xml:space="preserve">
-    <value />
+    <value>Voting topics</value>
   </data>
   <data name="VotingThemeExcelExportName" xml:space="preserve">
-    <value />
+    <value>Voting_Topics</value>
   </data>
   <data name="VotingThemeItems" xml:space="preserve">
-    <value />
+    <value>Proposal</value>
   </data>
   <data name="VotingThemeItemList" xml:space="preserve">
     <value />

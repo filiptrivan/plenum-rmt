@@ -24,21 +24,18 @@ import { Notification, NotificationSaveBody, SendMessageSaveBody, UserMessage, U
 
         <panel-body>
             @defer (when loading === false) {
-                <form class="grid">
-                    <ng-content select="[BEFORE]"></ng-content>
-                    <div *ngIf="showTitleForNotification" class="col-12">
+                <form class="spiderly-grid">
+                    <ng-content select="[before]"></ng-content>
+                    <div *ngIf="showTitleForNotification" class="col-8">
                         <spiderly-textbox [control]="control('title', notificationFormGroup)"></spiderly-textbox>
                     </div>
-                    <div *ngIf="showIsMarkedAsReadForNotificationDTO" class="col-12 md:col-6">
-                        <spiderly-checkbox [control]="control('isMarkedAsRead', notificationFormGroup)" (onChange)="onIsMarkedAsReadForNotificationChange.next($event)"></spiderly-checkbox>
-                    </div>
-                    <div *ngIf="showDescriptionForNotification" class="col-12">
+                    <div *ngIf="showDescriptionForNotification" class="col-8">
                         <spiderly-textarea [control]="control('description', notificationFormGroup)"></spiderly-textarea>
                     </div>
-                    <div *ngIf="showEmailBodyForNotification" class="col-12">
+                    <div *ngIf="showEmailBodyForNotification" class="col-8">
                         <spiderly-editor [control]="control('emailBody', notificationFormGroup)"></spiderly-editor>
                     </div>
-                    <div *ngIf="showRecipientsForNotification" class="col-12">
+                    <div *ngIf="showRecipientsForNotification" class="col-8">
                         <spiderly-data-table 
                             [tableTitle]="t('Recipients')" 
                             [cols]="recipientsTableColsForNotification" 
@@ -54,7 +51,7 @@ import { Notification, NotificationSaveBody, SendMessageSaveBody, UserMessage, U
                             [selectedLazyLoadObservableMethod]="selectedRecipientsLazyLoadMethodForNotification" 
                             (onIsAllSelectedChange)="areAllRecipientsSelectedChangeForNotification($event)"></spiderly-data-table>
                     </div>
-                    <ng-content select="[AFTER]"></ng-content>
+                    <ng-content select="[after]"></ng-content>
                 </form>
             } @placeholder {
                 <card-skeleton [height]="502"></card-skeleton>
@@ -63,9 +60,7 @@ import { Notification, NotificationSaveBody, SendMessageSaveBody, UserMessage, U
 
         <panel-footer>
             <spiderly-button *ngIf="isAuthorizedForSave" (onClick)="save()" [label]="t('Save')" icon="pi pi-save"></spiderly-button>
-            @for (button of additionalButtons; track button.label) {
-                <spiderly-button (onClick)="button.onClick()" [disabled]="button.disabled" [label]="button.label" [icon]="button.icon"></spiderly-button>
-            }
+            <ng-content select="[buttons]"></ng-content>
             <return-button *ngIf="showReturnButton" ></return-button>
         </panel-footer>
     </spiderly-panel>
@@ -89,7 +84,6 @@ export class NotificationBaseDetailsComponent {
     @Input() getCrudMenuForOrderedData: (formArray: SpiderlyFormArray, modelConstructor: BaseEntity, lastMenuIconIndexClicked: LastMenuIconIndexClicked, adjustFormArrayManually: boolean) => MenuItem[];
     @Input() formGroup: SpiderlyFormGroup;
     @Input() notificationFormGroup: SpiderlyFormGroup<Notification>;
-    @Input() additionalButtons: SpiderlyButton[] = [];
     @Input() isFirstMultiplePanel: boolean = false;
     @Input() isMiddleMultiplePanel: boolean = false;
     @Input() isLastMultiplePanel: boolean = false;
@@ -123,13 +117,11 @@ export class NotificationBaseDetailsComponent {
     lastRecipientsLazyLoadTableFilterForNotification: Filter;
 
     @Input() showTitleForNotification = true;
-    @Input() showIsMarkedAsReadForNotificationDTO = true;
     @Input() showDescriptionForNotification = true;
     @Input() showEmailBodyForNotification = true;
     @Input() showRecipientsForNotification = true;
 
 
-    @Output() onIsMarkedAsReadForNotificationDTOChange = new EventEmitter<CheckboxChangeEvent>();
 
 
     constructor(
@@ -215,14 +207,12 @@ export class NotificationBaseDetailsComponent {
 
                     if (this.isAuthorizedForSave) { 
                         this.notificationFormGroup.controls.title.enable();
-                        this.notificationFormGroup.controls.isMarkedAsRead.enable();
                         this.notificationFormGroup.controls.description.enable();
                         this.notificationFormGroup.controls.emailBody.enable();
 
                     }
                     else{
                         this.notificationFormGroup.controls.title.disable();
-                        this.notificationFormGroup.controls.isMarkedAsRead.disable();
                         this.notificationFormGroup.controls.description.disable();
                         this.notificationFormGroup.controls.emailBody.disable();
 
@@ -287,18 +277,18 @@ export class NotificationBaseDetailsComponent {
 
         <panel-body>
             @defer (when loading === false) {
-                <form class="grid">
-                    <ng-content select="[BEFORE]"></ng-content>
-                    <div *ngIf="showEmailForUser" class="col-12 md:col-6">
+                <form class="spiderly-grid">
+                    <ng-content select="[before]"></ng-content>
+                    <div *ngIf="showEmailForUser" class="col-8 md:col-4">
                         <spiderly-textbox [control]="control('email', userFormGroup)"></spiderly-textbox>
                     </div>
-                    <div *ngIf="showHasLoggedInWithExternalProviderForUser" class="col-12 md:col-6">
+                    <div *ngIf="showHasLoggedInWithExternalProviderForUser" class="col-8 md:col-4">
                         <spiderly-checkbox [control]="control('hasLoggedInWithExternalProvider', userFormGroup)" (onChange)="onHasLoggedInWithExternalProviderForUserChange.next($event)"></spiderly-checkbox>
                     </div>
-                    <div *ngIf="showIsDisabledForUser" class="col-12 md:col-6">
+                    <div *ngIf="showIsDisabledForUser" class="col-8 md:col-4">
                         <spiderly-checkbox [control]="control('isDisabled', userFormGroup)" (onChange)="onIsDisabledForUserChange.next($event)"></spiderly-checkbox>
                     </div>
-                    <ng-content select="[AFTER]"></ng-content>
+                    <ng-content select="[after]"></ng-content>
                 </form>
             } @placeholder {
                 <card-skeleton [height]="502"></card-skeleton>
@@ -307,9 +297,7 @@ export class NotificationBaseDetailsComponent {
 
         <panel-footer>
             <spiderly-button *ngIf="isAuthorizedForSave" (onClick)="save()" [label]="t('Save')" icon="pi pi-save"></spiderly-button>
-            @for (button of additionalButtons; track button.label) {
-                <spiderly-button (onClick)="button.onClick()" [disabled]="button.disabled" [label]="button.label" [icon]="button.icon"></spiderly-button>
-            }
+            <ng-content select="[buttons]"></ng-content>
             <return-button *ngIf="showReturnButton" ></return-button>
         </panel-footer>
     </spiderly-panel>
@@ -333,7 +321,6 @@ export class UserBaseDetailsComponent {
     @Input() getCrudMenuForOrderedData: (formArray: SpiderlyFormArray, modelConstructor: BaseEntity, lastMenuIconIndexClicked: LastMenuIconIndexClicked, adjustFormArrayManually: boolean) => MenuItem[];
     @Input() formGroup: SpiderlyFormGroup;
     @Input() userFormGroup: SpiderlyFormGroup<User>;
-    @Input() additionalButtons: SpiderlyButton[] = [];
     @Input() isFirstMultiplePanel: boolean = false;
     @Input() isMiddleMultiplePanel: boolean = false;
     @Input() isLastMultiplePanel: boolean = false;
@@ -343,8 +330,8 @@ export class UserBaseDetailsComponent {
     @Input() panelIcon: string;
     @Input() showReturnButton: boolean = true;
     authorizationForSaveSubscription: Subscription;
-    @Input() authorizedForSaveObservable: () => Observable<boolean> = () => of(false);
-    isAuthorizedForSave: boolean = false;
+    @Input() authorizedForSaveObservable: () => Observable<boolean> = () => of(true);
+    isAuthorizedForSave: boolean = true;
     @Output() onIsAuthorizedForSaveChange = new EventEmitter<IsAuthorizedForSaveEvent>(); 
 
     modelId: number;
@@ -505,15 +492,15 @@ export class UserBaseDetailsComponent {
 
         <panel-body>
             @defer (when loading === false) {
-                <form class="grid">
-                    <ng-content select="[BEFORE]"></ng-content>
-                    <div *ngIf="showNameForVoteType" class="col-12 md:col-6">
+                <form class="spiderly-grid">
+                    <ng-content select="[before]"></ng-content>
+                    <div *ngIf="showNameForVoteType" class="col-8 md:col-4">
                         <spiderly-textbox [control]="control('name', voteTypeFormGroup)"></spiderly-textbox>
                     </div>
-                    <div *ngIf="showIconForVoteType" class="col-12 md:col-6">
+                    <div *ngIf="showIconForVoteType" class="col-8 md:col-4">
                         <spiderly-textbox [control]="control('icon', voteTypeFormGroup)"></spiderly-textbox>
                     </div>
-                    <ng-content select="[AFTER]"></ng-content>
+                    <ng-content select="[after]"></ng-content>
                 </form>
             } @placeholder {
                 <card-skeleton [height]="502"></card-skeleton>
@@ -522,9 +509,7 @@ export class UserBaseDetailsComponent {
 
         <panel-footer>
             <spiderly-button *ngIf="isAuthorizedForSave" (onClick)="save()" [label]="t('Save')" icon="pi pi-save"></spiderly-button>
-            @for (button of additionalButtons; track button.label) {
-                <spiderly-button (onClick)="button.onClick()" [disabled]="button.disabled" [label]="button.label" [icon]="button.icon"></spiderly-button>
-            }
+            <ng-content select="[buttons]"></ng-content>
             <return-button *ngIf="showReturnButton" ></return-button>
         </panel-footer>
     </spiderly-panel>
@@ -548,7 +533,6 @@ export class VoteTypeBaseDetailsComponent {
     @Input() getCrudMenuForOrderedData: (formArray: SpiderlyFormArray, modelConstructor: BaseEntity, lastMenuIconIndexClicked: LastMenuIconIndexClicked, adjustFormArrayManually: boolean) => MenuItem[];
     @Input() formGroup: SpiderlyFormGroup;
     @Input() voteTypeFormGroup: SpiderlyFormGroup<VoteType>;
-    @Input() additionalButtons: SpiderlyButton[] = [];
     @Input() isFirstMultiplePanel: boolean = false;
     @Input() isMiddleMultiplePanel: boolean = false;
     @Input() isLastMultiplePanel: boolean = false;
@@ -715,15 +699,15 @@ export class VoteTypeBaseDetailsComponent {
 
         <panel-body>
             @defer (when loading === false) {
-                <form class="grid">
-                    <ng-content select="[BEFORE]"></ng-content>
-                    <div *ngIf="showNameForVotingTheme" class="col-12">
+                <form class="spiderly-grid">
+                    <ng-content select="[before]"></ng-content>
+                    <div *ngIf="showNameForVotingTheme" class="col-8">
                         <spiderly-textbox [control]="control('name', votingThemeFormGroup)"></spiderly-textbox>
                     </div>
-                    <div *ngIf="showDescriptionForVotingTheme" class="col-12">
+                    <div *ngIf="showDescriptionForVotingTheme" class="col-8">
                         <spiderly-textarea [control]="control('description', votingThemeFormGroup)"></spiderly-textarea>
                     </div>
-                     <div *ngIf="showVotingThemeItemsForVotingTheme" class="col-12">
+                     <div *ngIf="showVotingThemeItemsForVotingTheme" class="col-8">
                         <spiderly-panel [toggleable]="true" [collapsed]="votingThemeItemsPanelCollapsed">
                             <panel-header [title]="t('VotingThemeItems')" icon="pi pi-list"></panel-header>
                             <panel-body [normalBottomPadding]="true">
@@ -735,11 +719,11 @@ export class VoteTypeBaseDetailsComponent {
                                     [showCrudMenu]="isAuthorizedForSave"
                                     (onMenuIconClick)="votingThemeItemsLastIndexClicked.index = $event"
                                     >
-                                        <form [formGroup]="votingThemeItemFormGroup" class="grid">
-                    <div  class="col-12">
+                                        <form [formGroup]="votingThemeItemFormGroup" class="spiderly-grid">
+                    <div  class="col-8">
                         <spiderly-textbox [control]="control('name', votingThemeItemFormGroup)"></spiderly-textbox>
                     </div>
-                    <div  class="col-12">
+                    <div  class="col-8">
                         <spiderly-textarea [control]="control('description', votingThemeItemFormGroup)"></spiderly-textarea>
                     </div>
                                         </form>
@@ -753,7 +737,7 @@ export class VoteTypeBaseDetailsComponent {
                             </panel-body>
                         </spiderly-panel>
                     </div>
-                    <ng-content select="[AFTER]"></ng-content>
+                    <ng-content select="[after]"></ng-content>
                 </form>
             } @placeholder {
                 <card-skeleton [height]="502"></card-skeleton>
@@ -762,9 +746,7 @@ export class VoteTypeBaseDetailsComponent {
 
         <panel-footer>
             <spiderly-button *ngIf="isAuthorizedForSave" (onClick)="save()" [label]="t('Save')" icon="pi pi-save"></spiderly-button>
-            @for (button of additionalButtons; track button.label) {
-                <spiderly-button (onClick)="button.onClick()" [disabled]="button.disabled" [label]="button.label" [icon]="button.icon"></spiderly-button>
-            }
+            <ng-content select="[buttons]"></ng-content>
             <return-button *ngIf="showReturnButton" ></return-button>
         </panel-footer>
     </spiderly-panel>
@@ -788,7 +770,6 @@ export class VotingThemeBaseDetailsComponent {
     @Input() getCrudMenuForOrderedData: (formArray: SpiderlyFormArray, modelConstructor: BaseEntity, lastMenuIconIndexClicked: LastMenuIconIndexClicked, adjustFormArrayManually: boolean) => MenuItem[];
     @Input() formGroup: SpiderlyFormGroup;
     @Input() votingThemeFormGroup: SpiderlyFormGroup<VotingTheme>;
-    @Input() additionalButtons: SpiderlyButton[] = [];
     @Input() isFirstMultiplePanel: boolean = false;
     @Input() isMiddleMultiplePanel: boolean = false;
     @Input() isLastMultiplePanel: boolean = false;
