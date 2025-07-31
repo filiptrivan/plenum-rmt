@@ -3,12 +3,12 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ApiSecurityService, Filter, PaginatedResult, Namebook, Codebook, LazyLoadSelectedIdsResult, VerificationTokenRequest, AuthResult, ExternalProvider } from 'spiderly';
 import { ConfigService } from '../config.service';
-import { UserVotingThemeItem } from '../../entities/business-entities.generated';
 import { NotificationSaveBody } from '../../entities/business-entities.generated';
+import { UserVotingThemeItem } from '../../entities/business-entities.generated';
+import { Notification } from '../../entities/business-entities.generated';
 import { SendMessageSaveBody } from '../../entities/business-entities.generated';
 import { UserMessage } from '../../entities/business-entities.generated';
 import { UserSaveBody } from '../../entities/business-entities.generated';
-import { Notification } from '../../entities/business-entities.generated';
 import { Message } from '../../entities/business-entities.generated';
 import { MessageSaveBody } from '../../entities/business-entities.generated';
 import { MessageMainUIForm } from '../../entities/business-entities.generated';
@@ -86,86 +86,6 @@ export class ApiGeneratedService extends ApiSecurityService {
 
 
 
-    getPaginatedVoteTypeList = (filterDTO: Filter): Observable<PaginatedResult<VoteType>> => { 
-        return this.http.post<PaginatedResult<VoteType>>(`${this.config.apiUrl}/VoteType/GetPaginatedVoteTypeList`, filterDTO, this.config.httpSkipSpinnerOptions);
-    }
-
-    exportVoteTypeListToExcel = (filterDTO: Filter): Observable<any> => { 
-        return this.http.post(`${this.config.apiUrl}/VoteType/ExportVoteTypeListToExcel`, filterDTO, { observe: 'response', responseType: 'blob' });
-    }
-
-    getVoteTypeList = (): Observable<VoteType[]> => { 
-        return this.http.get<VoteType[]>(`${this.config.apiUrl}/VoteType/GetVoteTypeList`, this.config.httpOptions);
-    }
-
-    getVoteTypeMainUIFormDTO = (id: number): Observable<VoteTypeMainUIForm> => { 
-        return this.http.get<VoteTypeMainUIForm>(`${this.config.apiUrl}/VoteType/GetVoteTypeMainUIFormDTO?id=${id}`, this.config.httpOptions);
-    }
-
-    getVoteType = (id: number): Observable<VoteType> => { 
-        return this.http.get<VoteType>(`${this.config.apiUrl}/VoteType/GetVoteType?id=${id}`, this.config.httpOptions);
-    }
-
-
-
-
-
-
-
-
-
-    saveVoteType = (saveBodyDTO: VoteTypeSaveBody): Observable<VoteTypeSaveBody> => { 
-        return this.http.put<VoteTypeSaveBody>(`${this.config.apiUrl}/VoteType/SaveVoteType`, saveBodyDTO, this.config.httpOptions);
-    }
-
-
-
-    deleteVoteType = (id: number): Observable<any> => { 
-        return this.http.delete(`${this.config.apiUrl}/VoteType/DeleteVoteType?id=${id}`, this.config.httpOptions);
-    }
-
-
-
-
-    getPaginatedUserList = (filterDTO: Filter): Observable<PaginatedResult<User>> => { 
-        return this.http.post<PaginatedResult<User>>(`${this.config.apiUrl}/User/GetPaginatedUserList`, filterDTO, this.config.httpSkipSpinnerOptions);
-    }
-
-    exportUserListToExcel = (filterDTO: Filter): Observable<any> => { 
-        return this.http.post(`${this.config.apiUrl}/User/ExportUserListToExcel`, filterDTO, { observe: 'response', responseType: 'blob' });
-    }
-
-    getUserList = (): Observable<User[]> => { 
-        return this.http.get<User[]>(`${this.config.apiUrl}/User/GetUserList`, this.config.httpOptions);
-    }
-
-    getUserMainUIFormDTO = (id: number): Observable<UserMainUIForm> => { 
-        return this.http.get<UserMainUIForm>(`${this.config.apiUrl}/User/GetUserMainUIFormDTO?id=${id}`, this.config.httpOptions);
-    }
-
-    getUser = (id: number): Observable<User> => { 
-        return this.http.get<User>(`${this.config.apiUrl}/User/GetUser?id=${id}`, this.config.httpOptions);
-    }
-
-
-
-
-
-
-
-
-
-    saveUser = (saveBodyDTO: UserSaveBody): Observable<UserSaveBody> => { 
-        return this.http.put<UserSaveBody>(`${this.config.apiUrl}/User/SaveUser`, saveBodyDTO, this.config.httpOptions);
-    }
-
-
-
-    deleteUser = (id: number): Observable<any> => { 
-        return this.http.delete(`${this.config.apiUrl}/User/DeleteUser?id=${id}`, this.config.httpOptions);
-    }
-
-
 
 
     getPaginatedVotingThemeList = (filterDTO: Filter): Observable<PaginatedResult<VotingTheme>> => { 
@@ -206,6 +126,45 @@ export class ApiGeneratedService extends ApiSecurityService {
 
     deleteVotingTheme = (id: number): Observable<any> => { 
         return this.http.delete(`${this.config.apiUrl}/VotingTheme/DeleteVotingTheme?id=${id}`, this.config.httpOptions);
+    }
+
+
+    getPaginatedVoteTypeList = (filterDTO: Filter): Observable<PaginatedResult<VoteType>> => { 
+        return this.http.post<PaginatedResult<VoteType>>(`${this.config.apiUrl}/VoteType/GetPaginatedVoteTypeList`, filterDTO, this.config.httpSkipSpinnerOptions);
+    }
+
+    exportVoteTypeListToExcel = (filterDTO: Filter): Observable<any> => { 
+        return this.http.post(`${this.config.apiUrl}/VoteType/ExportVoteTypeListToExcel`, filterDTO, { observe: 'response', responseType: 'blob' });
+    }
+
+    getVoteTypeList = (): Observable<VoteType[]> => { 
+        return this.http.get<VoteType[]>(`${this.config.apiUrl}/VoteType/GetVoteTypeList`, this.config.httpOptions);
+    }
+
+    getVoteTypeMainUIFormDTO = (id: number): Observable<VoteTypeMainUIForm> => { 
+        return this.http.get<VoteTypeMainUIForm>(`${this.config.apiUrl}/VoteType/GetVoteTypeMainUIFormDTO?id=${id}`, this.config.httpOptions);
+    }
+
+    getVoteType = (id: number): Observable<VoteType> => { 
+        return this.http.get<VoteType>(`${this.config.apiUrl}/VoteType/GetVoteType?id=${id}`, this.config.httpOptions);
+    }
+
+
+
+
+
+
+
+
+
+    saveVoteType = (saveBodyDTO: VoteTypeSaveBody): Observable<VoteTypeSaveBody> => { 
+        return this.http.put<VoteTypeSaveBody>(`${this.config.apiUrl}/VoteType/SaveVoteType`, saveBodyDTO, this.config.httpOptions);
+    }
+
+
+
+    deleteVoteType = (id: number): Observable<any> => { 
+        return this.http.delete(`${this.config.apiUrl}/VoteType/DeleteVoteType?id=${id}`, this.config.httpOptions);
     }
 
 
@@ -256,6 +215,47 @@ export class ApiGeneratedService extends ApiSecurityService {
     deleteNotification = (id: number): Observable<any> => { 
         return this.http.delete(`${this.config.apiUrl}/Notification/DeleteNotification?id=${id}`, this.config.httpOptions);
     }
+
+
+    getPaginatedUserList = (filterDTO: Filter): Observable<PaginatedResult<User>> => { 
+        return this.http.post<PaginatedResult<User>>(`${this.config.apiUrl}/User/GetPaginatedUserList`, filterDTO, this.config.httpSkipSpinnerOptions);
+    }
+
+    exportUserListToExcel = (filterDTO: Filter): Observable<any> => { 
+        return this.http.post(`${this.config.apiUrl}/User/ExportUserListToExcel`, filterDTO, { observe: 'response', responseType: 'blob' });
+    }
+
+    getUserList = (): Observable<User[]> => { 
+        return this.http.get<User[]>(`${this.config.apiUrl}/User/GetUserList`, this.config.httpOptions);
+    }
+
+    getUserMainUIFormDTO = (id: number): Observable<UserMainUIForm> => { 
+        return this.http.get<UserMainUIForm>(`${this.config.apiUrl}/User/GetUserMainUIFormDTO?id=${id}`, this.config.httpOptions);
+    }
+
+    getUser = (id: number): Observable<User> => { 
+        return this.http.get<User>(`${this.config.apiUrl}/User/GetUser?id=${id}`, this.config.httpOptions);
+    }
+
+
+
+
+
+
+
+
+
+    saveUser = (saveBodyDTO: UserSaveBody): Observable<UserSaveBody> => { 
+        return this.http.put<UserSaveBody>(`${this.config.apiUrl}/User/SaveUser`, saveBodyDTO, this.config.httpOptions);
+    }
+
+
+
+    deleteUser = (id: number): Observable<any> => { 
+        return this.http.delete(`${this.config.apiUrl}/User/DeleteUser?id=${id}`, this.config.httpOptions);
+    }
+
+
 
 
 }

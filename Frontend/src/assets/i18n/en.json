@@ -330,5 +330,6 @@
   "LoginRequired": "You need to be logged in to perform this action. Please log in and try again.",
   "BadRequestDetails": "The system cannot process the request. Please check your request and try again.",
   "BusinessSystemList": "Business systems",
-  "BusinessSystem": "Business system"
+  "BusinessSystem": "Business system",
+  "AddNewVotingThemeItem": "Add new voting theme item"
 }
