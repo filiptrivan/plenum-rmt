@@ -10,12 +10,8 @@ using Spiderly.Shared.Exceptions;
 using Microsoft.EntityFrameworkCore;
 using FluentValidation;
 using Spiderly.Shared.Emailing;
-using Azure.Storage.Blobs;
 using Mapster;
-using Spiderly.Security.DTO;
 using PlenumRMT.Business.DataMappers;
-using System.Net.Sockets;
-using PlenumRMT.Business.SignalRHubs;
 
 namespace PlenumRMT.Business.Services
 {
@@ -26,7 +22,6 @@ namespace PlenumRMT.Business.Services
         private readonly AuthenticationService _authenticationService;
         private readonly SecurityBusinessService<User> _securityBusinessService;
         private readonly EmailingService _emailingService;
-        private readonly IFileManager _fileManager;
 
         public PlenumRMTBusinessService(
             IApplicationDbContext context, 
@@ -44,7 +39,6 @@ namespace PlenumRMT.Business.Services
             _securityBusinessService = securityBusinessService;
             _authenticationService = authenticationService;
             _emailingService = emailingService;
-            _fileManager = fileManager;
         }
 
         #region User
